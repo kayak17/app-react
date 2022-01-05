@@ -1,3 +1,7 @@
+export const APIRoutes = {
+  LOGIN: '/login',
+};
+
 export const AppRoutes = {
   MAIN: '/',
   FAVORITES: '/favorites',
