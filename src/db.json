@@ -1,0 +1,74 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "avatar": "img/icon-avatar.svg",
+      "name": "Mack",
+      "email": "test.test@test.com",
+      "password": "mack123"
+    },
+    {
+      "id": 2,
+      "avatar": "img/icon-avatar.svg",
+      "name": "Vance",
+      "email": "test.test@test.com",
+      "password": "vance123"
+    },
+    {
+      "id": 3,
+      "avatar": "img/icon-avatar.svg",
+      "name": "Boyer",
+      "email": "test.test@test.com",
+      "password": "boyer123"
+    },
+    {
+      "id": 4,
+      "avatar": "img/icon-avatar.svg",
+      "name": "Mamie",
+      "email": "test.test@test.com",
+      "password": "mamie123"
+    },
+    {
+      "id": 5,
+      "avatar": "img/icon-avatar.svg",
+      "name": "Farmer",
+      "email": "test.test@test.com",
+      "password": "farmer123"
+    },
+    {
+      "id": 6,
+      "avatar": "img/icon-avatar.svg",
+      "name": "Thomas",
+      "email": "test.test@test.com",
+      "password": "thomas123"
+    },
+    {
+      "id": 7,
+      "avatar": "img/icon-avatar.svg",
+      "name": "Michael",
+      "email": "test.test@test.com",
+      "password": "michael123"
+    },
+    {
+      "id": 8,
+      "avatar": "img/icon-avatar.svg",
+      "name": "Miranda",
+      "email": "test.test@test.com",
+      "password": "miranda123"
+    },
+    {
+      "id": 9,
+      "avatar": "img/icon-avatar.svg",
+      "name": "Corinne",
+      "email": "test.test@test.com",
+      "password": "corinne123"
+    },
+    {
+      "id": 10,
+      "avatar": "img/icon-avatar.svg",
+      "name": "Admin",
+      "email": "admin@admin.com",
+      "password": "admin1"
+    }
+  ]
+}
