@@ -1033,6 +1033,108 @@
       "zoom": 16
     }
   ],
+  "reviews": [
+    {
+      "avatar": "./img/icon-avatar.svg",
+      "comment": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, corrupti. Minima maxime aut odit ipsam at, quaerat, illum nisi ullam temporibus illo voluptas ipsum? Labore quae mollitia odio. Minima, explicabo!",
+      "date": "2021-05-10T00:00:00.000Z",
+      "id": 1,
+      "name": "Mack",
+      "offerId": 1,
+      "rating": 3,
+      "userId": 1
+    },
+    {
+      "avatar": "./img/icon-avatar.svg",
+      "comment": "Odit, consectetur. Placeat eius atque praesentium et rerum ducimus non maiores beatae rem doloremque nihil ea exercitationem tempora, fuga deleniti magnam delectus",
+      "date": "2021-07-09T00:00:00.000Z",
+      "id": 2,
+      "name": "Miranda",
+      "offerId": 1,
+      "rating": 5,
+      "userId": 8
+    },
+    {
+      "avatar": "./img/icon-avatar.svg",
+      "comment": "Temporibus id accusamus neque harum quas ut quod non, maiores voluptatem cupiditate praesentium excepturi perspiciatis rem, ex nemo qui placeat vel debitis",
+      "date": "2021-03-02T00:00:00.000Z",
+      "id": 3,
+      "name": "Vance",
+      "offerId": 1,
+      "rating": 4,
+      "userId": 2
+    },
+    {
+      "avatar": "./img/icon-avatar.svg",
+      "comment": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, corrupti. Minima maxime aut odit ipsam at, quaerat, illum nisi ullam temporibus illo voluptas ipsum? Labore quae mollitia odio. Minima, explicabo!",
+      "date": "2021-01-08T00:00:00.000Z",
+      "id": 4,
+      "name": "Corinne",
+      "offerId": 2,
+      "rating": 2,
+      "userId": 9
+    },
+    {
+      "avatar": "./img/icon-avatar.svg",
+      "comment": "Odit, consectetur. Placeat eius atque praesentium et rerum ducimus non maiores beatae rem doloremque nihil ea exercitationem tempora, fuga deleniti magnam delectus",
+      "date": "2021-02-10T00:00:00.000Z",
+      "id": 5,
+      "name": "Boyer",
+      "offerId": 2,
+      "rating": 4,
+      "userId": 3
+    },
+    {
+      "avatar": "./img/icon-avatar.svg",
+      "comment": "Temporibus id accusamus neque harum quas ut quod non, maiores voluptatem cupiditate praesentium excepturi perspiciatis rem, ex nemo qui placeat vel debitis",
+      "date": "2021-10-01T00:00:00.000Z",
+      "id": 6,
+      "name": "Farmer",
+      "offerId": 3,
+      "rating": 3,
+      "userId": 5
+    },
+    {
+      "avatar": "./img/icon-avatar.svg",
+      "comment": "Temporibus id accusamus neque harum quas ut quod non, maiores voluptatem cupiditate praesentium excepturi perspiciatis rem, ex nemo qui placeat vel debitis",
+      "date": "2021-07-02T00:00:00.000Z",
+      "id": 7,
+      "name": "Mamie",
+      "offerId": 19,
+      "rating": 3,
+      "userId": 4
+    },
+    {
+      "avatar": "./img/icon-avatar.svg",
+      "comment": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, corrupti. Minima maxime aut odit ipsam at, quaerat, illum nisi ullam temporibus illo voluptas ipsum? Labore quae mollitia odio. Minima, explicabo!",
+      "date": "2021-03-05T00:00:00.000Z",
+      "id": 8,
+      "name": "Thomas",
+      "offerId": 19,
+      "rating": 5,
+      "userId": 6
+    },
+    {
+      "avatar": "./img/icon-avatar.svg",
+      "comment": "Odit, consectetur. Placeat eius atque praesentium et rerum ducimus non maiores beatae rem doloremque nihil ea exercitationem tempora, fuga deleniti magnam delectus",
+      "date": "2021-07-08T00:00:00.000Z",
+      "id": 9,
+      "name": "Michael",
+      "offerId": 20,
+      "rating": 2,
+      "userId": 7
+    },
+    {
+      "avatar": "./img/icon-avatar.svg",
+      "comment": "Temporibus id accusamus neque harum quas ut quod non, maiores voluptatem cupiditate praesentium excepturi perspiciatis rem, ex nemo qui placeat vel debitis",
+      "date": "2021-05-10T00:00:00.000Z",
+      "id": 10,
+      "name": "Miranda",
+      "offerId": 20,
+      "rating": 3,
+      "userId": 8
+    }
+  ],
   "users": [
     {
       "id": 1,
