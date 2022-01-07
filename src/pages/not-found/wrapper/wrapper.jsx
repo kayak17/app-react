@@ -1,11 +1,14 @@
 import { lazy, Suspense } from 'react';
+import MainLayout from '~/layouts/main/main';
 
 const PageNotFound = lazy(() => import('../content/content'));
 
 const PageNotFoundWrapper = () => {
   return (
     <Suspense fallback={null}>
-      <PageNotFound />
+      <MainLayout>
+        <PageNotFound />
+      </MainLayout>
     </Suspense>
   );
 };
