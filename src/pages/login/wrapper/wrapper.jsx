@@ -1,11 +1,14 @@
 import { lazy, Suspense } from 'react';
+import MainLayout from '~/layouts/main/main';
 
 const PageLogin = lazy(() => import('../content/content'));
 
 const PageLoginWrapper = () => {
   return (
     <Suspense fallback={null}>
-      <PageLogin />
+      <MainLayout>
+        <PageLogin />
+      </MainLayout>
     </Suspense>
   );
 };
