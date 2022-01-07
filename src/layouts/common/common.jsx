@@ -3,12 +3,12 @@ import Header from '~/components/header/header';
 
 const CommonLayout = ({ children }) => {
   return (
-    <div className="app-page">
+    <>
       <Header />
-      <main className="app-container">
+      <main className="container-xl px-0">
         {children}
       </main>
-    </div>
+    </>
   );
 };
 
