@@ -7,5 +7,5 @@ export const AppRoutes = {
   FAVORITES: '/favorites',
   LOGIN: '/login',
   OFFER: '/offer',
-  REGISTRATION: '/registration',
+  SIGNUP: '/signup',
 };

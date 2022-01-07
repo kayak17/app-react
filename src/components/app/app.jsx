@@ -4,7 +4,7 @@ import PageFavorites from '~/pages/favorites/wrapper/wrapper';
 import PageLogin from '~/pages/login/wrapper/wrapper';
 import PageMain from '~/pages/main/wrapper/wrapper';
 import PageNotFound from '~/pages/not-found/wrapper/wrapper';
-import PageRegistration from '~/pages/registration/wrapper/wrapper';
+import PageSignUp from '~/pages/sign-up/wrapper/wrapper';
 import PageRoom from '~/pages/room/wrapper/wrapper';
 import { AppRoutes } from '~/constants';
 
@@ -30,8 +30,8 @@ const App = () => {
           element={<PageLogin />}
         />
         <Route
-          path={AppRoutes.REGISTRATION}
-          element={<PageRegistration />}
+          path={AppRoutes.SIGNUP}
+          element={<PageSignUp />}
         />
         <Route
           path={AppRoutes.OFFER}

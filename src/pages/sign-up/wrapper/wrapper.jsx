@@ -1,16 +1,16 @@
 import { lazy, Suspense } from 'react';
 import MainLayout from '~/layouts/main/main';
 
-const PageNotFound = lazy(() => import('../content/content'));
+const PageSignUp = lazy(() => import('../content/content'));
 
-const PageNotFoundWrapper = () => {
+const PageSignUpWrapper = () => {
   return (
     <Suspense fallback={null}>
       <MainLayout>
-        <PageNotFound />
+        <PageSignUp />
       </MainLayout>
     </Suspense>
   );
 };
 
-export default PageNotFoundWrapper;
+export default PageSignUpWrapper;

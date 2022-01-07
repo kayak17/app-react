@@ -1,11 +1,14 @@
 import { lazy, Suspense } from 'react';
+import CommonLayout from '~/layouts/main/main';
 
 const PageFavorites = lazy(() => import('../content/content'));
 
 const PageFavoritesWrapper = () => {
   return (
     <Suspense fallback={null}>
-      <PageFavorites />
+      <CommonLayout>
+        <PageFavorites />
+      </CommonLayout>
     </Suspense>
   );
 };
