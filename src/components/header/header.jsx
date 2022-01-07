@@ -2,11 +2,16 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Link, NavLink, useMatch } from 'react-router-dom';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import CustomNavItem from '../custom-react-bootstrap/nav-item/nav-item';
 import { AppRoutes, AppTitles } from '~/constants';
 
 const Header = ({ themeClass }) => {
   const isMainRoute = useMatch(AppRoutes.MAIN);
   const isAuth = true;
+
+  const onLogoutClick = () => {
+    alert();
+  };
 
   return (
     <div className={clsx('border-bottom', themeClass)}>
@@ -37,7 +42,7 @@ const Header = ({ themeClass }) => {
                 <span>{AppTitles.FAVORITES}</span>
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/logout">
+              <NavDropdown.Item as={CustomNavItem} onClick={onLogoutClick}>
                 <span>{AppTitles.LOGOUT}</span>
               </NavDropdown.Item>
             </NavDropdown>
