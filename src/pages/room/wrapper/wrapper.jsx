@@ -1,11 +1,14 @@
 import { lazy, Suspense } from 'react';
+import CommonLayout from '~/layouts/main/main';
 
 const PageRoom = lazy(() => import('../content/content'));
 
 const PageRoomWrapper = () => {
   return (
     <Suspense fallback={null}>
-      <PageRoom />
+      <CommonLayout>
+        <PageRoom />
+      </CommonLayout>
     </Suspense>
   );
 };
