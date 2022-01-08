@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getIsAuth } from '~/modules/user';
 
 const PrivateRoute = ({
   element,
   redirectURL,
 }) => {
-  const isAuth = true; // useAuth();
+  const isAuth = useSelector(getIsAuth);
 
   return (
     isAuth ? (
