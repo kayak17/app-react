@@ -17,13 +17,13 @@ const PageWrapper = ({
     if (isSpinner) {
       dispatch(setIsLoading(true));
     }
-  }, [dispatch, isSpinner, setIsLoading]);
+  }, [dispatch, isSpinner]);
 
   const handleSetIsDataLoading = useCallback((flag) => {
     if (isLoading !== flag) {
       dispatch(setIsLoading(flag));
     }
-  }, [dispatch, isLoading, setIsLoading]);
+  }, [dispatch, isLoading]);
 
   return (
     <Layout>
