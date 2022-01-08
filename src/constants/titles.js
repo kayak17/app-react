@@ -7,5 +7,6 @@ export const AppTitles = {
   LOGIN: 'Login',
   LOGOUT: 'Logout',
   LOGO_TITLE: 'Flat Booking',
+  NO_TITLE_EXIST: '...',
   SIGNUP: 'Sign up',
 };
