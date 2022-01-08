@@ -13,6 +13,10 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
+    const { setIsLoading = () => false } = this.props;
+
+    setIsLoading(false);
+
     this.setState({
       error: error,
       errorInfo: errorInfo,
@@ -39,6 +43,7 @@ class ErrorBoundary extends Component {
 
 ErrorBoundary.propTypes = {
   children: PropTypes.element.isRequired,
+  setIsLoading: PropTypes.func,
 };
 
 export default ErrorBoundary;
