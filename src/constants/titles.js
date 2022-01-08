@@ -1,3 +1,7 @@
+export const AppSrTitles = {
+  LOADING: 'Loading...',
+};
+
 export const AppTitles = {
   FAVORITES: 'Favorites',
   LOGIN: 'Login',
