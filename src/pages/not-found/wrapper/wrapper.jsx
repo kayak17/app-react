@@ -1,15 +1,16 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
+import PageWrapper from '~/components/page-wrapper/page-wrapper';
 import MainLayout from '~/layouts/main/main';
 
 const PageNotFound = lazy(() => import('../content/content'));
 
 const PageNotFoundWrapper = () => {
   return (
-    <Suspense fallback={null}>
-      <MainLayout>
-        <PageNotFound />
-      </MainLayout>
-    </Suspense>
+    <PageWrapper
+      isSpinner={false}
+      Layout={MainLayout}
+      PageContent={PageNotFound}
+    />
   );
 };
 
