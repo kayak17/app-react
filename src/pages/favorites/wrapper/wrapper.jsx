@@ -1,15 +1,16 @@
-import { lazy, Suspense } from 'react';
-import CommonLayout from '~/layouts/main/main';
+import { lazy } from 'react';
+import PageWrapper from '~/components/page-wrapper/page-wrapper';
+import CommonLayout from '~/layouts/common/common';
 
 const PageFavorites = lazy(() => import('../content/content'));
 
 const PageFavoritesWrapper = () => {
   return (
-    <Suspense fallback={null}>
-      <CommonLayout>
-        <PageFavorites />
-      </CommonLayout>
-    </Suspense>
+    <PageWrapper
+      isSpinner={false}
+      Layout={CommonLayout}
+      PageContent={PageFavorites}
+    />
   );
 };
 

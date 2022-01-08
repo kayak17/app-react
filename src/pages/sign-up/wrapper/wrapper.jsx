@@ -1,15 +1,16 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
+import PageWrapper from '~/components/page-wrapper/page-wrapper';
 import MainLayout from '~/layouts/main/main';
 
 const PageSignUp = lazy(() => import('../content/content'));
 
 const PageSignUpWrapper = () => {
   return (
-    <Suspense fallback={null}>
-      <MainLayout>
-        <PageSignUp />
-      </MainLayout>
-    </Suspense>
+    <PageWrapper
+      isSpinner={false}
+      Layout={MainLayout}
+      PageContent={PageSignUp}
+    />
   );
 };
 

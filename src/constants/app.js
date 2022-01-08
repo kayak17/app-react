@@ -1,4 +1,5 @@
 export const AppReducers = {
+  PROCESS: 'PROCESS',
   USER: 'USER',
 };
 

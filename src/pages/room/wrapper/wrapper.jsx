@@ -1,15 +1,16 @@
-import { lazy, Suspense } from 'react';
-import CommonLayout from '~/layouts/main/main';
+import { lazy } from 'react';
+import PageWrapper from '~/components/page-wrapper/page-wrapper';
+import CommonLayout from '~/layouts/common/common';
 
 const PageRoom = lazy(() => import('../content/content'));
 
 const PageRoomWrapper = () => {
   return (
-    <Suspense fallback={null}>
-      <CommonLayout>
-        <PageRoom />
-      </CommonLayout>
-    </Suspense>
+    <PageWrapper
+      isSpinner={false}
+      Layout={CommonLayout}
+      PageContent={PageRoom}
+    />
   );
 };
 
