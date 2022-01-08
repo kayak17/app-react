@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
+import withLazy from '~/hocs/with-lazy/with-lazy';
 import PageFavorites from '~/pages/favorites/wrapper/wrapper';
 import PageLogin from '~/pages/login/wrapper/wrapper';
 import PageMain from '~/pages/main/wrapper/wrapper';
@@ -45,4 +46,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withLazy(App);
