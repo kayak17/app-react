@@ -15,7 +15,7 @@ const withSpinner = (WrappedComponent) => {
           <WrappedComponent {...props} />
         </div>
         {isLoading && (
-          <div className="app-loader-over">
+          <div className="app-spinner-over">
             <span className="visually-hidden">{AppSrTitles.LOADING}</span>
           </div>
         )}
