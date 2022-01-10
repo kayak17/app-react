@@ -3,6 +3,8 @@ export const AppSrTitles = {
 };
 
 export const AppTitles = {
+  ACCEPT: 'Accept',
+  CANCEL: 'Cancel',
   FAVORITES: 'Favorites',
   LOGIN: 'Login',
   LOGOUT: 'Logout',

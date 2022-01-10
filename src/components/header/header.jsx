@@ -6,6 +6,7 @@ import LogoHeaderInactive from '../logo/header/inactive/inactive';
 import LogoHeaderActive from '../logo/header/active/active';
 import NavHeaderAuth from '../nav/header/auth/auth';
 import NavHeaderNoAuth from '../nav/header/no-auth/no-auth';
+import { getIsAuth } from '~/modules/user';
 import { AppRoutes } from '~/constants';
 
 const Header = ({ themeClass }) => {
