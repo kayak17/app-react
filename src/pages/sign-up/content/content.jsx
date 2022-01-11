@@ -1,6 +1,16 @@
+import FormSignUp from '~/components/forms/sign-up/sign-up';
+import { AppTitles } from '~/constants';
+
 const PageSignUpContent = () => {
   return (
-    <h1>SignUp</h1>
+    <section className="page-content-wrapper">
+      <h1 className="app-title page-content-title">
+        {AppTitles.SIGNUP}
+      </h1>
+      <div className="page-form">
+        <FormSignUp />
+      </div>
+    </section>
   );
 };
 
