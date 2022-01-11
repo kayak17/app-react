@@ -1,4 +1,4 @@
-export const AppSrTitles = {
+export const AppSRTitles = {
   LOADING: 'Loading...',
 };
 
