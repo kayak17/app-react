@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
 import withLazy from '~/hocs/with-lazy/with-lazy';
 import withModal from '~/hocs/with-modal/with-modal';
+import withToaster from '~/hocs/with-toaster/with-toaster';
 import PageFavorites from '~/pages/favorites/wrapper/wrapper';
 import PageLogin from '~/pages/login/wrapper/wrapper';
 import PageMain from '~/pages/main/wrapper/wrapper';
@@ -50,7 +51,8 @@ const App = () => {
 
 const enhance = compose(
   withLazy,
-  withModal
+  withModal,
+  withToaster
 );
 
 export default enhance(App);
