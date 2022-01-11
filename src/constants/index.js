@@ -1,4 +1,5 @@
 export * from './app';
+export * from './forms';
 export * from './markup';
 export * from './messages';
 export * from './modals';

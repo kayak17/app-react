@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import { getIsLoading } from '~/modules/process';
-import { AppSrTitles } from '~/constants';
+import { AppSRTitles } from '~/constants';
 
 const withSpinner = (WrappedComponent) => {
   const WithSpinnerHOC = (props) => {
@@ -16,7 +16,7 @@ const withSpinner = (WrappedComponent) => {
         </div>
         {isLoading && (
           <div className="app-spinner-over">
-            <span className="visually-hidden">{AppSrTitles.LOADING}</span>
+            <span className="visually-hidden">{AppSRTitles.LOADING}</span>
           </div>
         )}
       </>
