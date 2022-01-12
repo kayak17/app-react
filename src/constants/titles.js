@@ -1,5 +1,6 @@
 export const AppSRTitles = {
   LOADING: 'Loading...',
+  MAIN_PAGE_PLACES: 'Flat offers',
 };
 
 export const AppTitles = {
