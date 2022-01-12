@@ -1,3 +1,7 @@
+export const AppQueryParamsLeading = {
+  CITY_ID: '?city.id=',
+};
+
 export const APIRoutes = {
   CITIES: '/cities',
   LOGIN: '/login',
