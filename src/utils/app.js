@@ -1,4 +1,5 @@
 import {
+  AppActionTypes,
   ToastColors,
   ToastTypes,
 } from '~/constants';
@@ -13,3 +14,7 @@ export const getToastSetting = (
     padding: '16px',
   },
 });
+
+export const getUnknownActionTypeMsg = (componentName) => (
+  `${AppActionTypes.UNKNOWN_ACTION_TYPE}${componentName}`
+);
