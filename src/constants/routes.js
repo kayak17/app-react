@@ -1,5 +1,7 @@
 export const APIRoutes = {
+  CITIES: '/cities',
   LOGIN: '/login',
+  OFFERS: '/offers',
 };
 
 export const AppRoutes = {
