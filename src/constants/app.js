@@ -10,6 +10,7 @@ export const AppActionTypes = {
 };
 
 export const AppReducers = {
+  MAIN: 'MAIN',
   PROCESS: 'PROCESS',
   USER: 'USER',
 };
