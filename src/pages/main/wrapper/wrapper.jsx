@@ -7,7 +7,6 @@ const PageMain = lazy(() => import('../content/content'));
 const PageMainWrapper = () => {
   return (
     <PageWrapper
-      isSpinner={false}
       Layout={MainLayout}
       PageContent={PageMain}
     />

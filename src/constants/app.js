@@ -1,6 +1,16 @@
 export const APP_DEFAULT_AVATAR = 'img/icon-avatar.svg';
 
+export const AppActionTypes = {
+  ERROR: 'ERROR',
+  IDLE: 'IDLE',
+  LOADED: 'LOADED',
+  LOADING: 'LOADING',
+  START: 'START',
+  UNKNOWN_ACTION_TYPE: 'Unknown action.type in ',
+};
+
 export const AppReducers = {
+  MAIN: 'MAIN',
   PROCESS: 'PROCESS',
   USER: 'USER',
 };
@@ -8,6 +18,14 @@ export const AppReducers = {
 export const AuthStatuses = {
   AUTH: 'AUTH',
   NO_AUTH: 'NO_AUTH',
+};
+
+export const FetchingStatuses = {
+  ERROR: 'ERROR',
+  IDLE: 'IDLE',
+  LOADED: 'LOADED',
+  LOADING: 'LOADING',
+  START: 'START',
 };
 
 export const HttpCodes = {

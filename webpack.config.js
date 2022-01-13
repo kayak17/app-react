@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -38,6 +39,9 @@ module.exports = (_, { mode }) => ({
       ],
     }),
     new CleanWebpackPlugin(),
+    new webpack.ProvidePlugin({
+      process: "process/browser",
+    }),
   ],
   module: {
     rules: [
@@ -99,6 +103,10 @@ module.exports = (_, { mode }) => ({
     extensions: [".js", ".jsx"],
     alias: {
       "~": path.resolve(__dirname, "src"),
+    },
+    fallback: {
+      "querystring": require.resolve("querystring/"),
+      "url": require.resolve("url/"),
     },
   },
 });
