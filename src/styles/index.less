@@ -1,6 +1,8 @@
 @bgr-primary-color: #f3f3f3;
 @error-color: #ff4500;
 @primary-color: #4481c3;
+@primary-color-hover: #3872b1;
+@primary-color-active: #2e65a1;
 
 html,
 body {
@@ -8,6 +10,27 @@ body {
   min-width: 1140px;
   margin: 0;
   padding: 0;
+}
+
+.btn-primary {
+  background-color: @primary-color;
+  border-color: @primary-color;
+}
+
+.btn-check:focus + .btn-primary,
+.btn-primary:focus,
+.btn-primary:hover {
+  background-color: @primary-color-hover;
+  border-color: @primary-color-hover;
+}
+
+.btn-check:active + .btn-primary,
+.btn-check:checked + .btn-primary,
+.btn-primary.active,
+.btn-primary:active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: @primary-color-active;
+  border-color: @primary-color-active;
 }
 
 .app-font {
