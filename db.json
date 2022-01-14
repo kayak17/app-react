@@ -7,7 +7,6 @@
         4.897976
       ],
       "id": "amsterdam",
-      "isActive": true,
       "zoom": 13
     },
     {
@@ -17,7 +16,6 @@
         4.351697
       ],
       "id": "brussels",
-      "isActive": true,
       "zoom": 13
     },
     {
@@ -27,7 +25,6 @@
         6.959974
       ],
       "id": "cologne",
-      "isActive": true,
       "zoom": 13
     },
     {
@@ -37,7 +34,6 @@
         6.776314
       ],
       "id": "dusseldorf",
-      "isActive": true,
       "zoom": 13
     },
     {
@@ -47,7 +43,6 @@
         10.000654
       ],
       "id": "hamburg",
-      "isActive": true,
       "zoom": 13
     }
   ],
