@@ -2,6 +2,7 @@ import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import useFetchCached from '~/hooks/use-fetch-cached/use-fetch-cached';
 import { getActiveCityId, setActiveCity } from '~/modules/main';
 import { setIsLoading } from '~/modules/process';
@@ -11,6 +12,7 @@ import { getOffersURLByCity } from '~/utils';
 const useGetData = () => {
   const activeCityId = useSelector(getActiveCityId);
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [offers, setOffers] = useState([]);
 
@@ -33,8 +35,13 @@ const useGetData = () => {
   } = useFetchCached({
     url: APIRoutes.CITIES,
     onSuccess: (payload) => {
+      const params = new URLSearchParams(location.search);
+      const cityId = params.get('city.id');
       const cities = payload.data;
-      const newActiveCity = find(cities, ['id', activeCityId]) || cities[0];
+
+      const newActiveCity = cityId ?
+        find(cities, ['id', cityId]) || cities[0] :
+        find(cities, ['id', activeCityId]) || cities[0];
       const newActiveCityId = newActiveCity.id;
 
       dispatch(setActiveCity(newActiveCity));

@@ -33,7 +33,7 @@ export const login = ({ email, password, closeModal }) => {
             closeModal();
             toast.success(
               AppMessages.LOGIN_SUCCESS,
-              getToastSetting(ToastTypes.SUCCESS),
+              getToastSetting({ toastType: ToastTypes.SUCCESS }),
             );
           }
         })

@@ -52,12 +52,14 @@ const PageMainContent = ({ setIsLoading }) => {
             <h1 className="visually-hidden">
               {AppSRTitles.MAIN_PAGE_PLACES}
             </h1>
-            <PlacesWrapper
-              offers={offers}
-            />
-            <div className="col-5 text-center bg-secondary">
+            <section className="col-6 text-center">
+              <PlacesWrapper
+                offers={offers}
+              />
+            </section>
+            <section className="col-6 text-center bg-light">
 
-            </div>
+            </section>
           </div>
         )
       }

@@ -172,6 +172,8 @@ const useFetchCached = (props) => {
         type: AppActionTypes.ERROR,
         payload: message,
       });
+
+      throw new Error(message);
     };
 
     const startRequest = () => {

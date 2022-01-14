@@ -6,7 +6,7 @@ const PlacesWrapper = ({ offers }) => {
   const activeCityName = useSelector(getActiveCityName);
 
   return (
-    <section className="col-7 text-center bg-light">
+    <>
       <b className="app-subtitle">
         {activeCityName}
       </b>
@@ -21,7 +21,7 @@ const PlacesWrapper = ({ offers }) => {
       ) : (
         null
       )}
-    </section>
+    </>
   );
 };
 

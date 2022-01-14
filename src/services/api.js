@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AppMessages, HttpCodes } from '~/constants';
+import { APIRoutes, AppMessages, HttpCodes } from '~/constants';
 
 const BACKEND_URL = 'http://localhost:3000/';
 const REQUEST_TIMEOUT = 5000;
@@ -14,7 +14,7 @@ export const createAPI = (onUnauthorized) => {
     // *** for fake backend only
     const { data, headers, method, url } = config;
 
-    if (method === 'post' && url === '/login') {
+    if (method === 'post' && url === APIRoutes.LOGIN) {
       headers.auth = {
         email: data.email,
         password: data.password,
@@ -23,6 +23,20 @@ export const createAPI = (onUnauthorized) => {
 
       config.method = 'get';
       config.url = '/users';
+    } else if (method === 'post' && url === APIRoutes.SIGNUP) {
+      if (data.password === data.passwordConfirm) {
+        data.avatar = 'img/icon-avatar.svg';
+        delete data.passwordConfirm;
+
+        config.url = '/users';
+      } else {
+        return Promise.reject({
+          message: AppMessages.PASSWORDS_DONT_MATCH,
+          response: {
+            status: '',
+          },
+        });
+      }
     }
     // ***
 

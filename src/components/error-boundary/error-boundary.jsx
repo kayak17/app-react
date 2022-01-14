@@ -26,14 +26,14 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.errorInfo) {
       return (
-        <div>
-          <p className="mt-5">
+        <>
+          <p className="app-title page-content-title text-center">
             {AppMessages.SOMETHING_WENT_WRONG}
           </p>
-          <p className="mb-5 text-center">
+          <p className="text-center">
             {this.state.error && this.state.error.toString()}
           </p>
-        </div>
+        </>
       );
     }
 
