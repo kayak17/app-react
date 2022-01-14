@@ -4,11 +4,12 @@ import {
   ToastTypes,
 } from '~/constants';
 
-export const getToastSetting = (
-  toastType = ToastTypes.DEFAULT
-) => ({
+export const getToastSetting = ({
+  position = 'bottom-center',
+  toastType = ToastTypes.DEFAULT,
+}) => ({
   duration: 5000,
-  position: 'bottom-center',
+  position,
   style: {
     border: `1px solid ${ToastColors[toastType]}`,
     padding: '16px',
