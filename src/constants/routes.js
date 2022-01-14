@@ -6,6 +6,7 @@ export const APIRoutes = {
   CITIES: '/cities',
   LOGIN: '/login',
   OFFERS: '/offers',
+  SIGNUP: '/signup',
 };
 
 export const AppRoutes = {
