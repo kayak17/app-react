@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import './list-empty.less';
 
 const CitiesListEmpty = () => {
@@ -9,10 +10,12 @@ const CitiesListEmpty = () => {
         {cityArray.map((_, idx) => (
           <li className="placeholder-glow" key={idx}>
             <a
-              className="btn px-0 disabled city-list-empty-btn"
+              className={clsx('btn app-skewed-neg-15 disabled placeholder col-6 city-list-empty-btn', {
+                'btn-primary': idx === 0,
+                'btn-light': idx !== 0,
+              })}
               tabIndex="-1"
             >
-              <span className="placeholder col-12"></span>
             </a>
           </li>
         ))}
