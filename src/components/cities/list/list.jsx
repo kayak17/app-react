@@ -36,7 +36,7 @@ const CitiesList = ({
         {cities.map((city) => (
           <li key={city.id}>
             <a
-              className={clsx('btn',
+              className={clsx('btn app-skewed-neg-15',
                 { 'btn-primary': activeCityName === city.name }
               )}
               href={getLocationLinkByCityId(city.id)}
