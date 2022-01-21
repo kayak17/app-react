@@ -10,7 +10,7 @@ const CitiesListEmpty = () => {
         {cityArray.map((_, idx) => (
           <li className="placeholder-glow" key={idx}>
             <a
-              className={clsx('btn app-skewed-neg-15 disabled placeholder col-6 city-list-empty-btn', {
+              className={clsx('btn app-skewed-neg-15 disabled placeholder col-6 cities-list-empty-btn', {
                 'btn-primary': idx === 0,
                 'btn-light': idx !== 0,
               })}
