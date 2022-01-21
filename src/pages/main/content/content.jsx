@@ -1,8 +1,11 @@
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import CitiesList from '~/components/cities/list/list';
 import CitiesListEmpty from '~/components/cities/list-empty/list-empty';
 import PlacesWrapper from '~/components/places/wrapper/wrapper';
-import { AppSRTitles, AppMessages } from '~/constants';
+import { AppSRTitles } from '~/constants';
+import { throwErrorToBoundary } from '~/utils';
+import './content.less';
 
 const PageMainContent = ({
   cities,
@@ -13,10 +16,6 @@ const PageMainContent = ({
   isOffersError,
   isOffersLoaded,
 }) => {
-  const throwErrorToBoundary = () => {
-    throw new Error(AppMessages.DATA_LOADING_ERROR);
-  };
-
   const getCitiesMarkup = () => {
     if (isCitiesLoaded) {
       return <CitiesList cities={cities} />;
@@ -32,16 +31,16 @@ const PageMainContent = ({
       throwErrorToBoundary();
     } else if (isOffersLoaded) {
       return (
-        <div className="row mx-0">
+        <div className="row mx-0 mb-3">
           <h1 className="visually-hidden">
             {AppSRTitles.MAIN_PAGE_PLACES}
           </h1>
-          <section className="col-6 text-center">
+          <section className="col-6 text-center overflow-auto places-container">
             <PlacesWrapper
               offersReducer={offersReducer}
             />
           </section>
-          <section className="col-6 text-center bg-light">
+          <section className="col-6 text-center bg-light places-map-container">
 
           </section>
         </div>
@@ -69,4 +68,4 @@ PageMainContent.propTypes = {
   isOffersLoaded: PropTypes.bool.isRequired,
 };
 
-export default PageMainContent;
+export default memo(PageMainContent);
