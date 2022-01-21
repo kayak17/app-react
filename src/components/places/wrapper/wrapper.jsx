@@ -1,14 +1,11 @@
-import { useSelector } from 'react-redux';
-import { getActiveCityName } from '~/modules/main';
+import PropTypes from 'prop-types';
 import { offersPropTypes } from '~/prop-types';
 
-const PlacesWrapper = ({ offers }) => {
-  const activeCityName = useSelector(getActiveCityName);
-
+const PlacesWrapper = ({ offers, activeCityName, offersTotalCount }) => {
   return (
     <>
       <b className="app-subtitle">
-        {activeCityName}
+        {activeCityName}&nbsp;{offersTotalCount}
       </b>
       {offers.length ? (
         <ul className="list-unstyled">
@@ -27,6 +24,8 @@ const PlacesWrapper = ({ offers }) => {
 
 PlacesWrapper.propTypes = {
   offers: offersPropTypes,
+  activeCityName: PropTypes.string.isRequired,
+  offersTotalCount: PropTypes.string.isRequired,
 };
 
 export default PlacesWrapper;
