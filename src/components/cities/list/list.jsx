@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { memo } from 'react';
 import {
   useDispatch,
   useSelector,
@@ -29,7 +30,7 @@ const CitiesList = ({ cities }) => {
   };
 
   return (
-    <nav className="py-3 mb-3 border-bottom">
+    <nav className="py-3 border-bottom">
       <ul className="list-unstyled px-0 mb-0 d-flex flex-wrap justify-content-evenly">
         {cities.map((city) => (
           <li key={city.id}>
@@ -53,4 +54,4 @@ CitiesList.propTypes = {
   cities: citiesPropTypes,
 };
 
-export default CitiesList;
+export default memo(CitiesList);
