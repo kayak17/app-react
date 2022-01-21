@@ -1,6 +1,6 @@
 import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
-import { lazy, useEffect, useState, useMemo } from 'react';
+import { lazy, useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -10,30 +10,59 @@ import useFetchCached from '~/hooks/use-fetch-cached/use-fetch-cached';
 import usePrevious from '~/hooks/use-previous/use-previous';
 import MainLayout from '~/layouts/main/main';
 import { getActiveCityId, getActiveCityName, setActiveCity } from '~/modules/main';
-import { APIRoutes, FetchingStatuses } from '~/constants';
-import { getOffersURLByCityId } from '~/utils';
+import { APIRoutes, AppActionTypes, FetchingStatuses } from '~/constants';
+import { getOffersURLByCityId, getUnknownActionTypeMsg } from '~/utils';
 
 const PageMain = lazy(() => import('../content/content'));
 
-const PageMainWrapper = ({
-  setIsLoading,
-}) => {
+const PageMainWrapper = ({ setIsLoading }) => {
+  const COMPONENT_NAME = 'PageMainWrapper';
+  const dispatch = useDispatch();
   const location = useLocation();
+
   const params = new URLSearchParams(location.search);
   const cityId = params.get('city.id');
-
-  const dispatch = useDispatch();
   const activeCityId = useSelector(getActiveCityId);
   const activeCityName = useSelector(getActiveCityName);
+  const [cities, setCities] = useState([]);
 
-  const offersURL = useMemo(() => (
-    getOffersURLByCityId(activeCityId)
-  ), [activeCityId]);
+  const offersURL = getOffersURLByCityId(activeCityId);
   const prevOffersURL = usePrevious(offersURL);
 
-  const [cities, setCities] = useState([]);
-  const [offers, setOffers] = useState([]);
-  const [offersTotalCount, setOffersTotalCount] = useState('0');
+  const initialState = {
+    data: [],
+    headerLink: {},
+    totalCount: '',
+    activeCityName: '',
+  };
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case AppActionTypes.SET_DATA:
+        return Object.assign({}, state, {
+          data: action.payload.data,
+          headerLink: action.payload.headerLink,
+          totalCount: action.payload.totalCount,
+          activeCityName: action.payload.activeCityName,
+        });
+      default:
+        throw new Error(getUnknownActionTypeMsg(COMPONENT_NAME));
+    }
+  };
+
+  const dispatchSetData = (payload) => {
+    dispatchData({
+      type: AppActionTypes.SET_DATA,
+      payload: {
+        data: payload.data,
+        headerLink: payload.headerLink,
+        totalCount: payload.totalCount,
+        activeCityName,
+      },
+    });
+  };
+
+  const [offersReducer, dispatchData] = useReducer(reducer, initialState);
 
   const {
     state: stateCities,
@@ -65,8 +94,7 @@ const PageMainWrapper = ({
     fetchData: fetchOffers,
   } = useFetchCached({
     onSuccess: (payload) => {
-      setOffers(payload.data);
-      setOffersTotalCount(payload.totalCount);
+      dispatchSetData(payload);
       setIsLoading(false);
     },
     onFail: () => {
@@ -99,14 +127,14 @@ const PageMainWrapper = ({
         setIsLoading(true);
         fetchOffers(offersURL);
       } else {
-        setOffers(payload.data);
+        dispatchSetData(payload);
       }
     }
   }, [
-    dispatch,
     cacheoffers,
     offersURL,
     prevOffersURL,
+    dispatchSetData,
     fetchOffers,
     setIsLoading,
     isCitiesLoaded,
@@ -118,13 +146,11 @@ const PageMainWrapper = ({
       <ErrorBoundary setIsLoading={setIsLoading}>
         <PageMain
           cities={cities}
-          offers={offers}
+          offersReducer={offersReducer}
           isCitiesError={isCitiesError}
           isCitiesLoaded={isCitiesLoaded}
           isOffersLoading={isOffersLoading}
           isOffersError={isOffersError}
-          activeCityName={activeCityName}
-          offersTotalCount={offersTotalCount}
         />
       </ErrorBoundary>
     </MainLayout>
