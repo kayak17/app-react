@@ -1,6 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 import {
   getActiveCityId,
   getActiveCityName,
@@ -13,10 +15,7 @@ import {
   getLocationLinkByCityId,
 } from '~/utils';
 
-const CitiesList = ({
-  cities,
-  onSetActiveCity,
-}) => {
+const CitiesList = ({ cities }) => {
   const activeCityId = useSelector(getActiveCityId);
   const activeCityName = useSelector(getActiveCityName);
   const dispatch = useDispatch();
@@ -26,7 +25,6 @@ const CitiesList = ({
 
     if (city.id !== activeCityId) {
       dispatch(setActiveCity(city));
-      onSetActiveCity(city);
     }
   };
 
@@ -53,7 +51,6 @@ const CitiesList = ({
 
 CitiesList.propTypes = {
   cities: citiesPropTypes,
-  onSetActiveCity: PropTypes.func.isRequired,
 };
 
 export default CitiesList;
