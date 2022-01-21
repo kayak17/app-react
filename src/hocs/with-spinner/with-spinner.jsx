@@ -20,15 +20,17 @@ const withSpinner = (WrappedComponent) => {
         <div className={clsx(
           { 'app-full-viewport app-disabled': isLoading }
         )}>
-          <WrappedComponent 
+          <WrappedComponent
             isLoading={isLoading}
             setIsLoading={handleSetIsDataLoading}
-            {...props} 
+            {...props}
           />
         </div>
         {isLoading && (
           <div className="app-spinner-over">
-            <span className="visually-hidden">{AppSRTitles.LOADING}</span>
+            <span className="visually-hidden">
+              {AppSRTitles.LOADING}
+            </span>
           </div>
         )}
       </>
