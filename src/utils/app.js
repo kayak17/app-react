@@ -1,5 +1,6 @@
 import {
   AppActionTypes,
+  AppMessages,
   ToastColors,
   ToastTypes,
 } from '~/constants';
@@ -19,3 +20,9 @@ export const getToastSetting = ({
 export const getUnknownActionTypeMsg = (componentName) => (
   `${AppActionTypes.UNKNOWN_ACTION_TYPE}${componentName}`
 );
+
+export const throwErrorToBoundary = (
+  msg = AppMessages.DATA_LOADING_ERROR
+) => {
+  throw new Error(msg);
+};
