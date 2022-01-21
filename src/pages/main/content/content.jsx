@@ -1,43 +1,25 @@
 import PropTypes from 'prop-types';
-import useGetData from '../use-get-data/use-get-data';
 import CitiesList from '~/components/cities/list/list';
 import CitiesListEmpty from '~/components/cities/list-empty/list-empty';
 import PlacesWrapper from '~/components/places/wrapper/wrapper';
-import {
-  AppSRTitles,
-  FetchingStatuses,
-} from '~/constants';
+import { AppSRTitles } from '~/constants';
 
-const PageMainContent = ({ setIsLoading }) => {
-  const {
-    offers,
-    stateCities,
-    stateOffers,
-    handleSetActiveCity,
-  } = useGetData();
 
-  const isCitiesError = (
-    stateCities.status === FetchingStatuses.ERROR
-  );
-  const isCitiesLoaded = (
-    stateCities.status === FetchingStatuses.LOADED
-  );
-
-  const isOffersLoading = (
-    stateOffers.status !== FetchingStatuses.ERROR &&
-    stateOffers.status !== FetchingStatuses.LOADED
-  );
-  const isOffersError = (
-    stateOffers.status === FetchingStatuses.ERROR
-  );
+const PageMainContent = ({
+  cities,
+  offers,
+  isCitiesError,
+  isCitiesLoaded,
+  isOffersLoading,
+  isOffersError,
+  activeCityName,
+  offersTotalCount,
+}) => {
 
   return (
     <>
       {isCitiesLoaded ? (
-        <CitiesList
-          cities={stateCities.data}
-          onSetActiveCity={handleSetActiveCity}
-        />
+        <CitiesList cities={cities} />
       ) : (
         <CitiesListEmpty />
       )}
@@ -55,6 +37,8 @@ const PageMainContent = ({ setIsLoading }) => {
             <section className="col-6 text-center">
               <PlacesWrapper
                 offers={offers}
+                activeCityName={activeCityName}
+                offersTotalCount={offersTotalCount}
               />
             </section>
             <section className="col-6 text-center bg-light">
@@ -68,7 +52,14 @@ const PageMainContent = ({ setIsLoading }) => {
 };
 
 PageMainContent.propTypes = {
-  setIsLoading: PropTypes.func.isRequired,
+  cities: PropTypes.array.isRequired,
+  offers: PropTypes.array.isRequired,
+  isCitiesError: PropTypes.bool.isRequired,
+  isCitiesLoaded: PropTypes.bool.isRequired,
+  isOffersLoading: PropTypes.bool.isRequired,
+  isOffersError: PropTypes.bool.isRequired,
+  activeCityName: PropTypes.string.isRequired,
+  offersTotalCount: PropTypes.string.isRequired,
 };
 
 export default PageMainContent;
