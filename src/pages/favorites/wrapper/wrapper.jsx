@@ -1,17 +1,22 @@
 import { lazy } from 'react';
-import PageWrapper from '~/components/page-wrapper/page-wrapper';
+import PropTypes from 'prop-types';
+import ErrorBoundary from '~/components/error-boundary/error-boundary';
 import CommonLayout from '~/layouts/common/common';
 
 const PageFavorites = lazy(() => import('../content/content'));
 
-const PageFavoritesWrapper = () => {
+const PageFavoritesWrapper = ({ setIsLoading }) => {
   return (
-    <PageWrapper
-      isSpinner={false}
-      Layout={CommonLayout}
-      PageContent={PageFavorites}
-    />
+    <CommonLayout>
+      <ErrorBoundary setIsLoading={setIsLoading}>
+        <PageFavorites />
+      </ErrorBoundary>
+    </CommonLayout>
   );
+};
+
+PageFavoritesWrapper.propTypes = {
+  setIsLoading: PropTypes.func.isRequired,
 };
 
 export default PageFavoritesWrapper;

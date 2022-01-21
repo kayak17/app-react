@@ -24,6 +24,7 @@ const withModal = (WrappedComponent) => {
 
     return (
       <div
+        className="app-full-viewport"
         onClick={handleOpenModal}
       >
         <WrappedComponent

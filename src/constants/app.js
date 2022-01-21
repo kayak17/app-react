@@ -5,6 +5,7 @@ export const AppActionTypes = {
   IDLE: 'IDLE',
   LOADED: 'LOADED',
   LOADING: 'LOADING',
+  SET_DATA: 'SET_DATA',
   START: 'START',
   UNKNOWN_ACTION_TYPE: 'Unknown action.type in ',
 };

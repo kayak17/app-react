@@ -3,6 +3,6 @@ import {
   AppQueryParamsLeading,
 } from '~/constants';
 
-export const getOffersURLByCity = (cityId) => (
-  `${APIRoutes.OFFERS}${AppQueryParamsLeading.CITY_ID}${cityId}`
+export const getOffersURLByCityId = (cityId) => (
+  `${APIRoutes.OFFERS}${AppQueryParamsLeading.CITY_ID}${cityId}&_limit=7`
 );

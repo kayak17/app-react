@@ -1,74 +1,71 @@
+import { memo } from 'react';
 import PropTypes from 'prop-types';
-import useGetData from '../use-get-data/use-get-data';
 import CitiesList from '~/components/cities/list/list';
 import CitiesListEmpty from '~/components/cities/list-empty/list-empty';
 import PlacesWrapper from '~/components/places/wrapper/wrapper';
-import {
-  AppSRTitles,
-  FetchingStatuses,
-} from '~/constants';
+import { AppSRTitles } from '~/constants';
+import { throwErrorToBoundary } from '~/utils';
+import './content.less';
 
-const PageMainContent = ({ setIsLoading }) => {
-  const {
-    offers,
-    stateCities,
-    stateOffers,
-    handleSetActiveCity,
-  } = useGetData();
+const PageMainContent = ({
+  cities,
+  offersReducer,
+  isCitiesError,
+  isCitiesLoaded,
+  isOffersLoading,
+  isOffersError,
+  isOffersLoaded,
+}) => {
+  const getCitiesMarkup = () => {
+    if (isCitiesLoaded) {
+      return <CitiesList cities={cities} />;
+    } else {
+      return <CitiesListEmpty />;
+    }
+  };
 
-  const isCitiesError = (
-    stateCities.status === FetchingStatuses.ERROR
-  );
-  const isCitiesLoaded = (
-    stateCities.status === FetchingStatuses.LOADED
-  );
+  const getPlacesMarkup = () => {
+    if (!isCitiesError && isOffersLoading) {
+      return null;
+    } else if (isCitiesError || isOffersError) {
+      throwErrorToBoundary();
+    } else if (isOffersLoaded) {
+      return (
+        <div className="row mx-0 mb-3">
+          <h1 className="visually-hidden">
+            {AppSRTitles.MAIN_PAGE_PLACES}
+          </h1>
+          <section className="col-6 text-center overflow-auto places-container">
+            <PlacesWrapper
+              offersReducer={offersReducer}
+            />
+          </section>
+          <section className="col-6 text-center bg-light places-map-container">
 
-  const isOffersLoading = (
-    stateOffers.status !== FetchingStatuses.ERROR &&
-    stateOffers.status !== FetchingStatuses.LOADED
-  );
-  const isOffersError = (
-    stateOffers.status === FetchingStatuses.ERROR
-  );
+          </section>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  };
 
   return (
     <>
-      {isCitiesLoaded ? (
-        <CitiesList
-          cities={stateCities.data}
-          onSetActiveCity={handleSetActiveCity}
-        />
-      ) : (
-        <CitiesListEmpty />
-      )}
-
-      {!isCitiesError && isOffersLoading ? (
-        null
-      ) :
-        isCitiesError || isOffersError ? (
-          null
-        ) : (
-          <div className="row mx-0">
-            <h1 className="visually-hidden">
-              {AppSRTitles.MAIN_PAGE_PLACES}
-            </h1>
-            <section className="col-6 text-center">
-              <PlacesWrapper
-                offers={offers}
-              />
-            </section>
-            <section className="col-6 text-center bg-light">
-
-            </section>
-          </div>
-        )
-      }
+      {getCitiesMarkup()}
+      {getPlacesMarkup()}
     </>
   );
 };
 
 PageMainContent.propTypes = {
-  setIsLoading: PropTypes.func.isRequired,
+  cities: PropTypes.array.isRequired,
+  offersReducer: PropTypes.object.isRequired,
+  isCitiesError: PropTypes.bool.isRequired,
+  isCitiesLoaded: PropTypes.bool.isRequired,
+  isOffersLoading: PropTypes.bool.isRequired,
+  isOffersError: PropTypes.bool.isRequired,
+  isOffersLoaded: PropTypes.bool.isRequired,
 };
 
-export default PageMainContent;
+export default memo(PageMainContent);
