@@ -1,6 +1,6 @@
 import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
-import { lazy, useEffect, useReducer, useState } from 'react';
+import { lazy, useCallback, useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -30,37 +30,37 @@ const PageMainWrapper = ({ setIsLoading }) => {
   const prevOffersURL = usePrevious(offersURL);
 
   const initialState = {
+    activeCityName: '',
     data: [],
     headerLink: {},
     totalCount: '',
-    activeCityName: '',
   };
 
   const reducer = (state, action) => {
     switch (action.type) {
       case AppActionTypes.SET_DATA:
         return Object.assign({}, state, {
+          activeCityName: action.payload.activeCityName,
           data: action.payload.data,
           headerLink: action.payload.headerLink,
           totalCount: action.payload.totalCount,
-          activeCityName: action.payload.activeCityName,
         });
       default:
         throw new Error(getUnknownActionTypeMsg(COMPONENT_NAME));
     }
   };
 
-  const dispatchSetData = (payload) => {
+  const dispatchSetData = useCallback((payload) => {
     dispatchData({
       type: AppActionTypes.SET_DATA,
       payload: {
+        activeCityName,
         data: payload.data,
         headerLink: payload.headerLink,
         totalCount: payload.totalCount,
-        activeCityName,
       },
     });
-  };
+  }, [activeCityName]);
 
   const [offersReducer, dispatchData] = useReducer(reducer, initialState);
 
@@ -120,7 +120,10 @@ const PageMainWrapper = ({ setIsLoading }) => {
   );
 
   useEffect(() => {
-    if (isCitiesLoaded && isOffersLoaded && prevOffersURL !== offersURL) {
+    if (
+      isCitiesLoaded && isOffersLoaded &&
+      prevOffersURL !== offersURL
+    ) {
       const payload = cacheoffers.current[offersURL];
 
       if (isEmpty(payload)) {
@@ -132,13 +135,13 @@ const PageMainWrapper = ({ setIsLoading }) => {
     }
   }, [
     cacheoffers,
-    offersURL,
-    prevOffersURL,
     dispatchSetData,
     fetchOffers,
-    setIsLoading,
     isCitiesLoaded,
     isOffersLoaded,
+    offersURL,
+    prevOffersURL,
+    setIsLoading,
   ]);
 
   return (
@@ -151,6 +154,7 @@ const PageMainWrapper = ({ setIsLoading }) => {
           isCitiesLoaded={isCitiesLoaded}
           isOffersLoading={isOffersLoading}
           isOffersError={isOffersError}
+          isOffersLoaded={isOffersLoaded}
         />
       </ErrorBoundary>
     </MainLayout>
