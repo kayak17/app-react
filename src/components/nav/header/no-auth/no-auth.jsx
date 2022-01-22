@@ -1,27 +1,34 @@
-import { Link } from 'react-router-dom';
-import { AppRoutes, AppTitles } from '~/constants';
+import { AppRoutes, AppTitles, ModalIds } from '~/constants';
 
 const NavHeaderNoAuth = () => {
+  const handleClick = (evt) => {
+    evt.preventDefault();
+  };
+
   return (
     <ul className="nav">
       <li className="nav-item">
-        <Link
+        <a
           className="nav-link link-dark px-1"
-          to={AppRoutes.LOGIN}
+          href={AppRoutes.LOGIN}
+          data-modal={ModalIds.LOGIN}
+          onClick={handleClick}
         >
-          <span>{AppTitles.LOGIN}</span>
-        </Link>
+          {AppTitles.LOGIN}
+        </a>
       </li>
       <li className="nav-item">
         <span className="nav-link link-dark px-1">|</span>
       </li>
       <li className="nav-item">
-        <Link
+        <a
           className="nav-link link-dark px-1"
-          to={AppRoutes.SIGNUP}
+          href={AppRoutes.SIGNUP}
+          data-modal={ModalIds.SIGNUP}
+          onClick={handleClick}
         >
-          <span>{AppTitles.SIGNUP}</span>
-        </Link>
+          {AppTitles.SIGNUP}
+        </a>
       </li>
     </ul>
   );
