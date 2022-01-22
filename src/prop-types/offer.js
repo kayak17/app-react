@@ -22,3 +22,10 @@ export const offerPropTypes = PropTypes.shape({
 }).isRequired;
 
 export const offersPropTypes = PropTypes.arrayOf(offerPropTypes).isRequired;
+
+export const offersReducerPropTypes = PropTypes.shape({
+  activeCityName: PropTypes.string.isRequired,
+  data: offersPropTypes,
+  headerLink: PropTypes.object.isRequired,
+  totalCount: PropTypes.string.isRequired,
+}).isRequired;
