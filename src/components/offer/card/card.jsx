@@ -9,7 +9,7 @@ import {
 import {
   getOfferPriceTitle,
 } from '~/utils';
-import './card.less';
+import '../offer.less';
 
 const OfferCard = ({
   offer,
@@ -33,7 +33,7 @@ const OfferCard = ({
                 to={offerLink}
               >
                 <img
-                  className="img-fluid places-card-img"
+                  className="img-fluid offer-card-img"
                   src={offer.image}
                   alt={OfferTitles.PLACE_IMAGE}
                 />
@@ -43,13 +43,13 @@ const OfferCard = ({
           <div className="col-6">
             <div className="card-body px-3 py-1">
               <div className="card-title mb-1">
-                <b className="places-card-price">
+                <b className="offer-card-price">
                   {getOfferPriceTitle(offer.price)}
                 </b>
               </div>
               <h6 className="card-text mb-1">
                 <NavLink
-                  className="text-dark text-decoration-none places-card-title app-subtitle"
+                  className="text-dark text-decoration-none offer-card-title app-subtitle"
                   to={offerLink}
                 >
                   {offer.title}
