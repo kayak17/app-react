@@ -1,23 +1,29 @@
-import PropTypes from 'prop-types';
+import OffersList from '~/components/offer/list/list';
+import { OfferTitles } from '~/constants';
+import { offersReducerPropTypes } from '~/prop-types';
 
 const PlacesWrapper = ({ offersReducer }) => {
   const activeCityName = offersReducer.activeCityName;
   const totalCount = offersReducer.totalCount;
   const data = offersReducer.data;
 
+  const getTitle = () => {
+    if (data.length) {
+      return `${totalCount}${OfferTitles.PLACES_TO_STAY_IN}${activeCityName}`;
+    }
+
+    return `${OfferTitles.NO_PLACES_TO_STAY_IN}${activeCityName}`;
+  };
+
   return (
     <>
-      <b className="app-subtitle">
-        {activeCityName}&nbsp;{totalCount}
-      </b>
+      <h2 className="mt-2 mb-3 app-subtitle">
+        {getTitle()}
+      </h2>
       {data.length ? (
-        <ul className="list-unstyled">
-          {data.map((offer) => (
-            <li key={offer.id}>
-              {JSON.stringify(offer)}
-            </li>
-          ))}
-        </ul>
+        <OffersList
+          offers={data}
+        />
       ) : (
         null
       )}
@@ -26,7 +32,7 @@ const PlacesWrapper = ({ offersReducer }) => {
 };
 
 PlacesWrapper.propTypes = {
-  offersReducer: PropTypes.object.isRequired,
+  offersReducer: offersReducerPropTypes,
 };
 
 export default PlacesWrapper;
