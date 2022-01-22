@@ -1,6 +1,6 @@
 import { AppRoutes, AppTitles, ModalIds } from '~/constants';
 
-const NavHeaderNoAuth = () => {
+const HeaderNavNoAuth = () => {
   const handleClick = (evt) => {
     evt.preventDefault();
   };
@@ -34,4 +34,4 @@ const NavHeaderNoAuth = () => {
   );
 };
 
-export default NavHeaderNoAuth;
+export default HeaderNavNoAuth;

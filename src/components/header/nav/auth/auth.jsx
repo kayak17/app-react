@@ -5,7 +5,7 @@ import CustomNavItem from '~/components/custom-react-bootstrap/nav-item/nav-item
 import { getAuthInfo, logout } from '~/modules/user';
 import { APP_DEFAULT_AVATAR, AppRoutes, AppTitles } from '~/constants';
 
-const NavHeaderAuth = () => {
+const HeaderNavAuth = () => {
   const authInfo = useSelector(getAuthInfo, shallowEqual);
   const dispatch = useDispatch();
 
@@ -54,4 +54,4 @@ const NavHeaderAuth = () => {
   );
 };
 
-export default NavHeaderAuth;
+export default HeaderNavAuth;

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoutes, AppTitles } from '~/constants';
 
-const LogoHeaderActive = () => {
+const HeaderLogoActive = () => {
   return (
     <Link
       className="app-subtitle d-flex align-items-center mb-0 me-auto text-dark text-decoration-none"
@@ -12,4 +12,4 @@ const LogoHeaderActive = () => {
   );
 };
 
-export default LogoHeaderActive;
+export default HeaderLogoActive;

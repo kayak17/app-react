@@ -1,6 +1,6 @@
 import { AppTitles } from '~/constants';
 
-const LogoHeaderInactive = () => {
+const HeaderLogoInactive = () => {
   return (
     <a
       className="app-subtitle pe-none d-flex align-items-center mb-0 me-auto text-dark text-decoration-none"
@@ -11,4 +11,4 @@ const LogoHeaderInactive = () => {
   );
 };
 
-export default LogoHeaderInactive;
+export default HeaderLogoInactive;
