@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CitiesList from '~/components/cities/list/list';
 import CitiesListEmpty from '~/components/cities/list-empty/list-empty';
 import PlacesWrapper from '~/components/places/wrapper/wrapper';
+import { citiesPropTypes, offersReducerPropTypes } from '~/prop-types';
 import { AppSRTitles } from '~/constants';
 import { throwErrorToBoundary } from '~/utils';
 import './content.less';
@@ -59,8 +60,8 @@ const PageMainContent = ({
 };
 
 PageMainContent.propTypes = {
-  cities: PropTypes.array.isRequired,
-  offersReducer: PropTypes.object.isRequired,
+  cities: citiesPropTypes,
+  offersReducer: offersReducerPropTypes,
   isCitiesError: PropTypes.bool.isRequired,
   isCitiesLoaded: PropTypes.bool.isRequired,
   isOffersLoading: PropTypes.bool.isRequired,
