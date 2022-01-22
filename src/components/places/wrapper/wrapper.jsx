@@ -1,6 +1,7 @@
 import OffersList from '~/components/offer/list/list';
-import { OfferTitles } from '~/constants';
+import { AppSRTitles, OfferTitles } from '~/constants';
 import { offersReducerPropTypes } from '~/prop-types';
+import '../places.less';
 
 const PlacesWrapper = ({ offersReducer }) => {
   const activeCityName = offersReducer.activeCityName;
@@ -16,18 +17,26 @@ const PlacesWrapper = ({ offersReducer }) => {
   };
 
   return (
-    <>
-      <h2 className="mt-2 mb-3 app-subtitle">
-        {getTitle()}
-      </h2>
-      {data.length ? (
-        <OffersList
-          offers={data}
-        />
-      ) : (
-        null
-      )}
-    </>
+    <div className="row mx-0 mb-3">
+      <h1 className="visually-hidden">
+        {AppSRTitles.MAIN_PAGE_PLACES}
+      </h1>
+      <section className="col-6 text-center overflow-auto places-container">
+        <h2 className="mt-2 mb-3 app-subtitle">
+          {getTitle()}
+        </h2>
+        {data.length ? (
+          <OffersList
+            offers={data}
+          />
+        ) : (
+          null
+        )}
+      </section>
+      <section className="col-6 text-center bg-light places-map-container">
+
+      </section>
+    </div>
   );
 };
 
