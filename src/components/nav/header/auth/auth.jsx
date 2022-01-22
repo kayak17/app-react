@@ -26,33 +26,31 @@ const NavHeaderAuth = () => {
   };
 
   return (
-    <>
-      <NavDropdown
-        align="end"
-        bsPrefix="app-dropdown-toggle link-dark nav-link px-0"
-        id="header-nav-dropdown"
-        title={
-          <span>
-            <img
-              className="rounded-circle px-1"
-              src={avatar}
-              alt="avatar"
-              width="32"
-              height="32"
-            />
-            {email}
-          </span>
-        }
-      >
-        <NavDropdown.Item as={NavLink} to={AppRoutes.FAVORITES}>
-          <span>{AppTitles.FAVORITES}</span>
-        </NavDropdown.Item>
-        <NavDropdown.Divider />
-        <NavDropdown.Item as={CustomNavItem} onClick={onLogoutClick}>
-          <span>{AppTitles.LOGOUT}</span>
-        </NavDropdown.Item>
-      </NavDropdown>
-    </>
+    <NavDropdown
+      align="end"
+      bsPrefix="app-dropdown-toggle link-dark nav-link px-0"
+      id="header-nav-dropdown"
+      title={
+        <span>
+          <img
+            className="rounded-circle px-1"
+            src={avatar}
+            alt="avatar"
+            width="32"
+            height="32"
+          />
+          {email}
+        </span>
+      }
+    >
+      <NavDropdown.Item as={NavLink} to={AppRoutes.FAVORITES}>
+        <span>{AppTitles.FAVORITES}</span>
+      </NavDropdown.Item>
+      <NavDropdown.Divider />
+      <NavDropdown.Item as={CustomNavItem} onClick={onLogoutClick}>
+        <span>{AppTitles.LOGOUT}</span>
+      </NavDropdown.Item>
+    </NavDropdown>
   );
 };
 
