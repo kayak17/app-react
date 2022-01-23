@@ -3,12 +3,12 @@ import { getEmptyArray } from '~/utils';
 import '../places.less';
 
 const PlacesWrapperPlaceholder = () => {
-  const dataArray = getEmptyArray(3);
+  const dataArray = getEmptyArray(7);
 
   return (
-    <div className="row mx-0 mb-3" aria-hidden="true">
+    <div className="row mt-1 mb-3 mx-0" aria-hidden="true">
       <section className="col-6 text-center overflow-auto places-container placeholder-glow">
-        <h2 className="mt-2 mb-3 app-subtitle placeholder bg-secondary col-6"></h2>
+        <h2 className="my-3 app-subtitle placeholder bg-secondary col-6"></h2>
         <OffersListPlaceholder offers={dataArray} />
       </section>
       <section className="col-6 text-center bg-light places-map-container">
