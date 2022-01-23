@@ -31,12 +31,13 @@ const CitiesList = ({ cities }) => {
 
   return (
     <nav className="py-3 border-bottom">
-      <ul className="list-unstyled px-0 mb-0 d-flex flex-wrap justify-content-evenly">
+      <ul className="d-flex flex-wrap justify-content-evenly px-0 mb-0 list-unstyled">
         {cities.map((city) => (
           <li key={city.id}>
             <a
-              className={clsx('btn app-skewed-neg-15',
-                { 'btn-primary': activeCityName === city.name }
+              className={clsx('btn app-skewed-neg-15 fs-5-3',
+                { 'btn-primary': activeCityName === city.name },
+                { 'app-link-opacity': activeCityName !== city.name }
               )}
               href={getLocationLinkByCityId(city.id)}
               onClick={(evt) => onLocationClick(evt, city)}
