@@ -3,6 +3,7 @@
 @primary-color: #4481c3;
 @primary-color-hover: #3872b1;
 @primary-color-active: #2e65a1;
+@transition-time: 0.3s;
 
 html,
 body {
@@ -10,6 +11,15 @@ body {
   min-width: 1140px;
   margin: 0;
   padding: 0;
+}
+
+a.app-link-opacity {
+  color: inherit;
+  transition: color @transition-time, opacity @transition-time;
+}
+
+a.app-link-opacity:hover {
+  opacity: 0.7;
 }
 
 .btn-primary {
@@ -154,4 +164,32 @@ body {
 
 .page-form {
   width: 450px;
+}
+
+.fs-5-1 {
+  font-size: 1.2rem;
+}
+
+.fs-5-2 {
+  font-size: 1.15rem;
+}
+
+.fs-5-3 {
+  font-size: 1.1rem;
+}
+
+.fs-5-4 {
+  font-size: 1.05rem;
+}
+
+.fs-6-1 {
+  font-size: 0.95rem;
+}
+
+.fs-6-2 {
+  font-size: 0.9rem;
+}
+
+.fs-6-3 {
+  font-size: 0.85rem;
 }

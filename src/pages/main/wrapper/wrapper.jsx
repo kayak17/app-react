@@ -11,7 +11,7 @@ import usePrevious from '~/hooks/use-previous/use-previous';
 import MainLayout from '~/layouts/main/main';
 import { getActiveCityId, getActiveCityName, setActiveCity } from '~/modules/main';
 import { APIRoutes, AppActionTypes, FetchingStatuses } from '~/constants';
-import { getOffersURLByCityId, getUnknownActionTypeMsg } from '~/utils';
+import { getOffersURL, getUnknownActionTypeMsg } from '~/utils';
 
 const PageMain = lazy(() => import('../content/content'));
 
@@ -26,7 +26,7 @@ const PageMainWrapper = ({ setIsLoading }) => {
   const activeCityName = useSelector(getActiveCityName);
   const [cities, setCities] = useState([]);
 
-  const offersURL = getOffersURLByCityId(activeCityId);
+  const offersURL = getOffersURL(activeCityId);
   const prevOffersURL = usePrevious(offersURL);
 
   const initialState = {
@@ -81,7 +81,7 @@ const PageMainWrapper = ({ setIsLoading }) => {
       const newActiveCityId = newActiveCity.id;
 
       dispatch(setActiveCity(newActiveCity));
-      fetchOffers(getOffersURLByCityId(newActiveCityId));
+      fetchOffers(getOffersURL(newActiveCityId));
     },
     onFail: () => {
       setIsLoading(false);

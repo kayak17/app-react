@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import Header from '~/components/header/header';
+import HeaderWrapper from '~/components/header/wrapper/wrapper';
 
 const CommonLayout = ({ children }) => {
   return (
     <>
-      <Header />
+      <HeaderWrapper />
       <main className="container-xl px-0">
         {children}
       </main>

@@ -5,6 +5,10 @@ import {
   ToastTypes,
 } from '~/constants';
 
+export const getEmptyArray = (arrLength) => (
+  new Array(arrLength).fill(undefined)
+);
+
 export const getToastSetting = ({
   position = 'bottom-center',
   toastType = ToastTypes.DEFAULT,

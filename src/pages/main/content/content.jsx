@@ -1,11 +1,11 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import CitiesList from '~/components/cities/list/list';
-import CitiesListEmpty from '~/components/cities/list-empty/list-empty';
+import CitiesListPlaceholder from '~/components/cities/list-placeholder/list-placeholder';
 import PlacesWrapper from '~/components/places/wrapper/wrapper';
-import { AppSRTitles } from '~/constants';
+import PlacesWrapperPlaceholder from '~/components/places/wrapper-placeholder/wrapper-placeholder';
+import { citiesPropTypes, offersReducerPropTypes } from '~/prop-types';
 import { throwErrorToBoundary } from '~/utils';
-import './content.less';
 
 const PageMainContent = ({
   cities,
@@ -20,30 +20,22 @@ const PageMainContent = ({
     if (isCitiesLoaded) {
       return <CitiesList cities={cities} />;
     } else {
-      return <CitiesListEmpty />;
+      return <CitiesListPlaceholder />;
     }
   };
 
   const getPlacesMarkup = () => {
     if (!isCitiesError && isOffersLoading) {
-      return null;
+      return (
+        <PlacesWrapperPlaceholder />
+      );
     } else if (isCitiesError || isOffersError) {
       throwErrorToBoundary();
     } else if (isOffersLoaded) {
       return (
-        <div className="row mx-0 mb-3">
-          <h1 className="visually-hidden">
-            {AppSRTitles.MAIN_PAGE_PLACES}
-          </h1>
-          <section className="col-6 text-center overflow-auto places-container">
-            <PlacesWrapper
-              offersReducer={offersReducer}
-            />
-          </section>
-          <section className="col-6 text-center bg-light places-map-container">
-
-          </section>
-        </div>
+        <PlacesWrapper
+          offersReducer={offersReducer}
+        />
       );
     } else {
       return null;
@@ -59,8 +51,8 @@ const PageMainContent = ({
 };
 
 PageMainContent.propTypes = {
-  cities: PropTypes.array.isRequired,
-  offersReducer: PropTypes.object.isRequired,
+  cities: citiesPropTypes,
+  offersReducer: offersReducerPropTypes,
   isCitiesError: PropTypes.bool.isRequired,
   isCitiesLoaded: PropTypes.bool.isRequired,
   isOffersLoading: PropTypes.bool.isRequired,
