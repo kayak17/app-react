@@ -7,7 +7,8 @@ import {
   offerPropTypes,
 } from '~/prop-types';
 import {
-  getOfferPriceTitle,
+  getOfferCurrency,
+  getOfferPricePeriod,
 } from '~/utils';
 import '../offer.less';
 
@@ -20,11 +21,11 @@ const OfferCard = ({
   return (
     <li className="col mb-3">
       <article className="card border-light text-start">
-        <div className="row g-0">
-          <div className="col-6">
-            <div className="bg-light h-100 rounded-start position-relative">
+        <div className="d-flex">
+          <div className="offer-card-img-wrapper">
+            <div className="position-relative bg-light rounded-start">
               {offer.wifi && (
-                <span className="position-absolute top-0 start-0 badge app-skewed-neg-15 bg-primary">
+                <span className="position-absolute top-0 start-0 badge bg-primary app-skewed-neg-15 offer-card-badge">
                   <span>{OfferTitles.FREE_WI_FI}</span>
                 </span>
               )}
@@ -33,29 +34,34 @@ const OfferCard = ({
                 to={offerLink}
               >
                 <img
-                  className="img-fluid offer-card-img"
+                  className="img-fluid rounded offer-card-img"
                   src={offer.image}
                   alt={OfferTitles.PLACE_IMAGE}
                 />
               </NavLink>
             </div>
           </div>
-          <div className="col-6">
+          <div>
             <div className="card-body px-3 py-1">
-              <div className="card-title mb-1">
-                <b className="offer-card-price">
-                  {getOfferPriceTitle(offer.price)}
+              <div className="card-text mb-1">
+                <b className="fs-5-4">
+                  {getOfferCurrency()}&nbsp;{offer.price}
                 </b>
+                <span className="fs-6-3">
+                  &nbsp;{getOfferPricePeriod()}
+                </span>
               </div>
-              <h6 className="card-text mb-1">
+              <h6 className="card-title mb-1">
                 <NavLink
-                  className="text-dark text-decoration-none offer-card-title app-subtitle"
+                  className="text-dark text-decoration-none app-link-opacity app-subtitle fs-5-3"
                   to={offerLink}
                 >
                   {offer.title}
                 </NavLink>
               </h6>
-              <p className="card-text"><small className="text-muted fs-6">{offer.type}</small></p>
+              <p className="card-text">
+                <small className="text-muted fs-6-1">{offer.type}</small>
+              </p>
             </div>
           </div>
         </div>
