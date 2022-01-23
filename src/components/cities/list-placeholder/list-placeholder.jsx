@@ -7,11 +7,11 @@ const CitiesListPlaceholder = () => {
 
   return (
     <nav className="py-3 border-bottom" aria-hidden="true">
-      <ul className="list-unstyled px-0 mb-0 d-flex flex-wrap justify-content-evenly">
+      <ul className="d-flex flex-wrap justify-content-evenly px-0 mb-0 list-unstyled">
         {cityArray.map((_, idx) => (
           <li className="placeholder-glow" key={idx}>
             <a
-              className={clsx('btn app-skewed-neg-15 disabled placeholder col-6 cities-list-empty-btn', {
+              className={clsx('col-6 btn disabled placeholder app-skewed-neg-15 cities-list-empty-btn fs-5-3', {
                 'btn-primary': idx === 0,
                 'btn-secondary': idx !== 0,
               })}
