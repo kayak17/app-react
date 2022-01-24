@@ -27,7 +27,13 @@ a.app-link-opacity:hover {
   border-color: @primary-color;
 }
 
-.btn-check:focus + .btn-primary,
+.btn-primary.active,
+.btn-primary:active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: @primary-color-active;
+  border-color: @primary-color-active;
+}
+
 .btn-primary:focus,
 .btn-primary:hover {
   background-color: @primary-color-hover;
@@ -35,12 +41,14 @@ a.app-link-opacity:hover {
 }
 
 .btn-check:active + .btn-primary,
-.btn-check:checked + .btn-primary,
-.btn-primary.active,
-.btn-primary:active,
-.show > .btn-primary.dropdown-toggle {
+.btn-check:checked + .btn-primary {
   background-color: @primary-color-active;
   border-color: @primary-color-active;
+}
+
+.btn-check:focus + .btn-primary {
+  background-color: @primary-color-hover;
+  border-color: @primary-color-hover;
 }
 
 .app-font {
