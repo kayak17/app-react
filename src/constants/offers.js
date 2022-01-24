@@ -8,6 +8,10 @@ export const OfferTitles = {
   PLACES_TO_STAY_IN: ' places to stay in ',
 };
 
+export const OfferSrTitles = {
+  RATING: 'Rating',
+};
+
 export const OfferStyleTypes = {
   ROW: 'row',
   COLUMN: 'column',
