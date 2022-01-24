@@ -11,3 +11,5 @@ export const SortingTypes = {
   [SortingTypeNames.TO_LOW]: 'Price: high to low',
   [SortingTypeNames.TOP_RATED]: 'Top rated first',
 };
+
+export const SORTING_TITLE = 'Sort by';
