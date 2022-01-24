@@ -1,4 +1,6 @@
 @bgr-primary-color: #f3f3f3;
+@btn-light-active-bgr-color: #e4e5e5;
+@btn-light-active-border-color: #d2d6d9;
 @error-color: #ff4500;
 @primary-color: #4481c3;
 @primary-color-hover: #3872b1;
@@ -50,6 +52,19 @@ a.app-hover-opacity:hover {
   border-color: @primary-color-hover;
 }
 
+.btn-light.active,
+.btn-light:active,
+.btn-light:focus,
+.btn-light:hover {
+  background-color: @btn-light-active-bgr-color;
+  border-color: @btn-light-active-border-color;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: @primary-color;
+}
+
 .app-font {
   font-style: italic;
   font-weight: bold;
@@ -72,13 +87,22 @@ a.app-hover-opacity:hover {
   cursor: initial;
 }
 
-.app-dropdown-toggle::after {
+.app-dropdown-toggle-mixin {
   content: "▼";
   display: inline-block;
   vertical-align: baseline;
   margin-left: 0.3em;
-  font-size: 0.7rem;
   border: none;
+}
+
+.app-dropdown-toggle::after {
+  font-size: 0.7rem;
+  .app-dropdown-toggle-mixin;
+}
+
+.app-dropdown-toggle-sm::after {
+  font-size: 0.55rem;
+  .app-dropdown-toggle-mixin;
 }
 
 .app-full-viewport {
