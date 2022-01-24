@@ -7,4 +7,5 @@ export * from './modals';
 export * from './modules';
 export * from './offers';
 export * from './routes';
+export * from './sorting';
 export * from './titles';
