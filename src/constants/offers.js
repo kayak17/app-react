@@ -4,3 +4,13 @@ export const OfferTitles = {
   PLACE_IMAGE: 'Place image',
   PLACES_TO_STAY_IN: ' places to stay in ',
 };
+
+export const OfferStyleTypes = {
+  ROW: 'row',
+  COLUMN: 'column',
+};
+
+export const OfferClassesTypes = {
+  [OfferStyleTypes.ROW]: 'MAIN',
+  [OfferStyleTypes.COLUMN]: 'ROOM',
+};
