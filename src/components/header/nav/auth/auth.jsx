@@ -28,16 +28,16 @@ const HeaderNavAuth = () => {
   return (
     <NavDropdown
       align="end"
-      bsPrefix="app-dropdown-toggle app-link-opacity link-dark nav-link px-0"
+      bsPrefix="app-dropdown-toggle app-hover-opacity app-trasition link-dark nav-link px-0"
       id="header-nav-dropdown"
       title={
         <span>
           <img
             className="rounded-circle px-1"
-            src={avatar}
             alt="user avatar"
             width="32"
             height="32"
+            src={avatar}
           />
           {email}
         </span>

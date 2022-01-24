@@ -1,9 +1,10 @@
 import clsx from 'clsx';
+import { CITIES_COUNT_PLACEHOLDER } from '~/constants';
 import { getEmptyArray } from '~/utils';
 import './list-placeholder.less';
 
 const CitiesListPlaceholder = () => {
-  const cityArray = getEmptyArray(5);
+  const cityArray = getEmptyArray(CITIES_COUNT_PLACEHOLDER);
 
   return (
     <nav className="py-3 border-bottom" aria-hidden="true">

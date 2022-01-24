@@ -37,7 +37,7 @@ const CitiesList = ({ cities }) => {
             <a
               className={clsx('btn app-skewed-neg-15 fs-5-3',
                 { 'btn-primary': activeCityName === city.name },
-                { 'app-link-opacity': activeCityName !== city.name }
+                { 'app-hover-opacity': activeCityName !== city.name }
               )}
               href={getLocationLinkByCityId(city.id)}
               onClick={(evt) => onLocationClick(evt, city)}

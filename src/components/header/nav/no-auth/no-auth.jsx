@@ -9,7 +9,7 @@ const HeaderNavNoAuth = () => {
     <ul className="nav">
       <li className="nav-item">
         <a
-          className="px-1 nav-link link-dark app-link-opacity"
+          className="px-1 nav-link link-dark app-hover-opacity app-trasition"
           href={AppRoutes.LOGIN}
           data-modal={ModalIds.LOGIN}
           onClick={handleClick}
@@ -22,7 +22,7 @@ const HeaderNavNoAuth = () => {
       </li>
       <li className="nav-item">
         <a
-          className="px-1 nav-link link-dark app-link-opacity"
+          className="px-1 nav-link link-dark app-hover-opacity app-trasition"
           href={AppRoutes.SIGNUP}
           data-modal={ModalIds.SIGNUP}
           onClick={handleClick}

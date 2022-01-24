@@ -1,4 +1,6 @@
 @bgr-primary-color: #f3f3f3;
+@btn-light-active-bgr-color: #e4e5e5;
+@btn-light-active-border-color: #d2d6d9;
 @error-color: #ff4500;
 @primary-color: #4481c3;
 @primary-color-hover: #3872b1;
@@ -13,13 +15,16 @@ body {
   padding: 0;
 }
 
-a.app-link-opacity {
-  color: inherit;
+a.app-trasition {
   transition: color @transition-time, opacity @transition-time;
 }
 
-a.app-link-opacity:hover {
+a.app-hover-opacity:hover {
   opacity: 0.7;
+}
+
+.bg-primary {
+  background-color: @primary-color !important;
 }
 
 .btn-primary {
@@ -27,7 +32,13 @@ a.app-link-opacity:hover {
   border-color: @primary-color;
 }
 
-.btn-check:focus + .btn-primary,
+.btn-primary.active,
+.btn-primary:active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: @primary-color-active;
+  border-color: @primary-color-active;
+}
+
 .btn-primary:focus,
 .btn-primary:hover {
   background-color: @primary-color-hover;
@@ -35,12 +46,27 @@ a.app-link-opacity:hover {
 }
 
 .btn-check:active + .btn-primary,
-.btn-check:checked + .btn-primary,
-.btn-primary.active,
-.btn-primary:active,
-.show > .btn-primary.dropdown-toggle {
+.btn-check:checked + .btn-primary {
   background-color: @primary-color-active;
   border-color: @primary-color-active;
+}
+
+.btn-check:focus + .btn-primary {
+  background-color: @primary-color-hover;
+  border-color: @primary-color-hover;
+}
+
+.btn-light.active,
+.btn-light:active,
+.btn-light:focus,
+.btn-light:hover {
+  background-color: @btn-light-active-bgr-color;
+  border-color: @btn-light-active-border-color;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: @primary-color;
 }
 
 .app-font {
@@ -65,13 +91,22 @@ a.app-link-opacity:hover {
   cursor: initial;
 }
 
-.app-dropdown-toggle::after {
+.app-dropdown-toggle-mixin {
   content: "▼";
   display: inline-block;
   vertical-align: baseline;
   margin-left: 0.3em;
-  font-size: 0.7rem;
   border: none;
+}
+
+.app-dropdown-toggle::after {
+  font-size: 0.7rem;
+  .app-dropdown-toggle-mixin;
+}
+
+.app-dropdown-toggle-sm::after {
+  font-size: 0.55rem;
+  .app-dropdown-toggle-mixin;
 }
 
 .app-full-viewport {

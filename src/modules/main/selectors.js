@@ -11,3 +11,6 @@ export const getActiveCityId = (state) => (
 export const getActiveCityName = (state) => (
   state[MAIN].activeCity && state[MAIN].activeCity.name
 );
+
+export const getOffersListType = (state) => state[MAIN].offersListType;
+export const getSortingType = (state) => state[MAIN].sortingType;

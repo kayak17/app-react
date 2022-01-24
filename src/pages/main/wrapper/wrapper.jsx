@@ -9,7 +9,7 @@ import withSpinner from '~/hocs/with-spinner/with-spinner';
 import useFetchCached from '~/hooks/use-fetch-cached/use-fetch-cached';
 import usePrevious from '~/hooks/use-previous/use-previous';
 import MainLayout from '~/layouts/main/main';
-import { getActiveCityId, getActiveCityName, setActiveCity } from '~/modules/main';
+import { getActiveCityId, getActiveCityName, getSortingType, setActiveCity } from '~/modules/main';
 import { APIRoutes, AppActionTypes, FetchingStatuses } from '~/constants';
 import { getOffersURL, getUnknownActionTypeMsg } from '~/utils';
 
@@ -24,9 +24,10 @@ const PageMainWrapper = ({ setIsLoading }) => {
   const cityId = params.get('city.id');
   const activeCityId = useSelector(getActiveCityId);
   const activeCityName = useSelector(getActiveCityName);
+  const sortingType = useSelector(getSortingType);
   const [cities, setCities] = useState([]);
 
-  const offersURL = getOffersURL(activeCityId);
+  const offersURL = getOffersURL(activeCityId, sortingType);
   const prevOffersURL = usePrevious(offersURL);
 
   const initialState = {
@@ -81,7 +82,7 @@ const PageMainWrapper = ({ setIsLoading }) => {
       const newActiveCityId = newActiveCity.id;
 
       dispatch(setActiveCity(newActiveCity));
-      fetchOffers(getOffersURL(newActiveCityId));
+      fetchOffers(getOffersURL(newActiveCityId, sortingType));
     },
     onFail: () => {
       setIsLoading(false);

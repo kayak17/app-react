@@ -1,0 +1,1 @@
+export const CITIES_COUNT_PLACEHOLDER = 5;

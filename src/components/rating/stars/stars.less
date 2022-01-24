@@ -1,0 +1,53 @@
+.rating {
+  display: flex;
+  align-items: center;
+  min-height: 1.4em;
+}
+
+.rating-stars {
+  position: relative;
+  display: block;
+  font-size: 0;
+}
+
+.rating-stars::before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  background: url("./img/stars.svg") transparent no-repeat center;
+}
+
+.rating-stars span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  height: 100%;
+  overflow: hidden;
+}
+
+.rating-stars span::before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  background: url("./img/stars-active.svg") transparent no-repeat center;
+}
+
+.offer-card-stars {
+  width: 73px;
+  height: 12px;
+}
+
+.offer-card-stars::before {
+  width: 73px;
+  background-size: 73px 12px;
+}
+
+.offer-card-stars span {
+  width: 0%;
+}
+
+.offer-card-stars span::before {
+  width: 73px;
+  background-size: 73px 12px;
+}
