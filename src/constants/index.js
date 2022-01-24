@@ -1,4 +1,5 @@
 export * from './app';
+export * from './cities';
 export * from './forms';
 export * from './markup';
 export * from './messages';
