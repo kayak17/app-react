@@ -12,6 +12,7 @@ export const AppActionTypes = {
 
 export const AppReducers = {
   MAIN: 'MAIN',
+  OFFERS_MAP: 'OFFERS_MAP',
   PROCESS: 'PROCESS',
   USER: 'USER',
 };
