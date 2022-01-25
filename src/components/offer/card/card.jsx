@@ -36,7 +36,7 @@ const OfferCard = ({
                 </span>
               )}
               <NavLink
-                className="d-flex justify-content-center align-items-center"
+                className="d-flex justify-content-center align-items-center text-center"
                 to={offerLink}
               >
                 <img
@@ -45,6 +45,7 @@ const OfferCard = ({
                   width={OfferImgShapes[offerType].width}
                   height={OfferImgShapes[offerType].height}
                   src={offer.image}
+                  loading="lazy"
                 />
               </NavLink>
             </div>
