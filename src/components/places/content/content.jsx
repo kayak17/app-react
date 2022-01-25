@@ -9,7 +9,7 @@ import {
 } from '~/constants';
 import { offersReducerPropTypes } from '~/prop-types';
 
-const PlacesWrapper = ({ offersReducer }) => {
+const PlacesContent = ({ offersReducer }) => {
   const activeCityName = offersReducer.activeCityName;
   const totalCount = offersReducer.totalCount;
   const offers = offersReducer.data;
@@ -44,8 +44,8 @@ const PlacesWrapper = ({ offersReducer }) => {
   );
 };
 
-PlacesWrapper.propTypes = {
+PlacesContent.propTypes = {
   offersReducer: offersReducerPropTypes,
 };
 
-export default PlacesWrapper;
+export default PlacesContent;

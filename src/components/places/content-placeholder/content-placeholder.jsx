@@ -8,7 +8,7 @@ import {
 } from '~/constants';
 import { getEmptyArray } from '~/utils';
 
-const PlacesWrapperPlaceholder = () => {
+const PlacesContentPlaceholder = () => {
   const dataArray = getEmptyArray(OFFERS_LIMIT_PER_PAGE);
   const offersListType = useSelector(getOffersListType) ||
     InitialModulesValues.OFFERS_LIST_TYPE;
@@ -28,4 +28,4 @@ const PlacesWrapperPlaceholder = () => {
   );
 };
 
-export default PlacesWrapperPlaceholder;
+export default PlacesContentPlaceholder;

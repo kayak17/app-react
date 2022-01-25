@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import CitiesList from '~/components/cities/list/list';
 import CitiesListPlaceholder from '~/components/cities/list-placeholder/list-placeholder';
 import OffersMap from '~/components/offer/map/map';
-import PlacesWrapper from '~/components/places/wrapper/wrapper';
-import PlacesWrapperPlaceholder from '~/components/places/wrapper-placeholder/wrapper-placeholder';
+import PlacesContent from '~/components/places/content/content';
+import PlacesContentPlaceholder from '~/components/places/content-placeholder/content-placeholder';
 import { AppSRTitles } from '~/constants';
 import { citiesPropTypes, offersPropTypes, offersReducerPropTypes } from '~/prop-types';
 import { throwErrorToBoundary } from '~/utils';
@@ -31,13 +31,13 @@ const PageMainContent = ({
   const getPlacesMarkup = () => {
     if (!isCitiesError && isOffersLoading) {
       return (
-        <PlacesWrapperPlaceholder />
+        <PlacesContentPlaceholder />
       );
     } else if (isCitiesError || isOffersError) {
       throwErrorToBoundary();
     } else if (isOffersLoaded) {
       return (
-        <PlacesWrapper
+        <PlacesContent
           offersReducer={offersReducer}
         />
       );
