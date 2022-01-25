@@ -1,20 +1,13 @@
-import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import OffersList from '~/components/offer/list/list';
 import FormFilters from '../form-filters/form-filters';
-import { getOffersListType } from '~/modules/main';
-import {
-  InitialModulesValues,
-  OfferClassesTypes,
-  OfferTitles,
-} from '~/constants';
+import { OfferClassesTypes, OfferTitles } from '~/constants';
 import { offersReducerPropTypes } from '~/prop-types';
 
-const PlacesContent = ({ offersReducer }) => {
+const PlacesContent = ({ offersReducer, offersListType }) => {
   const activeCityName = offersReducer.activeCityName;
   const totalCount = offersReducer.totalCount;
   const offers = offersReducer.data;
-  const offersListType = useSelector(getOffersListType) ||
-    InitialModulesValues.OFFERS_LIST_TYPE;
 
   const getTitle = () => {
     if (offers.length) {
@@ -46,6 +39,7 @@ const PlacesContent = ({ offersReducer }) => {
 
 PlacesContent.propTypes = {
   offersReducer: offersReducerPropTypes,
+  offersListType: PropTypes.string.isRequired,
 };
 
 export default PlacesContent;
