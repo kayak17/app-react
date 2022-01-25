@@ -11,7 +11,7 @@ import usePrevious from '~/hooks/use-previous/use-previous';
 import MainLayout from '~/layouts/main/main';
 import { getActiveCityId, getActiveCityName, getSortingType, setActiveCity } from '~/modules/main';
 import { APIRoutes, AppActionTypes, FetchingStatuses } from '~/constants';
-import { getOffersURL, getUnknownActionTypeMsg } from '~/utils';
+import { getOffersURL, getOffersMapURL, getUnknownActionTypeMsg } from '~/utils';
 
 const PageMain = lazy(() => import('../content/content'));
 
@@ -26,9 +26,12 @@ const PageMainWrapper = ({ setIsLoading }) => {
   const activeCityName = useSelector(getActiveCityName);
   const sortingType = useSelector(getSortingType);
   const [cities, setCities] = useState([]);
+  const [offersMap, setOffersMap] = useState([]);
 
   const offersURL = getOffersURL(activeCityId, sortingType);
   const prevOffersURL = usePrevious(offersURL);
+  const offersMapURL = getOffersMapURL(activeCityId);
+  const prevOffersMapURL = usePrevious(offersMapURL);
 
   const initialState = {
     activeCityName: '',
@@ -83,6 +86,7 @@ const PageMainWrapper = ({ setIsLoading }) => {
 
       dispatch(setActiveCity(newActiveCity));
       fetchOffers(getOffersURL(newActiveCityId, sortingType));
+      fetchMapOffers(getOffersMapURL(newActiveCityId));
     },
     onFail: () => {
       setIsLoading(false);
@@ -103,6 +107,16 @@ const PageMainWrapper = ({ setIsLoading }) => {
     },
   });
 
+  const {
+    cache: cacheoffersMap,
+    state: stateOffersMap,
+    fetchData: fetchMapOffers,
+  } = useFetchCached({
+    onSuccess: (payload) => {
+      setOffersMap(payload.data);
+    },
+  });
+
   const isCitiesError = (
     stateCities.status === FetchingStatuses.ERROR
   );
@@ -118,6 +132,10 @@ const PageMainWrapper = ({ setIsLoading }) => {
   );
   const isOffersLoading = (
     !isOffersError && !isOffersLoaded
+  );
+
+  const isOffersMapLoaded = (
+    stateOffersMap.status === FetchingStatuses.LOADED
   );
 
   useEffect(() => {
@@ -145,11 +163,34 @@ const PageMainWrapper = ({ setIsLoading }) => {
     setIsLoading,
   ]);
 
+  useEffect(() => {
+    if (
+      isCitiesLoaded && isOffersMapLoaded &&
+      prevOffersMapURL !== offersMapURL
+    ) {
+      const payload = cacheoffersMap.current[offersMapURL];
+
+      if (isEmpty(payload)) {
+        fetchMapOffers(offersMapURL);
+      } else {
+        setOffersMap(payload.data);
+      }
+    }
+  }, [
+    cacheoffersMap,
+    fetchMapOffers,
+    isCitiesLoaded,
+    isOffersMapLoaded,
+    offersMapURL,
+    prevOffersMapURL,
+  ]);
+
   return (
     <MainLayout>
       <ErrorBoundary setIsLoading={setIsLoading}>
         <PageMain
           cities={cities}
+          offersMap={offersMap}
           offersReducer={offersReducer}
           isCitiesError={isCitiesError}
           isCitiesLoaded={isCitiesLoaded}
