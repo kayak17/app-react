@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import CitiesList from '~/components/cities/list/list';
 import CitiesListPlaceholder from '~/components/cities/list-placeholder/list-placeholder';
 import OffersMap from '~/components/offer/map/map';
-import PlacesContent from '~/components/places/content/content';
-import PlacesContentPlaceholder from '~/components/places/content-placeholder/content-placeholder';
+import PlacesWrapper from '~/components/places/wrapper/wrapper';
 import { AppSRTitles } from '~/constants';
 import { citiesPropTypes, offersPropTypes, offersReducerPropTypes } from '~/prop-types';
-import { throwErrorToBoundary } from '~/utils';
 import './content.less';
 
 const PageMainContent = ({
@@ -28,24 +26,6 @@ const PageMainContent = ({
     }
   };
 
-  const getPlacesMarkup = () => {
-    if (!isCitiesError && isOffersLoading) {
-      return (
-        <PlacesContentPlaceholder />
-      );
-    } else if (isCitiesError || isOffersError) {
-      throwErrorToBoundary();
-    } else if (isOffersLoaded) {
-      return (
-        <PlacesContent
-          offersReducer={offersReducer}
-        />
-      );
-    } else {
-      return null;
-    }
-  };
-
   return (
     <>
       {getCitiesMarkup()}
@@ -54,7 +34,13 @@ const PageMainContent = ({
           {AppSRTitles.MAIN_PAGE_PLACES}
         </h1>
         <section className="col-6 overflow-auto main-places-container">
-          {getPlacesMarkup()}
+          <PlacesWrapper
+            offersReducer={offersReducer}
+            isCitiesError={isCitiesError}
+            isOffersError={isOffersError}
+            isOffersLoading={isOffersLoading}
+            isOffersLoaded={isOffersLoaded}
+          />
         </section>
         <section className="col-6 g-0 main-map-container">
           <OffersMap
