@@ -1,17 +1,10 @@
-import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import OffersListPlaceholder from '~/components/offer/list-placeholder/list-placeholder';
-import { getOffersListType } from '~/modules/main';
-import {
-  InitialModulesValues,
-  OFFERS_LIMIT_PER_PAGE,
-  OfferClassesTypes,
-} from '~/constants';
+import { OFFERS_LIMIT_PER_PAGE, OfferClassesTypes } from '~/constants';
 import { getEmptyArray } from '~/utils';
 
-const PlacesContentPlaceholder = () => {
+const PlacesContentPlaceholder = ({ offersListType }) => {
   const dataArray = getEmptyArray(OFFERS_LIMIT_PER_PAGE);
-  const offersListType = useSelector(getOffersListType) ||
-    InitialModulesValues.OFFERS_LIST_TYPE;
 
   return (
     <div
@@ -26,6 +19,10 @@ const PlacesContentPlaceholder = () => {
       />
     </div>
   );
+};
+
+PlacesContentPlaceholder.propTypes = {
+  offersListType: PropTypes.string.isRequired,
 };
 
 export default PlacesContentPlaceholder;
