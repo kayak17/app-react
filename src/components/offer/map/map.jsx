@@ -20,6 +20,7 @@ import {
   MAP_PIN_ACTIVE_URL,
   MAP_TILE_LAYER,
   MAP_TILE_LAYER_ATTRIBUTION,
+  MAP_TOOLTIP_SETTING,
   MAP_ZOOM_DEFAULT,
   InitialModulesValues,
 } from '~/constants';
@@ -30,6 +31,9 @@ import {
   mapPinIdPropTypes,
   getItemOrNullPropTypes,
 } from '~/prop-types';
+import {
+  getMapTooltipMarkup,
+} from '~/utils';
 import 'leaflet/dist/leaflet.css';
 
 class OffersMap extends Component {
@@ -40,6 +44,7 @@ class OffersMap extends Component {
     this.markers = [];
     this.center = MAP_CENTER_DEFAULT;
     this.zoom = MAP_ZOOM_DEFAULT;
+    this.tooltipSettings = MAP_TOOLTIP_SETTING;
 
     this.icon = leaflet.icon({
       iconUrl: MAP_PIN_URL,
@@ -150,7 +155,11 @@ class OffersMap extends Component {
         .marker(coordinates, {
           icon: this._getOfferIcon(activeOfferId, activePinId, offerId)
         })
-        .addTo(this.map);
+        .addTo(this.map)
+        .bindTooltip(
+          getMapTooltipMarkup(offer),
+          this.tooltipSettings
+        );
 
       marker._offerId = offerId;
 
@@ -159,7 +168,7 @@ class OffersMap extends Component {
       });
 
       marker.on('mouseover', () => {
-        marker.setIcon(this.activeIcon);
+        marker.setIcon(this.activeIcon).openTooltip();
         setActivePinIdAction(offerId);
       });
 
