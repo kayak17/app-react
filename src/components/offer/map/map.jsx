@@ -32,6 +32,7 @@ import {
   getItemOrNullPropTypes,
 } from '~/prop-types';
 import {
+  getMapCenterAndZoom,
   getMapTooltipMarkup,
 } from '~/utils';
 import 'leaflet/dist/leaflet.css';
@@ -57,11 +58,16 @@ class OffersMap extends Component {
   }
 
   componentDidMount() {
-    const { offers } = this.props;
+    const {
+      offers,
+      activeCity,
+    } = this.props;
+
+    const { center, zoom } = getMapCenterAndZoom(activeCity);
 
     this.map = leaflet.map(MAP_ID, {
-      center: this.center,
-      zoom: this.zoom,
+      center,
+      zoom,
       marker: true,
     });
 
@@ -73,6 +79,12 @@ class OffersMap extends Component {
 
     if (offers.length) {
       this._addMarkers(offers);
+    }
+
+    if (!isEmpty(activeCity)) {
+      this.center = activeCity.coordinates;
+      this.zoom = activeCity.zoom;
+      this.map.flyTo(this.center, this.zoom);
     }
   }
 
