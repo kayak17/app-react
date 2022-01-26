@@ -1,9 +1,20 @@
 import { combineReducers } from 'redux';
-import { AppReducers } from '~/constants';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import main from './main';
 import offersMap from './offers-map';
 import process from './process';
 import user from './user';
+import { AppReducers, APP_LOCAL_STORAGE_NAME } from '~/constants';
+
+const persistConfig = {
+  key: APP_LOCAL_STORAGE_NAME,
+  storage,
+  whitelist: [
+    AppReducers.MAIN,
+    AppReducers.USER,
+  ],
+};
 
 const rootReducer = combineReducers({
   [AppReducers.MAIN]: main,
@@ -12,4 +23,4 @@ const rootReducer = combineReducers({
   [AppReducers.USER]: user,
 });
 
-export default rootReducer;
+export default persistReducer(persistConfig, rootReducer);
