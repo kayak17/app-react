@@ -8,6 +8,7 @@ import HeaderNavAuth from '../nav/auth/auth';
 import HeaderNavNoAuth from '../nav/no-auth/no-auth';
 import { getIsAuth } from '~/modules/user';
 import { AppRoutes } from '~/constants';
+import '../header.less';
 
 const HeaderWrapper = ({ themeClass }) => {
   const isMainRoute = useMatch(AppRoutes.MAIN);
@@ -15,8 +16,8 @@ const HeaderWrapper = ({ themeClass }) => {
 
   return (
     <div className={clsx('border-bottom', themeClass)}>
-      <header className="container-xl py-3">
-        <nav className="d-flex flex-wrap">
+      <header className="container-xl d-flex align-items-center py-3 app-header">
+        <nav className="d-flex flex-wrap w-100 app-header-nav">
           {isMainRoute ? <HeaderLogoInactive /> : <HeaderLogoActive />}
           {isAuth ? <HeaderNavAuth /> : <HeaderNavNoAuth />}
         </nav>
