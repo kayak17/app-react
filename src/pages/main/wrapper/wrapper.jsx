@@ -4,14 +4,28 @@ import { lazy, useCallback, useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import CitiesWrapper from '~/components/cities/wrapper/wrapper';
 import ErrorBoundary from '~/components/error-boundary/error-boundary';
 import withSpinner from '~/hocs/with-spinner/with-spinner';
 import useFetchCached from '~/hooks/use-fetch-cached/use-fetch-cached';
 import usePrevious from '~/hooks/use-previous/use-previous';
 import MainLayout from '~/layouts/main/main';
-import { getActiveCityId, getActiveCityName, getSortingType, setActiveCity } from '~/modules/main';
-import { APIRoutes, AppActionTypes, FetchingStatuses } from '~/constants';
-import { getOffersURL, getOffersMapURL, getUnknownActionTypeMsg } from '~/utils';
+import {
+  getActiveCityId,
+  getActiveCityName,
+  getSortingType,
+  setActiveCity,
+} from '~/modules/main';
+import {
+  APIRoutes,
+  AppActionTypes,
+  FetchingStatuses,
+} from '~/constants';
+import {
+  getOffersURL,
+  getOffersMapURL,
+  getUnknownActionTypeMsg,
+} from '~/utils';
 
 const PageMain = lazy(() => import('../content/content'));
 
@@ -22,6 +36,7 @@ const PageMainWrapper = ({ setIsLoading }) => {
 
   const params = new URLSearchParams(location.search);
   const cityId = params.get('city.id');
+
   const activeCityId = useSelector(getActiveCityId);
   const activeCityName = useSelector(getActiveCityName);
   const sortingType = useSelector(getSortingType);
@@ -188,16 +203,20 @@ const PageMainWrapper = ({ setIsLoading }) => {
   return (
     <MainLayout>
       <ErrorBoundary setIsLoading={setIsLoading}>
-        <PageMain
-          cities={cities}
-          offersMap={offersMap}
-          offersReducer={offersReducer}
-          isCitiesError={isCitiesError}
-          isCitiesLoaded={isCitiesLoaded}
-          isOffersLoading={isOffersLoading}
-          isOffersError={isOffersError}
-          isOffersLoaded={isOffersLoaded}
-        />
+        <>
+          <CitiesWrapper
+            cities={cities}
+            isCitiesLoaded={isCitiesLoaded}
+          />
+          <PageMain
+            offersMap={offersMap}
+            offersReducer={offersReducer}
+            isCitiesError={isCitiesError}
+            isOffersLoading={isOffersLoading}
+            isOffersError={isOffersError}
+            isOffersLoaded={isOffersLoaded}
+          />
+        </>
       </ErrorBoundary>
     </MainLayout>
   );
