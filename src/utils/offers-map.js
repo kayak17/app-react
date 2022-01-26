@@ -1,5 +1,4 @@
 import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isEqual';
 import {
   APIRoutes,
   AppQueryParamsLeading,
