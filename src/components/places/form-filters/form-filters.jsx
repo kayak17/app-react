@@ -41,7 +41,8 @@ const FormFilters = () => {
       <div className="d-flex">
         <b>{SORTING_TITLE}</b>
         <NavDropdown
-          bsPrefix="mx-2 px-0 py-0 nav-link link-dark app-dropdown-toggle-sm app-hover-opacity app-trasition"
+          bsPrefix="d-flex align-items-center mx-2 px-0 py-0 nav-link link-dark
+            app-dropdown-toggle-sm app-hover-opacity app-trasition"
           id="sorting-options-dropdown"
           title={<>{sorting}</>}
         >

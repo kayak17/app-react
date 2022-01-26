@@ -1,61 +1,48 @@
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import OffersList from '~/components/offer/list/list';
-import FormFilters from '../form-filters/form-filters';
+import PlacesContent from '~/components/places/content/content';
+import PlacesContentPlaceholder from '~/components/places/content-placeholder/content-placeholder';
 import { getOffersListType } from '~/modules/main';
-import {
-  AppSRTitles,
-  InitialModulesValues,
-  OfferClassesTypes,
-  OfferTitles,
-} from '~/constants';
+import { InitialModulesValues } from '~/constants';
 import { offersReducerPropTypes } from '~/prop-types';
-import '../places.less';
+import { throwErrorToBoundary } from '~/utils';
 
-const PlacesWrapper = ({ offersReducer }) => {
-  const activeCityName = offersReducer.activeCityName;
-  const totalCount = offersReducer.totalCount;
-  const data = offersReducer.data;
+const PlacesWrapper = ({
+  offersReducer,
+  isCitiesError,
+  isOffersError,
+  isOffersLoading,
+  isOffersLoaded,
+}) => {
   const offersListType = useSelector(getOffersListType) ||
     InitialModulesValues.OFFERS_LIST_TYPE;
 
-  const getTitle = () => {
-    if (data.length) {
-      return `${totalCount}${OfferTitles.PLACES_TO_STAY_IN}${activeCityName}`;
-    }
-
-    return `${OfferTitles.NO_PLACES_TO_STAY_IN}${activeCityName}`;
-  };
-
-  return (
-    <div className="row mx-0 mb-3">
-      <h1 className="visually-hidden">
-        {AppSRTitles.MAIN_PAGE_PLACES}
-      </h1>
-      <section className="col-6 text-center overflow-auto places-container">
-        <h2 className="px-5 my-3 app-subtitle">
-          {getTitle()}
-        </h2>
-        {data.length ? (
-          <>
-            <FormFilters />
-            <OffersList
-              offers={data}
-              offerType={OfferClassesTypes[offersListType]}
-            />
-          </>
-        ) : (
-          null
-        )}
-      </section>
-      <section className="col-6 bg-light text-center places-map-container">
-
-      </section>
-    </div>
-  );
+  if (!isCitiesError && isOffersLoading) {
+    return (
+      <PlacesContentPlaceholder
+        offersListType={offersListType}
+      />
+    );
+  } else if (isCitiesError || isOffersError) {
+    throwErrorToBoundary();
+  } else if (isOffersLoaded) {
+    return (
+      <PlacesContent
+        offersReducer={offersReducer}
+        offersListType={offersListType}
+      />
+    );
+  } else {
+    return null;
+  }
 };
 
 PlacesWrapper.propTypes = {
   offersReducer: offersReducerPropTypes,
+  isCitiesError: PropTypes.bool.isRequired,
+  isOffersError: PropTypes.bool.isRequired,
+  isOffersLoading: PropTypes.bool.isRequired,
+  isOffersLoaded: PropTypes.bool.isRequired,
 };
 
 export default PlacesWrapper;

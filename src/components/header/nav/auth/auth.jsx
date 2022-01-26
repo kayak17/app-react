@@ -4,6 +4,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import CustomNavItem from '~/components/custom-react-bootstrap/nav-item/nav-item';
 import { getAuthInfo, logout } from '~/modules/user';
 import { APP_DEFAULT_AVATAR, AppRoutes, AppTitles } from '~/constants';
+import './auth.less';
 
 const HeaderNavAuth = () => {
   const authInfo = useSelector(getAuthInfo, shallowEqual);
@@ -28,19 +29,20 @@ const HeaderNavAuth = () => {
   return (
     <NavDropdown
       align="end"
-      bsPrefix="app-dropdown-toggle app-hover-opacity app-trasition link-dark nav-link px-0"
+      bsPrefix="d-flex align-items-center p-0
+        nav-link link-dark app-dropdown-toggle app-hover-opacity app-trasition"
       id="header-nav-dropdown"
       title={
-        <span>
+        <>
           <img
-            className="rounded-circle px-1"
+            className="px-1 rounded-circle"
             alt="user avatar"
             width="32"
             height="32"
             src={avatar}
           />
-          {email}
-        </span>
+          <span className="app-header-nav-email">{email}</span>
+        </>
       }
     >
       <NavDropdown.Item as={NavLink} to={AppRoutes.FAVORITES}>
