@@ -1,4 +1,5 @@
 export const APP_DEFAULT_AVATAR = 'img/icon-avatar.svg';
+export const APP_LOCAL_STORAGE_NAME = 'myAppRoot';
 
 export const AppActionTypes = {
   ERROR: 'ERROR',
