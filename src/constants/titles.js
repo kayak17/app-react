@@ -12,4 +12,5 @@ export const AppTitles = {
   LOGO_TITLE: 'Flat Booking',
   NO_TITLE_EXIST: '...',
   SIGNUP: 'Sign up',
+  USER_AVATAR: 'User avatar',
 };
