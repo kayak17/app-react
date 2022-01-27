@@ -4,12 +4,12 @@ import PrivateRoute from '../private-route/private-route';
 import withLazy from '~/hocs/with-lazy/with-lazy';
 import withModal from '~/hocs/with-modal/with-modal';
 import withToaster from '~/hocs/with-toaster/with-toaster';
-import PageFavorites from '~/pages/favorites/wrapper/wrapper';
-import PageLogin from '~/pages/login/wrapper/wrapper';
-import PageMain from '~/pages/main/wrapper/wrapper';
-import PageNotFound from '~/pages/not-found/wrapper/wrapper';
-import PageSignUp from '~/pages/sign-up/wrapper/wrapper';
-import PageRoom from '~/pages/room/wrapper/wrapper';
+import PageFavorites from '~/pages/favorites/container/container';
+import PageLogin from '~/pages/login/container/container';
+import PageMain from '~/pages/main/container/container';
+import PageNotFound from '~/pages/not-found/container/container';
+import PageSignUp from '~/pages/sign-up/container/container';
+import PageRoom from '~/pages/room/container/container';
 import { AppRoutes } from '~/constants';
 
 const App = () => {
