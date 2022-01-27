@@ -11,3 +11,4 @@ export * from './rating';
 export * from './routes';
 export * from './sorting';
 export * from './titles';
+export * from './toaster';
