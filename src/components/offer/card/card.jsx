@@ -1,12 +1,16 @@
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import RatingStars from '~/components/rating/stars/stars';
+import { getActivePinId, setActiveOffer } from '~/modules/offers-map';
 import {
   AppRoutes,
   OfferClasses,
   OfferImgShapes,
   OfferTitles,
   RatingTypes,
+  InitialModulesValues,
 } from '~/constants';
 import {
   offerPropTypes,
@@ -23,15 +27,33 @@ const OfferCard = ({
 }) => {
   const offerId = offer.id;
   const offerLink = `${AppRoutes.OFFER}?id=${offerId}`;
+  const activePinId = useSelector(getActivePinId);
+  const dispatch = useDispatch();
+
+  const handleOfferCardMouseEnter = () => {
+    dispatch(setActiveOffer(offer));
+  };
+
+  const handleOfferCardMouseLeave = () => {
+    dispatch(setActiveOffer(InitialModulesValues.ACTIVE_OFFER));
+  };
 
   return (
-    <li className={`${OfferClasses[offerType]['li']} mb-3`}>
+    <li
+      className={clsx(`${OfferClasses[offerType]['li']} pb-3 app-hover-opacity`,
+        { 'app-opacity': activePinId === offerId }
+      )}
+      onMouseEnter={handleOfferCardMouseEnter}
+      onMouseLeave={handleOfferCardMouseLeave}
+    >
       <article className="card border-light text-start">
         <div className={`${OfferClasses[offerType]['container']} d-flex`}>
           <div>
             <div className="position-relative bg-light rounded">
               {offer.wifi && (
-                <span className="position-absolute top-0 start-0 badge bg-primary app-skewed-neg-15 offer-card-badge">
+                <span className="position-absolute top-0 start-0 badge bg-primary
+                  app-skewed-neg-15 offer-card-badge"
+                >
                   <span>{OfferTitles.FREE_WI_FI}</span>
                 </span>
               )}
@@ -67,7 +89,8 @@ const OfferCard = ({
             </div>
             <h6 className="card-title mb-1">
               <NavLink
-                className="text-dark text-decoration-none app-hover-opacity app-trasition app-subtitle fs-5-3"
+                className="text-dark text-decoration-none
+                  app-hover-opacity app-trasition app-subtitle fs-5-3"
                 to={offerLink}
               >
                 {offer.title}
