@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorMessage, Field, Formik, Form } from 'formik';
 import PropTypes from 'prop-types';
@@ -24,6 +25,7 @@ const FormLogin = ({ closeModal, isModal }) => {
   const authError = useSelector(getIsError);
   const isLoading = useSelector(getIsLoading);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const initialValues = {
     email: '',
@@ -40,7 +42,7 @@ const FormLogin = ({ closeModal, isModal }) => {
 
   const onSubmit = (values) => {
     const { email, password } = values;
-    dispatch(login({ email, password, closeModal }));
+    dispatch(login({ email, password, closeModal, navigate }));
   };
 
   return (

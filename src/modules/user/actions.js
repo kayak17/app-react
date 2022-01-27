@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions';
 import {
   APIRoutes,
   AppMessages,
+  AppRoutes,
   ResponseStatusTexts,
   ToastTypes,
 } from '~/constants';
@@ -13,7 +14,7 @@ export const loginSuccess = createAction('LOGIN_SUCCESS');
 export const loginError = createAction('LOGIN_ERROR');
 export const logoutRequest = createAction('LOGOUT_REQUEST');
 
-export const login = ({ email, password, closeModal }) => {
+export const login = ({ email, password, closeModal, navigate }) => {
   return (dispatch, _getState, api) => {
     dispatch(loginRequest());
 
@@ -35,6 +36,8 @@ export const login = ({ email, password, closeModal }) => {
               AppMessages.LOGIN_SUCCESS,
               getToastSetting({ toastType: ToastTypes.SUCCESS }),
             );
+          } else {
+            navigate(AppRoutes.MAIN);
           }
         })
         .catch(({ message }) => {
