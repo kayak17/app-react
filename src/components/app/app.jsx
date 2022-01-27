@@ -42,6 +42,7 @@ const App = () => {
           element={<PageRoom />}
         />
         <Route
+          path="*"
           element={<PageNotFound />}
         />
       </Routes>
