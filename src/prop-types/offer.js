@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { getItemOrNullPropTypes } from './app';
 
 export const offerIdPropTypes = PropTypes.number.isRequired;
 
@@ -26,6 +27,6 @@ export const offersPropTypes = PropTypes.arrayOf(offerPropTypes).isRequired;
 export const offersReducerPropTypes = PropTypes.shape({
   activeCityName: PropTypes.string.isRequired,
   data: offersPropTypes,
-  headerLink: PropTypes.object.isRequired,
+  headerLink: getItemOrNullPropTypes(PropTypes.object.isRequired),
   totalCount: PropTypes.string.isRequired,
 }).isRequired;
