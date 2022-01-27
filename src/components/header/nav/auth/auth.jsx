@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import CustomNavItem from '~/components/custom-react-bootstrap/nav-item/nav-item';
 import { getAuthInfo, logout } from '~/modules/user';
-import { APP_DEFAULT_AVATAR, AppRoutes, AppTitles } from '~/constants';
+import { APP_DEFAULT_AVATAR, AppImgShapes, AppRoutes, AppTitles } from '~/constants';
 import './auth.less';
 
 const HeaderNavAuth = () => {
@@ -36,9 +36,9 @@ const HeaderNavAuth = () => {
         <>
           <img
             className="px-1 rounded-circle"
-            alt="user avatar"
-            width="32"
-            height="32"
+            alt={AppTitles.USER_AVATAR}
+            width={AppImgShapes.USER_AVATAR.width}
+            height={AppImgShapes.USER_AVATAR.height}
             src={avatar}
           />
           <span className="app-header-nav-email">{email}</span>
