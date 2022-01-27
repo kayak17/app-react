@@ -22,6 +22,7 @@ import {
   MAP_TILE_LAYER_ATTRIBUTION,
   MAP_TOOLTIP_SETTING,
   MAP_ZOOM_DEFAULT,
+  AppRoutes,
   InitialModulesValues,
 } from '~/constants';
 import {
@@ -157,7 +158,13 @@ class OffersMap extends Component {
   }
 
   _addMarkers(offers) {
-    const { activeOffer, activePinId, setActivePinIdAction } = this.props;
+    const {
+      activeOffer,
+      activePinId,
+      setActivePinIdAction,
+      redirectToRoute,
+    } = this.props;
+
     const activeOfferId = !isEmpty(activeOffer) && activeOffer.id;
 
     offers.forEach((offer) => {
@@ -176,7 +183,7 @@ class OffersMap extends Component {
       marker._offerId = offerId;
 
       marker.on('click', () => {
-
+        redirectToRoute(`${AppRoutes.OFFER}?id=${offerId}`);
       });
 
       marker.on('mouseover', () => {
@@ -213,6 +220,7 @@ class OffersMap extends Component {
 
 OffersMap.propTypes = {
   offers: offersPropTypes,
+  redirectToRoute: PropTypes.func.isRequired,
   activeCity: cityPropTypes,
   activeOffer: getItemOrNullPropTypes(offerPropTypes),
   activePinId: mapPinIdPropTypes,
