@@ -1,15 +1,13 @@
 import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
-import { lazy, useCallback, useEffect, useReducer, useState } from 'react';
+import { useCallback, useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CitiesWrapper from '~/components/cities/wrapper/wrapper';
-import ErrorBoundary from '~/components/error-boundary/error-boundary';
-import withSpinner from '~/hocs/with-spinner/with-spinner';
+import PageMain from '../content/content';
 import useFetchCached from '~/hooks/use-fetch-cached/use-fetch-cached';
 import usePrevious from '~/hooks/use-previous/use-previous';
-import MainLayout from '~/layouts/main/main';
 import {
   getActiveCityId,
   getActiveCityName,
@@ -26,8 +24,6 @@ import {
   getOffersMapURL,
   getUnknownActionTypeMsg,
 } from '~/utils';
-
-const PageMain = lazy(() => import('../content/content'));
 
 const PageMainWrapper = ({ setIsLoading }) => {
   const COMPONENT_NAME = 'PageMainWrapper';
@@ -201,24 +197,20 @@ const PageMainWrapper = ({ setIsLoading }) => {
   ]);
 
   return (
-    <MainLayout>
-      <ErrorBoundary setIsLoading={setIsLoading}>
-        <>
-          <CitiesWrapper
-            cities={cities}
-            isCitiesLoaded={isCitiesLoaded}
-          />
-          <PageMain
-            offersMap={offersMap}
-            offersReducer={offersReducer}
-            isCitiesError={isCitiesError}
-            isOffersLoading={isOffersLoading}
-            isOffersError={isOffersError}
-            isOffersLoaded={isOffersLoaded}
-          />
-        </>
-      </ErrorBoundary>
-    </MainLayout>
+    <>
+      <CitiesWrapper
+        cities={cities}
+        isCitiesLoaded={isCitiesLoaded}
+      />
+      <PageMain
+        offersMap={offersMap}
+        offersReducer={offersReducer}
+        isCitiesError={isCitiesError}
+        isOffersLoading={isOffersLoading}
+        isOffersError={isOffersError}
+        isOffersLoaded={isOffersLoaded}
+      />
+    </>
   );
 };
 
@@ -226,4 +218,4 @@ PageMainWrapper.propTypes = {
   setIsLoading: PropTypes.func.isRequired,
 };
 
-export default withSpinner(PageMainWrapper);
+export default PageMainWrapper;
