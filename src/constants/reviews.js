@@ -4,6 +4,8 @@ export const REVIEW_AVATAR_IMG_SHAPES = {
   height: '54',
 };
 
+export const REVIEW_DATE_FORMAT = 'MMMM yyyy';
+
 export const ReviewTitles = {
   NO_REVIEWS: 'No reviews yet',
   PLACES_NEARBY: 'Other places in the neighbourhood',
