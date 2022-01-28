@@ -5,8 +5,10 @@ export const AppQueryParamsLeading = {
 export const APIRoutes = {
   CITIES: '/cities',
   LOGIN: '/login',
+  NEARBY: '/nearby',
   OFFERS: '/offers',
   SIGNUP: '/signup',
+  REVIEWS: '/reviews',
 };
 
 export const AppRoutes = {
