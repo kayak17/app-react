@@ -39,6 +39,7 @@ export const OfferImgShapes = {
 };
 
 export const OfferTitles = {
+  BEDROOMS: 'Bedrooms',
   FREE_WI_FI: 'Free Wi-Fi',
   NO_PLACES_TO_STAY_IN: 'No places to stay available at the moment in ',
   PLACE_IMAGE: 'Place image',
