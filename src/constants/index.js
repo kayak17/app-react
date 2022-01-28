@@ -8,6 +8,7 @@ export * from './modules';
 export * from './offers';
 export * from './offers-map';
 export * from './rating';
+export * from './reviews';
 export * from './routes';
 export * from './sorting';
 export * from './titles';
