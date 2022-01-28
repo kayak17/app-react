@@ -10,9 +10,9 @@ export const RatingClasses = {
     value: 'property-rating-value',
   },
   REVIEW: {
-    rating: 'property-rating',
-    stars: 'property-stars',
-    value: 'property-rating-value',
+    rating: 'review-rating',
+    stars: 'review-stars',
+    value: 'review-rating-value',
   },
 };
 
