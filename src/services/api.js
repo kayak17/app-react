@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { store } from '~/store';
+import { getAuthInfo } from '~/modules/user';
 import { APIRoutes, AppMessages, HttpCodes } from '~/constants';
 
 const BACKEND_URL = 'http://localhost:3000/';
@@ -32,6 +34,52 @@ export const createAPI = (onUnauthorized) => {
       } else {
         return Promise.reject({
           message: AppMessages.PASSWORDS_DONT_MATCH,
+          response: {
+            status: '',
+          },
+        });
+      }
+    } else if (method === 'get' && url.split('?')[0] === APIRoutes.NEARBY) {
+      const offerId = parseInt(url.split('?id=')[1], 10);
+      const idx = !isNaN(offerId) && offerId;
+
+      if (!idx) {
+        return Promise.reject({
+          message: AppMessages.INCORRECT_OFFERID,
+          response: {
+            status: '',
+          },
+        });
+      }
+
+      let idOne, idTwo, idThree = undefined;
+
+      if (
+        idx === 1 || idx === 2 || idx === 3 ||
+        idx === 19 || idx === 20 || idx === 21
+      ) {
+        idOne = offerId + 1;
+        idTwo = offerId + 2;
+        idThree = offerId + 3;
+      } else {
+        idOne = offerId - 1;
+        idTwo = offerId - 2;
+        idThree = offerId - 3;
+      }
+
+      config.url = `/offers?id=${idOne}&id=${idTwo}&id=${idThree}`;
+    } else if (method === 'post' && url.split('?')[0] === APIRoutes.REVIEWS) {
+      if (headers.Authorization === 'Bearer fake-jwt-token') {
+        const state = store.getState();
+        const authInfo = getAuthInfo(state);
+
+        data.avatar = authInfo.avatar;
+        data.date = new Date();
+        data.name = authInfo.name || authInfo.email;
+        data.userId = authInfo.id;
+      } else {
+        return Promise.reject({
+          message: AppMessages.UNAUTHORIZED,
           response: {
             status: '',
           },
