@@ -19,7 +19,7 @@ const ReviewsNoAuth = () => {
         href={AppRoutes.LOGIN}
         onClick={onLoginLinkClick}
       >
-        {AppTitles.LOGIN}
+        {AppTitles.LOGIN.toLowerCase()}
       </a>
     </div>
   );
