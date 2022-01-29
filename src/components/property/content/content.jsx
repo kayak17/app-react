@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import PropertyFeatures from '~/components/property/features/features';
+import PropertyFeatures from '../features/features';
 import RatingStars from '~/components/rating/stars/stars';
 import {
   OfferImgShapes,
