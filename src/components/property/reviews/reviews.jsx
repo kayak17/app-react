@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-// import FormReview from '~/components/forms/review/review';
+import FormReview from '~/components/forms/review/review';
 import ReviewsList from '~/components/review/list/list';
 import ReviewsNoAuth from '~/components/review/no-auth/no-auth';
 import { getIsAuth } from '~/modules/user';
@@ -13,12 +13,14 @@ const PropertyReviews = ({
   reviews,
   reviewsCount,
   fetchReviews,
-  canShowLoadMoreBtn,
 }) => {
   const isAuth = useSelector(getIsAuth);
+  const canShowLoadMoreBtn = reviews.length < parseInt(reviewsCount, 10);
 
   const onLoadMoreBtnClick = () => {
-    fetchReviews();
+    if (canShowLoadMoreBtn) {
+      fetchReviews();
+    }
   };
 
   return (
@@ -32,13 +34,15 @@ const PropertyReviews = ({
           </h2>
           <ReviewsList reviews={reviews} />
           {canShowLoadMoreBtn && (
-            <button
-              className="btn btn-primary"
-              type="button"
-              onClick={onLoadMoreBtnClick}
-            >
-              {AppTitles.LOAD_MORE}
-            </button>
+            <div className="mb-3">
+              <button
+                className="btn btn-primary"
+                type="button"
+                onClick={onLoadMoreBtnClick}
+              >
+                {AppTitles.LOAD_MORE}
+              </button>
+            </div>
           )}
         </>
       ) : (
@@ -50,7 +54,7 @@ const PropertyReviews = ({
           <p className="text-start fw-bold fst-italic">
             {ReviewTitles.YOUR_REVIEW}
           </p>
-          {/* <FormReview offerId={offerId} /> */}
+          <FormReview offerId={offerId} />
         </>
       ) : (
         <ReviewsNoAuth />
@@ -64,7 +68,6 @@ PropertyReviews.propTypes = {
   reviews: reviewsPropTypes,
   reviewsCount: PropTypes.string.isRequired,
   fetchReviews: PropTypes.func.isRequired,
-  canShowLoadMoreBtn: PropTypes.bool.isRequired,
 };
 
 export default PropertyReviews;
