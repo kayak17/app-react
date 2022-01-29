@@ -1,6 +1,7 @@
 export const OFFER_RATING_STAR_WIDTH = 20;
 export const OFFERS_LIMIT_PER_PAGE = 7;
 export const OFFERS_LIST_TYPE_ARIA_LABEL = 'offers list style change';
+export const ROOM_MAX_PHOTOS_COUNT = 6;
 
 export const OfferClasses = {
   MAIN: {
