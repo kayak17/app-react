@@ -9,6 +9,8 @@ export const getOfferCurrency = () => '€';
 
 export const getOfferPricePeriod = () => '/ night';
 
+export const getOfferPricePeriodNoSlash = () => 'night';
+
 export const getOfferURL = (offerId) => (
   `${APIRoutes.OFFERS}?id=${offerId}`
 );
