@@ -12,3 +12,8 @@ export const ReviewTitles = {
   TO_WRITE_REVIEW: 'To write review please ',
   YOUR_REVIEW: 'Your review',
 };
+
+export const ReviewsPerPage = {
+  ROOM: 5,
+  ALL: '',
+};
