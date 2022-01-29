@@ -47,6 +47,12 @@ export const OfferTitles = {
   PLACES_TO_STAY_IN: ' places to stay in ',
 };
 
+export const OfferTypes = {
+  MAIN: 'MAIN',
+  ROOM: 'ROOM',
+  FAVORITE: 'FAVORITE',
+};
+
 export const OfferSrTitles = {
   RATING: 'Rating',
 };
