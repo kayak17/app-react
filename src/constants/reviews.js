@@ -1,13 +1,20 @@
 export const REVIEW_AVATAR_ALT = 'Reviews avatar';
-export const REVIEW_AVATAR_IMG_SHAPES = {
-  width: 54,
-  height: 54,
-};
 export const REVIEW_COMMENT_LENGTH = 50;
 export const REVIEW_DATE_FORMAT = 'MMMM yyyy';
-export const REVIEW_FORM_STAR_SHAPES = {
-  width: 37,
-  height: 33,
+
+export const REVIEW_IMG_SHAPES = {
+  AVATAR: {
+    width: 54,
+    height: 54,
+  },
+  FORM_STAR: {
+    width: 37,
+    height: 33,
+  },
+  HELP_STAR: {
+    width: 13,
+    height: 12,
+  },
 };
 
 export const ReviewFormRatings = [
