@@ -6,6 +6,7 @@ export const AppMessages = {
   LOGIN_SUCCESS: 'You successfully signed in',
   NO_SUCH_USER: 'User with such email and password is not found',
   PASSWORDS_DONT_MATCH: 'Passwords don\'t match',
+  REVIEW_POSTING_SUCCESS: 'Thank you for review! Your opinion is very important for us',
   SIGNUP_SUCCESS: 'Signing up completed successfully',
   SOMETHING_WENT_WRONG: 'Something went wrong',
   UNAUTHORIZED: 'Unauthorized user',
