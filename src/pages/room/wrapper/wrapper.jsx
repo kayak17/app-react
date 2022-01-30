@@ -16,15 +16,17 @@ import {
   getOfferURL,
   getOffersNearbyURL,
   getReviewsURL,
+  isOfferIdValid,
   throwErrorToBoundary,
 } from '~/utils';
 
 const PageRoomWrapper = ({ setIsLoading }) => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const offerId = params.get('id');
+  const offerIdParam = params.get('id');
+  const offerId = parseInt(offerIdParam, 10);
 
-  if (isNaN(parseInt(offerId, 10)) || offerId === '0') {
+  if (!isOfferIdValid(offerId)) {
     throwErrorToBoundary(AppMessages.INCORRECT_OFFERID);
   }
 
@@ -52,7 +54,7 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     state: stateReviews,
     fetchData: fetchReviews,
   } = useFetch({
-    url: getReviewsURL(offerId, OfferTypes.ROOM),
+    url: getReviewsURL(offerId, offerType),
     onSuccess: (payload) => {
       setReviews(reviews.concat(payload.data));
       setReviewsCount(payload.totalCount);
