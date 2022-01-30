@@ -14,5 +14,6 @@ export const AppTitles = {
   NO_TITLE_EXIST: '...',
   REVIEWS: 'Reviews',
   SIGNUP: 'Sign up',
+  SUBMIT: 'Submit',
   USER_AVATAR: 'User avatar',
 };
