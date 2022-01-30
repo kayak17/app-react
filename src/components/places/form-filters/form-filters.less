@@ -1,3 +1,5 @@
+@import '~/styles/common.less';
+
 .places-list-btn {
   position: relative;
   width: 27px;
@@ -12,7 +14,7 @@
   left: 7px;
   width: 12px;
   height: 2px;
-  background: #000;
+  background: @btn-font-color;
 }
 
 .places-list-btn-row::before {
@@ -30,7 +32,7 @@
   top: 5px;
   height: 10px;
   width: 2px;
-  background: #000;
+  background: @btn-font-color;
 }
 
 .places-list-btn-column::before {
