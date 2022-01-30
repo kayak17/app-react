@@ -7,19 +7,16 @@ export const OfferClasses = {
   MAIN: {
     li: 'col',
     container: '',
-    img: 'offer-card-img',
     info: '',
   },
   ROOM: {
     li: 'col-6 offer-card-column',
     container: 'flex-column',
-    img: 'offer-card-img',
     info: 'px-2',
   },
   FAVORITE: {
     li: 'col',
     container: '',
-    img: 'offer-card-img-sm',
     info: '',
   },
 };
