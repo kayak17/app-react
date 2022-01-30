@@ -63,7 +63,7 @@ const PageRoomContent = ({
 
 PageRoomContent.propTypes = {
   offer: offerPropTypes,
-  offerId: PropTypes.string.isRequired,
+  offerId: PropTypes.number.isRequired,
   offerType: PropTypes.string.isRequired,
   offersNearby: offersPropTypes,
   reviews: reviewsPropTypes,
