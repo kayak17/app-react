@@ -5,6 +5,18 @@ import {
   ToastTypes,
 } from '~/constants';
 
+export const capitalizeFirstLetter = (str) => (
+  str.charAt(0).toUpperCase() + str.slice(1)
+);
+
+export const getAuthHeader = (token) => (
+  {
+    headers: {
+      Authorization: 'Bearer ' + token,
+    }
+  }
+);
+
 export const getEmptyArray = (arrLength) => (
   new Array(arrLength).fill(undefined)
 );

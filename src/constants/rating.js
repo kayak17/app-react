@@ -5,14 +5,14 @@ export const RatingClasses = {
     value: 'offer-card-value',
   },
   ROOM: {
-    rating: 'property-rating',
+    rating: 'property-rating d-flex justify-content-center mb-3',
     stars: 'property-stars',
-    value: 'property-rating-value',
+    value: 'property-rating-value app-subtitle',
   },
   REVIEW: {
-    rating: 'property-rating',
-    stars: 'property-stars',
-    value: 'property-rating-value',
+    rating: 'review-rating',
+    stars: 'review-stars',
+    value: 'review-rating-value',
   },
 };
 

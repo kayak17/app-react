@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { OfferClasses } from '~/constants';
+import { OfferClasses, OfferImgShapes } from '~/constants';
 import '../offer.less';
 
 const OfferCardPlaceholder = ({ offerType }) => {
@@ -8,7 +8,14 @@ const OfferCardPlaceholder = ({ offerType }) => {
       <article className="card border-light text-start">
         <div className={`${OfferClasses[offerType]['container']} d-flex`}>
           <div>
-            <div className={`${OfferClasses[offerType]['img']} h-100 bg-secondary rounded placeholder`}></div>
+            <div
+              className="bg-secondary rounded placeholder"
+              style={{
+                width: `${OfferImgShapes[offerType].width}px`,
+                height: `${OfferImgShapes[offerType].height}px`,
+              }}
+            >
+            </div>
           </div>
           <div className={`${OfferClasses[offerType]['info']} card-body py-1`}>
             <div className="card-text mb-1 placeholder-glow">

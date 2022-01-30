@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import { memo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { memo } from 'react';
 import OffersMap from '~/components/offer/map/map';
 import PlacesWrapper from '~/components/places/wrapper/wrapper';
+import useRouterNavigate from '~/hooks/use-router-navigate/use-router-navigate';
 import { AppSRTitles } from '~/constants';
 import { offersPropTypes, offersReducerPropTypes } from '~/prop-types';
 import './content.less';
@@ -15,11 +15,7 @@ const PageMainContent = ({
   isOffersError,
   isOffersLoaded,
 }) => {
-  const navigate = useNavigate();
-
-  const handleRedirectToRoute = useCallback((route) => {
-    navigate(route);
-  }, [navigate]);
+  const redirectToRoute = useRouterNavigate();
 
   return (
     <>
@@ -39,7 +35,7 @@ const PageMainContent = ({
         <section className="col-6 g-0 main-map-container">
           <OffersMap
             offers={offersMap}
-            redirectToRoute={handleRedirectToRoute}
+            redirectToRoute={redirectToRoute}
           />
         </section>
       </div>

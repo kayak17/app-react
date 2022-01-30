@@ -62,7 +62,7 @@ const OfferCard = ({
                 to={offerLink}
               >
                 <img
-                  className={`${OfferClasses[offerType]['img']} img-fluid rounded`}
+                  className="rounded"
                   alt={OfferTitles.PLACE_IMAGE}
                   width={OfferImgShapes[offerType].width}
                   height={OfferImgShapes[offerType].height}

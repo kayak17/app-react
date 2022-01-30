@@ -10,3 +10,7 @@ export const getIsError = (state) => state[USER].isError;
 export const getIsAuth = (state) => (
   state[USER].authStatus === AuthStatuses.AUTH
 );
+
+export const getAuthToken = (state) => (
+  state[USER].authInfo && state[USER].authInfo.token
+);

@@ -12,7 +12,7 @@ const RatingStars = ({ rating, ratingType, showValue = false }) => {
       </div>
       {showValue && (
         <span className={`${RatingClasses[ratingType]['value']}`}>
-          {rating}
+          &nbsp;{rating}
         </span>
       )}
     </div>
