@@ -64,7 +64,7 @@ const PropertyReviews = ({
 };
 
 PropertyReviews.propTypes = {
-  offerId: PropTypes.string.isRequired,
+  offerId: PropTypes.number.isRequired,
   reviews: reviewsPropTypes,
   reviewsCount: PropTypes.string.isRequired,
   fetchReviews: PropTypes.func.isRequired,
