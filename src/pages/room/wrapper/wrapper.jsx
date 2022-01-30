@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PageRoomContent from '../content/content';
+import PageRoomContentPlaceholder from '../content-placeholder/content-placeholder';
 import useFetch from '~/hooks/use-fetch/use-fetch';
 import useRouterNavigate from '~/hooks/use-router-navigate/use-router-navigate';
 import {
@@ -112,29 +113,28 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     reviewsLinkNext,
   ]);
 
-  if (!isOfferLoaded) {
-    // placeholder
-    return null;
-  } else if (isOfferError || isOfferLoaded && isEmpty(offer)) {
+  if (isOfferError || isOfferLoaded && isEmpty(offer)) {
     throwErrorToBoundary(AppMessages.DATA_LOADING_ERROR);
-  } else if (isOfferLoaded) {
+  } else if (!isOfferLoaded) {
     return (
-      <PageRoomContent
-        offer={offer}
-        offerId={offerId}
-        offerType={offerType}
-        offersNearby={offersNearby}
-        reviews={reviews}
-        reviewsCount={reviewsCount}
-        isReviewsLoaded={isReviewsLoaded}
-        isOffersNearbyLoaded={isOffersNearbyLoaded}
-        fetchReviews={handleFetchReviews}
-        redirectToRoute={redirectToRoute}
-      />
+      <PageRoomContentPlaceholder offerType={offerType} />
     );
-  } else {
-    return null;
   }
+
+  return (
+    <PageRoomContent
+      offer={offer}
+      offerId={offerId}
+      offerType={offerType}
+      offersNearby={offersNearby}
+      reviews={reviews}
+      reviewsCount={reviewsCount}
+      isReviewsLoaded={isReviewsLoaded}
+      isOffersNearbyLoaded={isOffersNearbyLoaded}
+      fetchReviews={handleFetchReviews}
+      redirectToRoute={redirectToRoute}
+    />
+  );
 };
 
 PageRoomWrapper.propTypes = {
