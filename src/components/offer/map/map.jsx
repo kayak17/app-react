@@ -18,6 +18,7 @@ import {
   MAP_PIN_SIZE,
   MAP_PIN_URL,
   MAP_PIN_ACTIVE_URL,
+  MAP_PIN_CURRENT_URL,
   MAP_TILE_LAYER,
   MAP_TILE_LAYER_ATTRIBUTION,
   MAP_TOOLTIP_SETTING,
@@ -56,12 +57,17 @@ class OffersMap extends Component {
       iconUrl: MAP_PIN_ACTIVE_URL,
       iconSize: MAP_PIN_SIZE,
     });
+    this.currentIcon = leaflet.icon({
+      iconUrl: MAP_PIN_CURRENT_URL,
+      iconSize: MAP_PIN_SIZE,
+    });
   }
 
   componentDidMount() {
     const {
       offers,
       activeCity,
+      currentOffer,
     } = this.props;
 
     const { center, zoom } = getMapCenterAndZoom(activeCity);
@@ -82,6 +88,10 @@ class OffersMap extends Component {
       this._addMarkers(offers);
     }
 
+    if (!isEmpty(currentOffer)) {
+      this._addMarkerCurrentOffer(currentOffer);
+    }
+
     if (!isEmpty(activeCity)) {
       this.center = activeCity.coordinates;
       this.zoom = activeCity.zoom;
@@ -93,14 +103,22 @@ class OffersMap extends Component {
     const {
       activeCity,
       activeOffer,
+      currentOffer,
       offers,
     } = this.props;
 
-    if (!isEqual(prevProps.offers, offers)) {
+    if (
+      !isEqual(prevProps.offers, offers) ||
+      !isEqual(prevProps.currentOffer, currentOffer)
+    ) {
       this._removeMarkers();
 
       if (offers.length) {
         this._addMarkers(offers);
+      }
+
+      if (!isEmpty(currentOffer)) {
+        this._addMarkerCurrentOffer(currentOffer);
       }
     }
 
@@ -200,6 +218,15 @@ class OffersMap extends Component {
     });
   }
 
+  _addMarkerCurrentOffer(currentOffer) {
+    const marker = leaflet.marker(
+      currentOffer.coordinates,
+      { icon: this.currentIcon }
+    ).addTo(this.map);
+
+    this.markers.push(marker);
+  }
+
   _removeMarkers() {
     this.markers.forEach((item) => {
       item.off('click');
@@ -223,6 +250,7 @@ OffersMap.propTypes = {
   redirectToRoute: PropTypes.func.isRequired,
   activeCity: cityPropTypes,
   activeOffer: getItemOrNullPropTypes(offerPropTypes),
+  currentOffer: getItemOrNullPropTypes(offerPropTypes),
   activePinId: mapPinIdPropTypes,
   setActivePinIdAction: PropTypes.func.isRequired,
 };
