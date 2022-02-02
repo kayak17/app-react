@@ -10,10 +10,10 @@ const PropertyFeatures = ({ features }) => {
     <ul className="d-flex align-items-center justify-content-center
       list-unstyled property-features"
     >
-      <li className="property-feature property-feature--entire">
+      <li className="property-feature property-feature-entire">
         {capitalizeFirstLetter(type)}
       </li>
-      <li className="property-feature property-feature--bedrooms">
+      <li className="property-feature property-feature-bedrooms">
         {`${bedrooms} ${OfferTitles.BEDROOMS}`}
       </li>
     </ul>
