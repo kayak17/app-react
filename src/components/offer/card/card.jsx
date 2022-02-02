@@ -2,10 +2,12 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import ButtonBookmark from '~/components/buttons/bookmark/bookmark';
 import RatingStars from '~/components/rating/stars/stars';
 import { getActivePinId, setActiveOffer } from '~/modules/offers-map';
 import {
   AppRoutes,
+  BookmarkBtnTypes,
   OfferClasses,
   OfferImgShapes,
   OfferTitles,
@@ -80,6 +82,10 @@ const OfferCard = ({
               <span className="fs-6-3">
                 &nbsp;{getOfferPricePeriod()}
               </span>
+              <ButtonBookmark
+                offerId={offerId}
+                bookmarkType={BookmarkBtnTypes.offerType}
+              />
             </div>
             <div className="card-text mb-1">
               <RatingStars
