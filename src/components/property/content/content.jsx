@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import PropertyFeatures from '../features/features';
+import ButtonBookmark from '~/components/buttons/bookmark/bookmark';
 import RatingStars from '~/components/rating/stars/stars';
 import {
   OfferImgShapes,
@@ -42,6 +43,10 @@ const PropertyContent = ({ offer, offerType }) => {
           <span className="mt-1 fs-5 fst-italic">
             &nbsp;{getOfferPricePeriodNoSlash()}
           </span>
+          <ButtonBookmark
+            offerId={offer.id}
+            bookmarkType={BookmarkBtnTypes.offerType}
+          />
         </div>
 
         <h1 className="mb-3 fs-1 app-title">
@@ -50,7 +55,7 @@ const PropertyContent = ({ offer, offerType }) => {
 
         <RatingStars
           rating={offer.rating}
-          ratingType={RatingTypes.ROOM}
+          ratingType={RatingTypes.offerType}
           showValue={true}
         />
 
