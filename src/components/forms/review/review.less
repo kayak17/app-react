@@ -1,4 +1,4 @@
-@import '~/styles/common.less';
+@import "~/styles/common.less";
 
 .form-rating-label {
   width: 37px;
@@ -10,16 +10,16 @@
   margin-right: 0;
 }
 
+.form-rating-star-image {
+  fill: @star-image-color;
+  transition: fill @transition-time;
+}
+
 .form-rating-label:hover .form-rating-star-image,
 .form-rating-input:checked ~ .form-rating-label .form-rating-star-image,
 .form-rating-label:hover ~ .form-rating-label .form-rating-star-image,
 .form-rating-input:focus ~ .form-rating-label .form-rating-star-image {
   fill: @star-active-color;
-}
-
-.form-rating-star-image {
-  fill: @star-image-color;
-  transition: fill @transition-time;
 }
 
 .form-rating-star-help {
