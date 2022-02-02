@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import IconBookmark from '~/icons/bookmark/bookmark';
 import { getIsAuth } from '~/modules/user';
 import { offerIdPropTypes } from '~/prop-types';
