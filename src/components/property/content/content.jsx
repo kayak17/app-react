@@ -3,6 +3,7 @@ import PropertyFeatures from '../features/features';
 import ButtonBookmark from '~/components/buttons/bookmark/bookmark';
 import RatingStars from '~/components/rating/stars/stars';
 import {
+  BookmarkBtnTypes,
   OfferImgShapes,
   OfferTitles,
   RatingTypes,
