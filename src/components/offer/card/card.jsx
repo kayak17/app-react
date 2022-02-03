@@ -75,7 +75,7 @@ const OfferCard = ({
             </div>
           </div>
           <div className={`${OfferClasses[offerType]['info']} card-body py-1`}>
-            <div className="card-text mb-1">
+            <div className="d-flex align-items-center card-text mb-1">
               <b className="fs-5-4">
                 {getOfferCurrency()}&nbsp;{offer.price}
               </b>
@@ -84,7 +84,7 @@ const OfferCard = ({
               </span>
               <ButtonBookmark
                 offerId={offerId}
-                bookmarkType={BookmarkBtnTypes.offerType}
+                bookmarkType={BookmarkBtnTypes[offerType]}
               />
             </div>
             <div className="card-text mb-1">
