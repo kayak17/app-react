@@ -37,7 +37,9 @@ const PropertyContent = ({ offer, offerType }) => {
       </div>
 
       <div className="mb-3">
-        <div className="d-flex align-items-center justify-content-center mb-3">
+        <div className="position-relative d-flex align-items-center
+          justify-content-center mb-3"
+        >
           <b className="position-relative fs-2 fst-italic property-price-value">
             {getOfferCurrency()}&nbsp;{offer.price}&nbsp;
           </b>
@@ -46,7 +48,7 @@ const PropertyContent = ({ offer, offerType }) => {
           </span>
           <ButtonBookmark
             offerId={offer.id}
-            bookmarkType={BookmarkBtnTypes.offerType}
+            bookmarkType={BookmarkBtnTypes[offerType]}
           />
         </div>
 
@@ -56,7 +58,7 @@ const PropertyContent = ({ offer, offerType }) => {
 
         <RatingStars
           rating={offer.rating}
-          ratingType={RatingTypes.offerType}
+          ratingType={RatingTypes[offerType]}
           showValue={true}
         />
 
