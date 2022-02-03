@@ -1,18 +1,18 @@
 export const BookmarkBtnClasses = {
   MAIN: {
-    btn: 'places-bookmark-button',
+    btn: 'places-bookmark-button bookmark-button',
     btnActive: 'bookmark-button-active',
-    icon: 'places-bookmark-icon',
+    icon: 'places-bookmark-icon bookmark-icon',
   },
   ROOM: {
-    btn: 'property-bookmark-button',
+    btn: 'property-bookmark-button bookmark-button',
     btnActive: 'bookmark-button-active',
-    icon: 'property-bookmark-icon',
+    icon: 'property-bookmark-icon bookmark-icon',
   },
   FAVORITE: {
-    btn: 'places-bookmark-button',
+    btn: 'places-bookmark-button bookmark-button',
     btnActive: 'bookmark-button-active',
-    icon: 'places-bookmark-icon',
+    icon: 'places-bookmark-icon bookmark-icon skewed-primary-sm-pos',
   },
 };
 
