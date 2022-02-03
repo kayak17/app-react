@@ -12,6 +12,7 @@ export const AppActionTypes = {
 };
 
 export const AppReducers = {
+  FAVORITES: 'FAVORITES',
   MAIN: 'MAIN',
   OFFERS_MAP: 'OFFERS_MAP',
   PROCESS: 'PROCESS',
