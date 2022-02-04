@@ -1,5 +1,8 @@
+import remove from 'lodash/remove';
 import union from 'lodash/union';
 import unionBy from 'lodash/unionBy';
+import uniqBy from 'lodash/uniqBy';
+import { APIRoutes } from '~/constants';
 
 const addOfferToFavorites = ({
   favoriteOffersIds, favoriteOffersIdsByUser, offerId, userId
@@ -40,4 +43,49 @@ export const getUpdatedFavoriteOffers = ({
         userId,
       })
     )
+);
+
+export const getCitiesFromOffers = (offers) => (
+  uniqBy(offers, 'city.id').map((offer) => offer.city).sort()
+);
+
+export const getOffersMapByCity = (offers) => {
+  const offersMap = new Map();
+  const citiesList = getCitiesFromOffers(offers);
+
+  citiesList.forEach((city) => {
+    offersMap.set(city.id, []);
+  });
+
+  offers.forEach((offer) => {
+    offersMap.get(offer.city.id).push(offer);
+  });
+
+  offersMap.forEach((value, key, map) => {
+    if (!value.length) {
+      map.delete(key);
+    }
+  });
+
+  return offersMap;
+};
+
+export const getUpdatedOffersMap = (offersMap, offersIds) => {
+  offersMap.forEach((value, key, map) => {
+    value.forEach((offer) => {
+      if (!offersIds.find((itm) => itm === offer.id)) {
+        remove(value, (item) => item.id === offer.id);
+      }
+    });
+
+    if (!value.length) {
+      map.delete(key);
+    }
+  });
+
+  return offersMap;
+};
+
+export const getFavoriteOffersURL = (offersByUser) => (
+  `${APIRoutes.OFFERS}?id=${offersByUser.join('&id=')}`
 );
