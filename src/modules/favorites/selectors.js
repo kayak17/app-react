@@ -1,21 +1,17 @@
-import isEmpty from 'lodash/isEmpty';
+import find from 'lodash/find';
 import { createSelector } from 'reselect';
 import { getUserId } from '../user';
 import { AppReducers } from '~/constants';
 
 const FAVORITES = AppReducers.FAVORITES;
 
-export const getOffersIdsMap = (state) => state[FAVORITES].offersIdsMap;
+export const getFavoriteOffersIds = (state) => state[FAVORITES].favoriteOffersIds;
 
-export const getDataByUser = createSelector(
-  [getOffersIdsMap, getUserId],
-  (offersIdsMap, userId) => {
-    if (!isEmpty(offersIdsMap) && userId &&
-      Object.keys(offersIdsMap).includes(userId.toString(10))
-    ) {
-      return offersIdsMap[userId];
-    }
+export const getFavoriteOffersIdsByUser = createSelector(
+  [getFavoriteOffersIds, getUserId],
+  (favoriteOffersIds, userId) => {
+    const user = find(favoriteOffersIds, ['userId', userId]);
 
-    return [];
+    return user && user.offers ? user.offers : [];
   }
 );
