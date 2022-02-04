@@ -1,15 +1,15 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
-import { updateOffersIdsMap } from './actions';
+import { setFavoriteOffersIds } from './actions';
 import { InitialModulesValues } from '~/constants';
 
-const offersIdsMap = handleActions(
+const favoriteOffersIds = handleActions(
   {
-    [updateOffersIdsMap]: (_state, action) => action.payload,
+    [setFavoriteOffersIds]: (_state, action) => action.payload,
   },
-  InitialModulesValues.FAVORITE_OFFERS_IDS_MAP
+  InitialModulesValues.FAVORITE_OFFERS_IDS
 );
 
 export default combineReducers({
-  offersIdsMap,
+  favoriteOffersIds,
 });
