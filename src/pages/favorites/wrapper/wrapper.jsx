@@ -62,6 +62,7 @@ const PageFavoritesWrapper = ({ setIsLoading }) => {
   return (
     <PageFavoritesContent
       isLoaded={isLoaded}
+      offerIdsLength={favoriteOffersIdsByUser.length}
       offersMapByCity={offersMapByCity}
     />
   );
