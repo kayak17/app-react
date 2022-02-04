@@ -84,7 +84,7 @@ const OfferCard = ({
               </span>
               <ButtonBookmark
                 offerId={offerId}
-                bookmarkType={BookmarkBtnTypes[offerType]}
+                bookmarkType={BookmarkBtnTypes.MAIN}
               />
             </div>
             <div className="card-text mb-1">
