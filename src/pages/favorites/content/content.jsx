@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import PageFavoritesContentPlaceholder from '../content-placeholder/content-placeholder';
 import OffersList from '~/components/offer/list/list';
 import { AppTitles, OfferTypes } from '~/constants';
 import { getItemOrNullPropTypes } from '~/prop-types';
@@ -9,8 +10,11 @@ import {
   getLocationLinkByCityId,
   getOffersByCityId,
 } from '~/utils';
+import './content.less';
 
-const PageFavoritesContent = ({ isLoaded, offersMapByCity }) => {
+const PageFavoritesContent = ({ isLoaded, offerIdsLength, offersMapByCity }) => {
+  const canShowPlaceholder = Boolean(offerIdsLength);
+
   return (
     <section className="page-content-wrapper">
       <h1 className="app-title page-content-title">{AppTitles.SAVED_LISTING}</h1>
@@ -42,8 +46,11 @@ const PageFavoritesContent = ({ isLoaded, offersMapByCity }) => {
           <h2 className="app-subtitle">{AppTitles.NOTHING_SAVED_YET}</h2>
         )
       ) : (
-        // placeholder
-        <></>
+        canShowPlaceholder && (
+          <PageFavoritesContentPlaceholder
+            offerType={OfferTypes.FAVORITE}
+          />
+        )
       )}
     </section>
   );
@@ -51,6 +58,7 @@ const PageFavoritesContent = ({ isLoaded, offersMapByCity }) => {
 
 PageFavoritesContent.propTypes = {
   isLoaded: PropTypes.bool.isRequired,
+  offerIdsLength: PropTypes.number.isRequired,
   offersMapByCity: getItemOrNullPropTypes(
     PropTypes.instanceOf(Map).isRequired
   ),
