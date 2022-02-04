@@ -23,6 +23,7 @@ import {
 import {
   getUpdatedFavoriteOffers,
 } from '~/utils';
+import './bookmark.less';
 
 const ButtonBookmark = ({ offerId, bookmarkType }) => {
   const dispatch = useDispatch();

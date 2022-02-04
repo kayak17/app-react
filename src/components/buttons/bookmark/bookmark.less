@@ -1,0 +1,63 @@
+@import "~/styles/common.less";
+
+.bookmark-button {
+  display: flex;
+  align-self: center;
+  margin-left: auto;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color @transition-time, background-color @transition-time;
+}
+
+.bookmark-button:focus,
+.bookmark-button:focus-visible {
+  outline: none;
+}
+
+.bookmark-button-active .bookmark-icon {
+  stroke: @primary-color;
+  fill: @primary-color;
+}
+
+.places-bookmark-button {
+  width: 18px;
+  height: 19px;
+}
+
+.places-bookmark-icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: @bookmark-icon-color;
+  stroke-width: 2;
+  transition: fill @transition-time, stroke @transition-time;
+  pointer-events: none;
+}
+
+.places-bookmark-button:focus .places-bookmark-icon,
+.places-bookmark-button:hover .places-bookmark-icon {
+  stroke: @primary-color;
+}
+
+.property-bookmark-button {
+  position: absolute;
+  top: calc(50% - 16px);
+  right: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.property-bookmark-icon {
+  fill: none;
+  stroke: @bookmark-property-color;
+  stroke-width: 2;
+  transition: fill @transition-time, stroke @transition-time;
+  pointer-events: none;
+}
+
+.property-bookmark-button:focus .property-bookmark-icon,
+.property-bookmark-button:hover .property-bookmark-icon {
+  stroke: @primary-color;
+}
