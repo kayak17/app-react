@@ -86,6 +86,18 @@ export const getUpdatedOffersMap = (offersMap, offersIds) => {
   return offersMap;
 };
 
+export const getCityNameByCityId = (offersMapByCity, cityId) => (
+  offersMapByCity.get(cityId)[0].city.name
+);
+
+export const getCitiesFromOffersMapByCity = (offersMapByCity) => (
+  Array.from(offersMapByCity.keys())
+);
+
+export const getOffersByCityId = (offersMapByCity, cityId) => (
+  offersMapByCity.get(cityId)
+);
+
 export const getFavoriteOffersURL = (offersByUser) => (
   `${APIRoutes.OFFERS}?id=${offersByUser.join('&id=')}`
 );
