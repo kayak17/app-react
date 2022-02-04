@@ -1,16 +1,12 @@
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import IconBookmark from '~/icons/bookmark/bookmark';
 import {
-  getOffersIdsMap,
-  updateOffersIdsMap,
+  getFavoriteOffersIds,
+  getFavoriteOffersIdsByUser,
+  setFavoriteOffersIds,
 } from '~/modules/favorites';
-import {
-  getActiveCityId,
-  getActiveCityName,
-} from '~/modules/main';
 import {
   getIsAuth,
   getUserId,
@@ -25,36 +21,33 @@ import {
   ModalIds,
 } from '~/constants';
 import {
-  getOffersIdsByUserData,
-  getUpdatedOffersIdsMap,
+  getUpdatedFavoriteOffers,
 } from '~/utils';
 
 const ButtonBookmark = ({ offerId, bookmarkType }) => {
   const dispatch = useDispatch();
-  const activeCityId = useSelector(getActiveCityId);
-  const activeCityName = useSelector(getActiveCityName);
-  const offersIdsMap = useSelector(getOffersIdsMap, shallowEqual);
+  const favoriteOffersIds = useSelector(getFavoriteOffersIds, shallowEqual);
+  const favoriteOffersIdsByUser = useSelector(getFavoriteOffersIdsByUser);
   const isAuth = useSelector(getIsAuth);
   const userId = useSelector(getUserId);
 
-  const [offersIdsByUser, setOffersIdsByUser] = useState(
-    getOffersIdsByUserData(offersIdsMap, userId)
-  );
-
-  const isInFavorites = offersIdsByUser.length ?
-    offersIdsByUser.includes(offerId) : false;
+  const isInFavorites = favoriteOffersIdsByUser.length ?
+    favoriteOffersIdsByUser.includes(offerId) : false;
   const btnTitle = isInFavorites ?
     BookmarkBtnTitles.IN_BOOKMARKS : BookmarkBtnTitles.TO_BOOKMARKS
   const loginModalId = isAuth ? ModalIds.NONE : ModalIds.LOGIN;
 
   const handleBookmarkBtnClick = () => {
     if (isAuth && userId) {
-      const newOffersIdsMap = getUpdatedOffersIdsMap(
-        offersIdsMap, activeCityId, activeCityName, offerId, userId
-      );
-
-      dispatch(updateOffersIdsMap(newOffersIdsMap));
-      setOffersIdsByUser(getOffersIdsByUserData(newOffersIdsMap, userId));
+      dispatch(setFavoriteOffersIds(
+        getUpdatedFavoriteOffers({
+          isInFavorites,
+          favoriteOffersIds,
+          favoriteOffersIdsByUser,
+          offerId,
+          userId,
+        })
+      ));
     }
   };
 
