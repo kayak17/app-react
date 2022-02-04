@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import PropertyFeatures from '../features/features';
+import ButtonBookmark from '~/components/buttons/bookmark/bookmark';
 import RatingStars from '~/components/rating/stars/stars';
 import {
+  BookmarkBtnTypes,
   OfferImgShapes,
   OfferTitles,
   RatingTypes,
@@ -35,13 +37,19 @@ const PropertyContent = ({ offer, offerType }) => {
       </div>
 
       <div className="mb-3">
-        <div className="d-flex align-items-center justify-content-center mb-3">
+        <div className="position-relative d-flex align-items-center
+          justify-content-center mb-3"
+        >
           <b className="position-relative fs-2 fst-italic property-price-value">
             {getOfferCurrency()}&nbsp;{offer.price}&nbsp;
           </b>
           <span className="mt-1 fs-5 fst-italic">
             &nbsp;{getOfferPricePeriodNoSlash()}
           </span>
+          <ButtonBookmark
+            offerId={offer.id}
+            bookmarkType={BookmarkBtnTypes[offerType]}
+          />
         </div>
 
         <h1 className="mb-3 fs-1 app-title">
@@ -50,7 +58,7 @@ const PropertyContent = ({ offer, offerType }) => {
 
         <RatingStars
           rating={offer.rating}
-          ratingType={RatingTypes.ROOM}
+          ratingType={RatingTypes[offerType]}
           showValue={true}
         />
 

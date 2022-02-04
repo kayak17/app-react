@@ -15,7 +15,7 @@ const HeaderWrapper = ({ themeClass }) => {
   const isAuth = useSelector(getIsAuth);
 
   return (
-    <div className={clsx(themeClass)}>
+    <div className={clsx('app-header-container', themeClass)}>
       <header className="container-xl d-flex align-items-center py-3 app-header">
         <nav className="d-flex flex-wrap w-100 app-header-nav">
           {isMainRoute ? <HeaderLogoInactive /> : <HeaderLogoActive />}

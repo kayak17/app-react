@@ -14,3 +14,7 @@ export const getIsAuth = (state) => (
 export const getAuthToken = (state) => (
   state[USER].authInfo && state[USER].authInfo.token
 );
+
+export const getUserId = (state) => (
+  state[USER].authInfo && state[USER].authInfo.id
+);

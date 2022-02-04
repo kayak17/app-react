@@ -1,5 +1,6 @@
 export * from './app';
 export * from './adapters';
+export * from './favorites';
 export * from './form-validation';
 export * from './header-link';
 export * from './location';

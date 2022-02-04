@@ -1,4 +1,5 @@
 export * from './app';
+export * from './bookmark';
 export * from './cities';
 export * from './forms';
 export * from './markup';
