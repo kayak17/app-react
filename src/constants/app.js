@@ -7,6 +7,7 @@ export const AppActionTypes = {
   LOADED: 'LOADED',
   LOADING: 'LOADING',
   SET_DATA: 'SET_DATA',
+  SET_SCROLLED_DATA: 'SET_SCROLLED_DATA',
   START: 'START',
   UNKNOWN_ACTION_TYPE: 'Unknown action.type in ',
 };
