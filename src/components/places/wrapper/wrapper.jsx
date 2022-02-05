@@ -4,7 +4,7 @@ import PlacesContent from '~/components/places/content/content';
 import PlacesContentPlaceholder from '~/components/places/content-placeholder/content-placeholder';
 import { getOffersListType } from '~/modules/main';
 import { InitialModulesValues } from '~/constants';
-import { offersReducerPropTypes } from '~/prop-types';
+import { offersReducerPropTypes, refPropTypes } from '~/prop-types';
 import { throwErrorToBoundary } from '~/utils';
 
 const PlacesWrapper = ({
@@ -13,6 +13,8 @@ const PlacesWrapper = ({
   isOffersError,
   isOffersLoading,
   isOffersLoaded,
+  scrollContainer,
+  setScrolledOffers,
 }) => {
   const offersListType = useSelector(getOffersListType) ||
     InitialModulesValues.OFFERS_LIST_TYPE;
@@ -30,6 +32,8 @@ const PlacesWrapper = ({
       <PlacesContent
         offersReducer={offersReducer}
         offersListType={offersListType}
+        scrollContainer={scrollContainer}
+        setScrolledOffers={setScrolledOffers}
       />
     );
   } else {
@@ -43,6 +47,8 @@ PlacesWrapper.propTypes = {
   isOffersError: PropTypes.bool.isRequired,
   isOffersLoading: PropTypes.bool.isRequired,
   isOffersLoaded: PropTypes.bool.isRequired,
+  scrollContainer: refPropTypes,
+  setScrolledOffers: PropTypes.func.isRequired,
 };
 
 export default PlacesWrapper;
