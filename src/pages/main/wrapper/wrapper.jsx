@@ -35,7 +35,6 @@ const PageMainWrapper = ({ setIsLoading }) => {
   const cityId = params.get('city.id');
 
   const activeCityId = useSelector(getActiveCityId);
-  const prevActiveCityId = usePrevious(activeCityId);
   const activeCityName = useSelector(getActiveCityName);
   const sortingType = useSelector(getSortingType);
   const [cities, setCities] = useState([]);
@@ -217,13 +216,13 @@ const PageMainWrapper = ({ setIsLoading }) => {
   useEffect(() => {
     if (
       isCitiesLoaded && isOffersLoaded &&
-      activeCityId !== prevActiveCityId
+      offersURL !== prevOffersURL
     ) {
       appScrollTo(scrollContainer);
     }
   }, [
-    activeCityId,
-    prevActiveCityId,
+    offersURL,
+    prevOffersURL,
     isCitiesLoaded,
     isOffersLoaded,
   ]);
