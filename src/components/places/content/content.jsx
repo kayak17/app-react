@@ -32,7 +32,7 @@ const PlacesContent = ({
       </h2>
       {offers.length ? (
         <>
-          <div className="px-3">
+          <div className="mb-2 px-3">
             <FormFilters />
           </div>
           <OffersListScroll
