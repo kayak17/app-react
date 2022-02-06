@@ -11,6 +11,7 @@ import usePrevious from '~/hooks/use-previous/use-previous';
 import {
   getActiveCityId,
   getActiveCityName,
+  getOffersListType,
   getSortingType,
   setActiveCity,
 } from '~/modules/main';
@@ -36,6 +37,8 @@ const PageMainWrapper = ({ setIsLoading }) => {
 
   const activeCityId = useSelector(getActiveCityId);
   const activeCityName = useSelector(getActiveCityName);
+  const offersListType = useSelector(getOffersListType);
+  const prevOffersListType = usePrevious(offersListType);
   const sortingType = useSelector(getSortingType);
   const [cities, setCities] = useState([]);
   const [offersMap, setOffersMap] = useState([]);
@@ -216,13 +219,16 @@ const PageMainWrapper = ({ setIsLoading }) => {
   useEffect(() => {
     if (
       isCitiesLoaded && isOffersLoaded &&
-      offersURL !== prevOffersURL
+      offersURL !== prevOffersURL ||
+      offersListType !== prevOffersListType
     ) {
       appScrollTo(scrollContainer);
     }
   }, [
     offersURL,
+    offersListType,
     prevOffersURL,
+    prevOffersListType,
     isCitiesLoaded,
     isOffersLoaded,
   ]);
