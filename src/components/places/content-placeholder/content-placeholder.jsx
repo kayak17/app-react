@@ -12,7 +12,7 @@ const PlacesContentPlaceholder = ({ offersListType }) => {
       aria-hidden="true"
     >
       <h2 className="col-6 my-3 bg-secondary app-subtitle placeholder"></h2>
-      <div className="col-12 mt-1 mb-3 bg-secondary fs-5-2 app-subtitle placeholder"></div>
+      <div className="col-11 mt-1 mb-3 bg-secondary fs-5-2 app-subtitle placeholder"></div>
       <OffersListPlaceholder
         offers={dataArray}
         offerType={OfferClassesTypes[offersListType]}

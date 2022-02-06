@@ -37,7 +37,7 @@ const FormFilters = () => {
   };
 
   return (
-    <form className="d-flex mb-3 fs-6-3">
+    <form className="d-flex pb-1 fs-6-3">
       <div className="d-flex">
         <b>{SORTING_TITLE}</b>
         <NavDropdown

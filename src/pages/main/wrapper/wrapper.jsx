@@ -1,6 +1,6 @@
 import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
-import { useCallback, useEffect, useReducer, useState } from 'react';
+import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -11,6 +11,7 @@ import usePrevious from '~/hooks/use-previous/use-previous';
 import {
   getActiveCityId,
   getActiveCityName,
+  getOffersListType,
   getSortingType,
   setActiveCity,
 } from '~/modules/main';
@@ -20,6 +21,7 @@ import {
   FetchingStatuses,
 } from '~/constants';
 import {
+  appScrollTo,
   getOffersURL,
   getOffersMapURL,
   getUnknownActionTypeMsg,
@@ -35,9 +37,12 @@ const PageMainWrapper = ({ setIsLoading }) => {
 
   const activeCityId = useSelector(getActiveCityId);
   const activeCityName = useSelector(getActiveCityName);
+  const offersListType = useSelector(getOffersListType);
+  const prevOffersListType = usePrevious(offersListType);
   const sortingType = useSelector(getSortingType);
   const [cities, setCities] = useState([]);
   const [offersMap, setOffersMap] = useState([]);
+  const scrollContainer = useRef(null);
 
   const offersURL = getOffersURL(activeCityId, sortingType);
   const prevOffersURL = usePrevious(offersURL);
@@ -60,12 +65,19 @@ const PageMainWrapper = ({ setIsLoading }) => {
           headerLink: action.payload.headerLink,
           totalCount: action.payload.totalCount,
         });
+      case AppActionTypes.SET_SCROLLED_DATA:
+        return Object.assign({}, state, {
+          data: action.payload.data,
+          headerLink: action.payload.headerLink,
+        });
       default:
         throw new Error(getUnknownActionTypeMsg(COMPONENT_NAME));
     }
   };
 
-  const dispatchSetData = useCallback((payload) => {
+  const [offersReducer, dispatchData] = useReducer(reducer, initialState);
+
+  const handleDispatchData = useCallback((payload) => {
     dispatchData({
       type: AppActionTypes.SET_DATA,
       payload: {
@@ -77,7 +89,15 @@ const PageMainWrapper = ({ setIsLoading }) => {
     });
   }, [activeCityName]);
 
-  const [offersReducer, dispatchData] = useReducer(reducer, initialState);
+  const handleSetScrolledOffers = useCallback((payload) => {
+    dispatchData({
+      type: AppActionTypes.SET_SCROLLED_DATA,
+      payload: {
+        data: offersReducer.data.concat(payload.data),
+        headerLink: payload.headerLink,
+      },
+    });
+  }, [offersReducer.data]);
 
   const {
     state: stateCities,
@@ -110,7 +130,7 @@ const PageMainWrapper = ({ setIsLoading }) => {
     fetchData: fetchOffers,
   } = useFetchCached({
     onSuccess: (payload) => {
-      dispatchSetData(payload);
+      handleDispatchData(payload);
       setIsLoading(false);
     },
     onFail: () => {
@@ -160,13 +180,13 @@ const PageMainWrapper = ({ setIsLoading }) => {
         setIsLoading(true);
         fetchOffers(offersURL);
       } else {
-        dispatchSetData(payload);
+        handleDispatchData(payload);
       }
     }
   }, [
     cacheoffers,
-    dispatchSetData,
     fetchOffers,
+    handleDispatchData,
     isCitiesLoaded,
     isOffersLoaded,
     offersURL,
@@ -196,6 +216,23 @@ const PageMainWrapper = ({ setIsLoading }) => {
     prevOffersMapURL,
   ]);
 
+  useEffect(() => {
+    if (
+      isCitiesLoaded && isOffersLoaded &&
+      offersURL !== prevOffersURL ||
+      offersListType !== prevOffersListType
+    ) {
+      appScrollTo(scrollContainer);
+    }
+  }, [
+    offersURL,
+    offersListType,
+    prevOffersURL,
+    prevOffersListType,
+    isCitiesLoaded,
+    isOffersLoaded,
+  ]);
+
   return (
     <>
       <CitiesWrapper
@@ -209,6 +246,8 @@ const PageMainWrapper = ({ setIsLoading }) => {
         isOffersLoading={isOffersLoading}
         isOffersError={isOffersError}
         isOffersLoaded={isOffersLoaded}
+        scrollContainer={scrollContainer}
+        setScrolledOffers={handleSetScrolledOffers}
       />
     </>
   );

@@ -8,7 +8,7 @@ const OffersListPlaceholder = ({
 }) => {
   return (
     <ul
-      className="row row-cols-1 g-0 justify-content-around list-unstyled"
+      className="row row-cols-1 g-0 pt-1 px-3 justify-content-around list-unstyled"
       aria-hidden="true"
     >
       {offers.map((_, idx) => (

@@ -1,10 +1,18 @@
 import PropTypes from 'prop-types';
 import OffersList from '~/components/offer/list/list';
+import OffersListScroll from '~/components/offer/list-scroll/list-scroll';
 import FormFilters from '../form-filters/form-filters';
 import { OfferClassesTypes, OfferTitles } from '~/constants';
-import { offersReducerPropTypes } from '~/prop-types';
+import { offersReducerPropTypes, refPropTypes } from '~/prop-types';
+import { getHeaderLinkNext } from '~/utils';
 
-const PlacesContent = ({ offersReducer, offersListType }) => {
+const PlacesContent = ({
+  offersReducer,
+  offersListType,
+  scrollContainer,
+  setScrolledOffers,
+}) => {
+  const headerLinkNext = getHeaderLinkNext(offersReducer.headerLink);
   const activeCityName = offersReducer.activeCityName;
   const totalCount = offersReducer.totalCount;
   const offers = offersReducer.data;
@@ -18,28 +26,40 @@ const PlacesContent = ({ offersReducer, offersListType }) => {
   };
 
   return (
-    <div className="text-center">
+    <>
       <h2 className="px-5 my-3 app-subtitle">
         {getTitle()}
       </h2>
       {offers.length ? (
         <>
-          <FormFilters />
-          <OffersList
-            offers={offers}
-            offerType={OfferClassesTypes[offersListType]}
+          <div className="mb-2 px-3">
+            <FormFilters />
+          </div>
+          <OffersListScroll
+            render={() => (
+              <OffersList
+                offers={offers}
+                offerType={OfferClassesTypes[offersListType]}
+              />
+            )}
+            containerClass={'pt-2 ps-2'}
+            headerLinkNext={headerLinkNext}
+            scrollContainer={scrollContainer}
+            setScrolledOffers={setScrolledOffers}
           />
         </>
       ) : (
         null
       )}
-    </div>
+    </>
   );
 };
 
 PlacesContent.propTypes = {
   offersReducer: offersReducerPropTypes,
   offersListType: PropTypes.string.isRequired,
+  scrollContainer: refPropTypes,
+  setScrolledOffers: PropTypes.func.isRequired,
 };
 
 export default PlacesContent;

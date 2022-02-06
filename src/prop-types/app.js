@@ -10,3 +10,8 @@ export const getItemOrNullPropTypes = (itemPropTypes) => (
     PropTypes.oneOf([null]).isRequired,
   ])
 );
+
+export const refPropTypes = PropTypes.oneOfType([
+  PropTypes.func.isRequired,
+  PropTypes.shape({ current: PropTypes.any }).isRequired,
+]);

@@ -5,6 +5,12 @@ import {
   ToastTypes,
 } from '~/constants';
 
+export const appScrollTo = (scrollContainer) => {
+  if (scrollContainer && scrollContainer.current) {
+    scrollContainer.current.scrollIntoView();
+  }
+};
+
 export const capitalizeFirstLetter = (str) => (
   str.charAt(0).toUpperCase() + str.slice(1)
 );
