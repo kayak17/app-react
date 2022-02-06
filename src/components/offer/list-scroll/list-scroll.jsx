@@ -44,11 +44,11 @@ const OffersListScroll = ({
 
   return (
     <div
-      className={clsx('overflow-auto', containerClass)}
+      className={clsx('overflow-auto position-relative', containerClass)}
       ref={listRef}
     >
       <div
-        className="app-scroll-container"
+        className="position-absolute top-0 w-100"
         ref={scrollContainer}
       />
       {render()}
