@@ -46,7 +46,7 @@ const PropertyReviews = ({
           )}
         </>
       ) : (
-        <h2>{ReviewTitles.NO_REVIEWS}</h2>
+        <h2 className="fs-3 app-subtitle">{ReviewTitles.NO_REVIEWS}</h2>
       )}
 
       {isAuth ? (
