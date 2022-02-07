@@ -14,8 +14,6 @@ import './content.less';
 const PageMainContent = ({
   offersMap,
   offersReducer,
-  isCitiesError,
-  isOffersLoading,
   isOffersError,
   isOffersLoaded,
   scrollContainer,
@@ -32,9 +30,7 @@ const PageMainContent = ({
         <section className="col-6 g-0 d-flex flex-column text-center main-places-container">
           <PlacesWrapper
             offersReducer={offersReducer}
-            isCitiesError={isCitiesError}
             isOffersError={isOffersError}
-            isOffersLoading={isOffersLoading}
             isOffersLoaded={isOffersLoaded}
             scrollContainer={scrollContainer}
             setScrolledOffers={setScrolledOffers}
@@ -54,8 +50,6 @@ const PageMainContent = ({
 PageMainContent.propTypes = {
   offersMap: offersPropTypes,
   offersReducer: offersReducerPropTypes,
-  isCitiesError: PropTypes.bool.isRequired,
-  isOffersLoading: PropTypes.bool.isRequired,
   isOffersError: PropTypes.bool.isRequired,
   isOffersLoaded: PropTypes.bool.isRequired,
   scrollContainer: refPropTypes,
