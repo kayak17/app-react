@@ -9,9 +9,7 @@ import { throwErrorToBoundary } from '~/utils';
 
 const PlacesWrapper = ({
   offersReducer,
-  isCitiesError,
   isOffersError,
-  isOffersLoading,
   isOffersLoaded,
   scrollContainer,
   setScrolledOffers,
@@ -19,33 +17,29 @@ const PlacesWrapper = ({
   const offersListType = useSelector(getOffersListType) ||
     InitialModulesValues.OFFERS_LIST_TYPE;
 
-  if (!isCitiesError && isOffersLoading) {
+  if (isOffersError) {
+    throwErrorToBoundary();
+  } else if (!isOffersLoaded) {
     return (
       <PlacesContentPlaceholder
         offersListType={offersListType}
       />
     );
-  } else if (isCitiesError || isOffersError) {
-    throwErrorToBoundary();
-  } else if (isOffersLoaded) {
-    return (
-      <PlacesContent
-        offersReducer={offersReducer}
-        offersListType={offersListType}
-        scrollContainer={scrollContainer}
-        setScrolledOffers={setScrolledOffers}
-      />
-    );
-  } else {
-    return null;
   }
+
+  return (
+    <PlacesContent
+      offersReducer={offersReducer}
+      offersListType={offersListType}
+      scrollContainer={scrollContainer}
+      setScrolledOffers={setScrolledOffers}
+    />
+  );
 };
 
 PlacesWrapper.propTypes = {
   offersReducer: offersReducerPropTypes,
-  isCitiesError: PropTypes.bool.isRequired,
   isOffersError: PropTypes.bool.isRequired,
-  isOffersLoading: PropTypes.bool.isRequired,
   isOffersLoaded: PropTypes.bool.isRequired,
   scrollContainer: refPropTypes,
   setScrolledOffers: PropTypes.func.isRequired,
