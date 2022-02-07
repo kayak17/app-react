@@ -12,7 +12,7 @@ export const BookmarkBtnClasses = {
   FAVORITE: {
     btn: 'places-bookmark-button bookmark-button',
     btnActive: 'bookmark-button-active',
-    icon: 'places-bookmark-icon bookmark-icon skewed-primary-sm-pos',
+    icon: 'places-bookmark-icon bookmark-icon',
   },
 };
 
