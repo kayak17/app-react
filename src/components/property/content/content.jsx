@@ -43,7 +43,7 @@ const PropertyContent = ({ offer, offerType }) => {
           <b className="position-relative fs-2 fst-italic property-price-value">
             {getOfferCurrency()}&nbsp;{offer.price}&nbsp;
           </b>
-          <span className="mt-1 fs-5 fst-italic">
+          <span className="fs-5 fst-italic">
             &nbsp;{getOfferPricePeriodNoSlash()}
           </span>
           <ButtonBookmark
