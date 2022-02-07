@@ -6,7 +6,6 @@ import ReviewsNoAuth from '~/components/review/no-auth/no-auth';
 import { getIsAuth } from '~/modules/user';
 import { AppTitles, ReviewTitles } from '~/constants';
 import { reviewsPropTypes } from '~/prop-types';
-import './reviews.less';
 
 const PropertyReviews = ({
   offerId,
