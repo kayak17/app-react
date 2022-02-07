@@ -6,12 +6,12 @@ import {
   OfferImgShapes,
   RatingTypes,
 } from '~/constants';
-import { getEmptyArray } from '~/utils';
+import { getArrayOfUndefineds } from '~/utils';
 import '../content/content.less';
 import '~/components/property/content/content.less';
 
 const PageRoomContentPlaceholder = ({ offerType }) => {
-  const dataArray = getEmptyArray(ROOM_MAX_PHOTOS_COUNT);
+  const dataArray = getArrayOfUndefineds(ROOM_MAX_PHOTOS_COUNT);
 
   return (
     <section className="mt-4 ms-auto me-auto mb-3 text-center

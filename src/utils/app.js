@@ -23,7 +23,7 @@ export const getAuthHeader = (token) => (
   }
 );
 
-export const getEmptyArray = (arrLength) => (
+export const getArrayOfUndefineds = (arrLength) => (
   new Array(arrLength).fill(undefined)
 );
 
