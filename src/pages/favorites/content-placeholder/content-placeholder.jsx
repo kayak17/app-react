@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import OffersListPlaceholder from '~/components/offer/list-placeholder/list-placeholder';
-import { getArrayOfUndefineds } from '~/utils';
+import { getEmptyArray } from '~/utils';
 import '../content/content.less';
 
 const PageFavoritesContentPlaceholder = ({ offerType }) => {
-  const dataArray = getArrayOfUndefineds(3);
+  const dataArray = getEmptyArray(3);
 
   return (
     <ul

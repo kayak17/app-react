@@ -130,7 +130,6 @@ const PageRoomWrapper = ({ setIsLoading }) => {
       reviews={reviews}
       reviewsCount={reviewsCount}
       isReviewsLoaded={isReviewsLoaded}
-      isCurrentOfferLoaded={isOfferLoaded}
       isOffersNearbyLoaded={isOffersNearbyLoaded}
       fetchReviews={handleFetchReviews}
       redirectToRoute={redirectToRoute}

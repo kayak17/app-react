@@ -18,7 +18,6 @@ const PageRoomContent = ({
   reviews,
   reviewsCount,
   isReviewsLoaded,
-  isCurrentOfferLoaded,
   isOffersNearbyLoaded,
   fetchReviews,
   redirectToRoute,
@@ -50,10 +49,9 @@ const PageRoomContent = ({
           />
         )}
       </section>
-      {isCurrentOfferLoaded && (
+      {isOffersNearbyLoaded && (
         <section className="mb-5 property-map-container">
           <OffersMap
-            currentOffer={offer}
             offers={offersNearby}
             redirectToRoute={redirectToRoute}
           />
@@ -71,7 +69,6 @@ PageRoomContent.propTypes = {
   reviews: reviewsPropTypes,
   reviewsCount: PropTypes.string.isRequired,
   isReviewsLoaded: PropTypes.bool.isRequired,
-  isCurrentOfferLoaded: PropTypes.bool.isRequired,
   isOffersNearbyLoaded: PropTypes.bool.isRequired,
   fetchReviews: PropTypes.func.isRequired,
   redirectToRoute: PropTypes.func.isRequired,

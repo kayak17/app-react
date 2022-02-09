@@ -161,6 +161,9 @@ const PageMainWrapper = ({ setIsLoading }) => {
   const isOffersLoaded = (
     stateOffers.status === FetchingStatuses.LOADED
   );
+  const isOffersLoading = (
+    !isOffersError && !isOffersLoaded
+  );
 
   const isOffersMapLoaded = (
     stateOffersMap.status === FetchingStatuses.LOADED
@@ -234,12 +237,13 @@ const PageMainWrapper = ({ setIsLoading }) => {
     <>
       <CitiesWrapper
         cities={cities}
-        isCitiesError={isCitiesError}
         isCitiesLoaded={isCitiesLoaded}
       />
       <PageMain
         offersMap={offersMap}
         offersReducer={offersReducer}
+        isCitiesError={isCitiesError}
+        isOffersLoading={isOffersLoading}
         isOffersError={isOffersError}
         isOffersLoaded={isOffersLoaded}
         scrollContainer={scrollContainer}

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import OffersListPlaceholder from '~/components/offer/list-placeholder/list-placeholder';
 import { OFFERS_LIMIT_PER_PAGE, OfferClassesTypes } from '~/constants';
-import { getArrayOfUndefineds } from '~/utils';
+import { getEmptyArray } from '~/utils';
 
 const PlacesContentPlaceholder = ({ offersListType }) => {
-  const dataArray = getArrayOfUndefineds(OFFERS_LIMIT_PER_PAGE);
+  const dataArray = getEmptyArray(OFFERS_LIMIT_PER_PAGE);
 
   return (
     <div
