@@ -21,8 +21,10 @@ import {
 import {
   getAuthHeader,
   isOfferIdValid,
-  reviewSchema,
 } from '~/utils';
+import {
+  reviewSchema,
+} from './validation';
 import './review.less';
 
 const FormReview = ({ offerId }) => {
