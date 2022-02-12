@@ -8,10 +8,12 @@ import { getFavoriteOffersIdsByUser } from '~/modules/favorites';
 import { AppMessages, FetchingStatuses } from '~/constants';
 import {
   getFavoriteOffersURL,
-  getOffersMapByCity,
-  getUpdatedOffersMap,
   throwErrorToBoundary,
 } from '~/utils';
+import {
+  getOffersMapByCity,
+  getUpdatedOffersMap,
+} from '../helpers';
 
 const PageFavoritesWrapper = ({ setIsLoading }) => {
   const favoriteOffersIdsByUser = useSelector(getFavoriteOffersIdsByUser);

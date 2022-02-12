@@ -5,11 +5,13 @@ import OffersList from '~/components/offer/list/list';
 import { AppTitles, OfferTypes } from '~/constants';
 import { getItemOrNullPropTypes } from '~/prop-types';
 import {
+  getLocationLinkByCityId,
+} from '~/utils';
+import {
   getCitiesFromOffersMapByCity,
   getCityNameByCityId,
-  getLocationLinkByCityId,
   getOffersByCityId,
-} from '~/utils';
+} from '../helpers';
 import './content.less';
 
 const PageFavoritesContent = ({ isLoaded, offerIdsLength, offersMapByCity }) => {
