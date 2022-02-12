@@ -23,6 +23,10 @@ export const getOffersNearbyURL = (offerId) => (
   `${APIRoutes.NEARBY}?id=${offerId}`
 );
 
+export const getOffersMapURL = (cityId) => (
+  `${APIRoutes.OFFERS_MAP}${AppQueryParamsLeading.CITY_ID}${cityId}`
+);
+
 export const getOffersURL = (cityId, sortingType, page = 1) => {
   let sort = '';
   let order = '';
