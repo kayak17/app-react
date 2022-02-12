@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import OffersList from '~/components/offer/list/list';
-import OffersListScroll from '~/components/offer/list-scroll/list-scroll';
+import BottomScrollList from '~/components/bottom-scroll-list/bottom-scroll-list';
 import FormFilters from '../form-filters/form-filters';
 import { OfferClassesTypes, OfferTitles } from '~/constants';
 import { offersReducerPropTypes, refPropTypes } from '~/prop-types';
@@ -35,7 +35,7 @@ const PlacesContent = ({
           <div className="mb-2 px-3">
             <FormFilters scrollContainer={scrollContainer} />
           </div>
-          <OffersListScroll
+          <BottomScrollList
             render={() => (
               <OffersList
                 offers={offers}
@@ -45,7 +45,7 @@ const PlacesContent = ({
             containerClass={'pt-2 ps-2'}
             headerLinkNext={headerLinkNext}
             scrollContainer={scrollContainer}
-            setScrolledOffers={setScrolledOffers}
+            setScrolledItems={setScrolledOffers}
           />
         </>
       ) : (
