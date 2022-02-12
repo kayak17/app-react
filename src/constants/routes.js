@@ -13,6 +13,7 @@ export const APIRoutes = {
 };
 
 export const AppRoutes = {
+  ANY: '*',
   MAIN: '/',
   FAVORITES: '/favorites',
   LOGIN: '/login',
