@@ -41,7 +41,3 @@ export const getMapTooltipMarkup = ({ price, rating, title, type: flatType }) =>
       </span>
     `;
 };
-
-export const getOffersMapURL = (cityId) => (
-  `${APIRoutes.OFFERS}${AppQueryParamsLeading.CITY_ID}${cityId}`
-);
