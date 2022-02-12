@@ -13,14 +13,12 @@ import {
   OfferTitles,
   RatingTypes,
   InitialModulesValues,
+  OFFER_CURRENCY,
+  OFFER_PRICE_PERIOD,
 } from '~/constants';
 import {
   offerPropTypes,
 } from '~/prop-types';
-import {
-  getOfferCurrency,
-  getOfferPricePeriod,
-} from '~/utils';
 import '../offer.less';
 
 const OfferCard = ({
@@ -77,10 +75,10 @@ const OfferCard = ({
           <div className={`${OfferClasses[offerType]['info']} card-body py-1`}>
             <div className="d-flex align-items-center card-text mb-1">
               <b className="fs-5-4">
-                {getOfferCurrency()}&nbsp;{offer.price}
+                {OFFER_CURRENCY}&nbsp;{offer.price}
               </b>
               <span className="fs-6-3">
-                &nbsp;{getOfferPricePeriod()}
+                &nbsp;{OFFER_PRICE_PERIOD}
               </span>
               <ButtonBookmark
                 offerId={offerId}

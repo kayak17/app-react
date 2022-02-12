@@ -15,9 +15,11 @@ import {
   SortingTypes,
   SORTING_TITLE,
 } from '~/constants';
+import { refPropTypes } from '~/prop-types';
+import { appScrollTo } from '~/utils';
 import './form-filters.less';
 
-const FormFilters = () => {
+const FormFilters = ({ scrollContainer }) => {
   const offersListType = useSelector(getOffersListType);
   const sortingType = useSelector(getSortingType);
   const [sorting, setSorting] = useState(SortingTypes[sortingType]);
@@ -32,6 +34,7 @@ const FormFilters = () => {
 
   const onOffersTypeItemClick = (listType) => {
     if (offersListType !== listType) {
+      appScrollTo(scrollContainer);
       dispatch(setOffersListType(listType));
     }
   };
@@ -81,6 +84,10 @@ const FormFilters = () => {
       </div>
     </form>
   );
+};
+
+FormFilters.propTypes = {
+  scrollContainer: refPropTypes,
 };
 
 export default FormFilters;

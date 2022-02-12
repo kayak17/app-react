@@ -1,3 +1,6 @@
+export const OFFER_CURRENCY = '€';
+export const OFFER_PRICE_PERIOD = '/ night';
+export const OFFER_PRICE_PERIOD_NO_SLASH = 'night';
 export const OFFER_RATING_STAR_WIDTH = 20;
 export const OFFERS_LIMIT_PER_PAGE = 7;
 export const OFFERS_LIST_TYPE_ARIA_LABEL = 'offers list style change';

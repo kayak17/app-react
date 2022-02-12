@@ -1,14 +1,12 @@
 import isEmpty from 'lodash/isEmpty';
 import {
-  APIRoutes,
-  AppQueryParamsLeading,
   OfferSrTitles,
   MAP_CENTER_DEFAULT,
   MAP_ZOOM_DEFAULT,
+  OFFER_CURRENCY,
+  OFFER_PRICE_PERIOD,
 } from '~/constants';
 import {
-  getOfferCurrency,
-  getOfferPricePeriod,
   getRatingStarsWidth,
 } from '~/utils';
 import '~/components/rating/stars/stars.less';
@@ -33,7 +31,7 @@ export const getMapCenterAndZoom = (activeCity) => {
 export const getMapTooltipMarkup = ({ price, rating, title, type: flatType }) => {
   return `
       <b>${title}</b><br />
-      <span>${getOfferCurrency()} ${price} ${getOfferPricePeriod()}</span>,
+      <span>${OFFER_CURRENCY} ${price} ${OFFER_PRICE_PERIOD}</span>,
       <span>${flatType}</span><br />
       <span class="offer-card-rating rating justify-content-center">
         <span class="offer-card-stars rating-stars">
@@ -43,7 +41,3 @@ export const getMapTooltipMarkup = ({ price, rating, title, type: flatType }) =>
       </span>
     `;
 };
-
-export const getOffersMapURL = (cityId) => (
-  `${APIRoutes.OFFERS}${AppQueryParamsLeading.CITY_ID}${cityId}`
-);

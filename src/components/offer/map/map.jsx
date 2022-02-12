@@ -15,21 +15,20 @@ import {
 import {
   MAP_CENTER_DEFAULT,
   MAP_ID,
-  MAP_PIN_SIZE,
-  MAP_PIN_URL,
-  MAP_PIN_ACTIVE_URL,
-  MAP_PIN_CURRENT_URL,
   MAP_TILE_LAYER,
   MAP_TILE_LAYER_ATTRIBUTION,
   MAP_TOOLTIP_SETTING,
   MAP_ZOOM_DEFAULT,
+  MAP_DEFAULT_ICON_DATA,
+  MAP_ACTIVE_ICON_DATA,
+  MAP_CURRENT_ICON_DATA,
   AppRoutes,
   InitialModulesValues,
 } from '~/constants';
 import {
   cityPropTypes,
   offerPropTypes,
-  offersPropTypes,
+  offersMapPropTypes,
   mapPinIdPropTypes,
   getItemOrNullPropTypes,
 } from '~/prop-types';
@@ -45,22 +44,12 @@ class OffersMap extends Component {
 
     this.map = null;
     this.markers = [];
-    this.center = MAP_CENTER_DEFAULT;
     this.zoom = MAP_ZOOM_DEFAULT;
+    this.center = MAP_CENTER_DEFAULT;
     this.tooltipSettings = MAP_TOOLTIP_SETTING;
-
-    this.icon = leaflet.icon({
-      iconUrl: MAP_PIN_URL,
-      iconSize: MAP_PIN_SIZE,
-    });
-    this.activeIcon = leaflet.icon({
-      iconUrl: MAP_PIN_ACTIVE_URL,
-      iconSize: MAP_PIN_SIZE,
-    });
-    this.currentIcon = leaflet.icon({
-      iconUrl: MAP_PIN_CURRENT_URL,
-      iconSize: MAP_PIN_SIZE,
-    });
+    this.icon = leaflet.icon(MAP_DEFAULT_ICON_DATA);
+    this.activeIcon = leaflet.icon(MAP_ACTIVE_ICON_DATA);
+    this.currentIcon = leaflet.icon(MAP_CURRENT_ICON_DATA);
   }
 
   componentDidMount() {
@@ -246,7 +235,7 @@ class OffersMap extends Component {
 }
 
 OffersMap.propTypes = {
-  offers: offersPropTypes,
+  offers: offersMapPropTypes,
   redirectToRoute: PropTypes.func.isRequired,
   activeCity: cityPropTypes,
   activeOffer: getItemOrNullPropTypes(offerPropTypes),

@@ -1,7 +1,7 @@
 import RatingStars from '~/components/rating/stars/stars';
 import {
   REVIEW_AVATAR_ALT,
-  REVIEW_IMG_SHAPES,
+  reviewImgShapes,
   RatingTypes,
 } from '~/constants';
 import { reviewPropTypes } from '~/prop-types';
@@ -14,8 +14,8 @@ const ReviewItem = ({ review }) => {
         <div>
           <img
             src={review.avatar}
-            width={REVIEW_IMG_SHAPES.AVATAR.width}
-            height={REVIEW_IMG_SHAPES.AVATAR.height}
+            width={reviewImgShapes.AVATAR.width}
+            height={reviewImgShapes.AVATAR.height}
             alt={REVIEW_AVATAR_ALT}
           />
         </div>

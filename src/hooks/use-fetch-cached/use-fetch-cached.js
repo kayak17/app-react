@@ -10,7 +10,7 @@ import {
 import { getUnknownActionTypeMsg } from '~/utils';
 
 /**
- * Object with data from server request
+ * Object with data from server response
  * @typedef {Object} payloadObject
  * @property {array} data - data from server response
  * @property {Object} headerLink - link header from server response
@@ -49,7 +49,7 @@ import { getUnknownActionTypeMsg } from '~/utils';
 /**
  * Callback to run if request was successful
  * @callback onSuccessCallback
- * @param {payloadObject} payload - contains data from server request
+ * @param {payloadObject} payload - contains data from server response
  */
 
 /**

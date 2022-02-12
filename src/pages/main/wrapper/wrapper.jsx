@@ -5,13 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CitiesWrapper from '~/components/cities/wrapper/wrapper';
-import PageMain from '../content/content';
+import PageMainContent from '../content/content';
 import useFetchCached from '~/hooks/use-fetch-cached/use-fetch-cached';
 import usePrevious from '~/hooks/use-previous/use-previous';
 import {
   getActiveCityId,
   getActiveCityName,
-  getOffersListType,
   getSortingType,
   setActiveCity,
 } from '~/modules/main';
@@ -37,8 +36,6 @@ const PageMainWrapper = ({ setIsLoading }) => {
 
   const activeCityId = useSelector(getActiveCityId);
   const activeCityName = useSelector(getActiveCityName);
-  const offersListType = useSelector(getOffersListType);
-  const prevOffersListType = usePrevious(offersListType);
   const sortingType = useSelector(getSortingType);
   const [cities, setCities] = useState([]);
   const [offersMap, setOffersMap] = useState([]);
@@ -216,16 +213,13 @@ const PageMainWrapper = ({ setIsLoading }) => {
   useEffect(() => {
     if (
       isCitiesLoaded && isOffersLoaded &&
-      offersURL !== prevOffersURL ||
-      offersListType !== prevOffersListType
+      offersURL !== prevOffersURL
     ) {
       appScrollTo(scrollContainer);
     }
   }, [
     offersURL,
-    offersListType,
     prevOffersURL,
-    prevOffersListType,
     isCitiesLoaded,
     isOffersLoaded,
   ]);
@@ -237,7 +231,7 @@ const PageMainWrapper = ({ setIsLoading }) => {
         isCitiesError={isCitiesError}
         isCitiesLoaded={isCitiesLoaded}
       />
-      <PageMain
+      <PageMainContent
         offersMap={offersMap}
         offersReducer={offersReducer}
         isOffersError={isOffersError}

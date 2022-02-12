@@ -7,6 +7,7 @@ export const APIRoutes = {
   LOGIN: '/login',
   NEARBY: '/nearby',
   OFFERS: '/offers',
+  OFFERS_MAP: '/offers-map',
   SIGNUP: '/signup',
   REVIEWS: '/reviews',
 };

@@ -8,12 +8,12 @@ import { setIsLoading } from '~/modules/process';
 import { FetchingStatuses } from '~/constants';
 import { refPropTypes } from '~/prop-types';
 
-const OffersListScroll = ({
+const BottomScrollList = ({
   render,
   containerClass,
   headerLinkNext,
   scrollContainer,
-  setScrolledOffers,
+  setScrolledItems,
 }) => {
   const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ const OffersListScroll = ({
       dispatch(setIsLoading(true));
     },
     onSuccess: (payload) => {
-      setScrolledOffers(payload);
+      setScrolledItems(payload);
     },
   });
 
@@ -56,12 +56,12 @@ const OffersListScroll = ({
   );
 }
 
-OffersListScroll.propTypes = {
+BottomScrollList.propTypes = {
   render: PropTypes.func.isRequired,
   containerClass: PropTypes.string,
   headerLinkNext: PropTypes.string.isRequired,
   scrollContainer: refPropTypes,
-  setScrolledOffers: PropTypes.func.isRequired,
+  setScrolledItems: PropTypes.func.isRequired,
 };
 
-export default OffersListScroll;
+export default BottomScrollList;
