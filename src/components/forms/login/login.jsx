@@ -18,7 +18,7 @@ import {
   InitialModulesValues,
   ModalIds,
 } from '~/constants';
-import { loginSchema } from '~/utils';
+import { loginSchema } from './validation';
 
 const FormLogin = ({ closeModal, isModal, navigate }) => {
   const authError = useSelector(getIsError);
