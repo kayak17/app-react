@@ -29,7 +29,7 @@ import {
 import {
   cityPropTypes,
   offerPropTypes,
-  offersPropTypes,
+  offersMapPropTypes,
   mapPinIdPropTypes,
   getItemOrNullPropTypes,
 } from '~/prop-types';
@@ -246,7 +246,7 @@ class OffersMap extends Component {
 }
 
 OffersMap.propTypes = {
-  offers: offersPropTypes,
+  offers: offersMapPropTypes,
   redirectToRoute: PropTypes.func.isRequired,
   activeCity: cityPropTypes,
   activeOffer: getItemOrNullPropTypes(offerPropTypes),
