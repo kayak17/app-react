@@ -22,7 +22,7 @@ import {
 } from '~/constants';
 import {
   getUpdatedFavoriteOffers,
-} from '~/utils';
+} from './helpers';
 import './bookmark.less';
 
 const ButtonBookmark = ({ offerId, bookmarkType }) => {
