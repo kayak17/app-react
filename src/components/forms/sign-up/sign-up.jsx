@@ -17,7 +17,7 @@ import {
   FORM_INITIAL_ERROR,
   FORM_INITIAL_SUCCESS,
 } from '~/constants';
-import { signUpSchema } from '~/utils';
+import { signUpSchema } from './validation';
 
 const FormSignUp = ({ isModal }) => {
   const [signUpError, setSignUpError] = useState(FORM_INITIAL_ERROR);
