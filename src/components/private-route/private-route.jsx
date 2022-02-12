@@ -9,13 +9,11 @@ const PrivateRoute = ({
 }) => {
   const isAuth = useSelector(getIsAuth);
 
-  return (
-    isAuth ? (
-      <>{element}</>
-    ) : (
-      <Navigate to={redirectURL} replace />
-    )
-  );
+  if (isAuth) {
+    return <>{element}</>;
+  }
+
+  return <Navigate to={redirectURL} replace />;
 };
 
 PrivateRoute.propTypes = {
