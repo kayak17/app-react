@@ -9,12 +9,6 @@ export const isOfferIdValid = (offerId) => (
   !isNaN(offerId) && offerId > 0
 );
 
-export const getOfferCurrency = () => '€';
-
-export const getOfferPricePeriod = () => '/ night';
-
-export const getOfferPricePeriodNoSlash = () => 'night';
-
 export const getOfferURL = (offerId) => (
   `${APIRoutes.OFFERS}?id=${offerId}`
 );
