@@ -33,7 +33,7 @@ const PlacesContent = ({
       {offers.length ? (
         <>
           <div className="mb-2 px-3">
-            <FormFilters />
+            <FormFilters scrollContainer={scrollContainer} />
           </div>
           <OffersListScroll
             render={() => (
