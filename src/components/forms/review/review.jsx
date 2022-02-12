@@ -13,10 +13,10 @@ import {
   AppTitles,
   ResponseStatusTexts,
   ReviewFormRatings,
+  reviewImgShapes,
   ReviewTitles,
   FORM_INITIAL_ERROR,
   FORM_INITIAL_SUCCESS,
-  REVIEW_IMG_SHAPES,
 } from '~/constants';
 import {
   getAuthHeader,
@@ -96,8 +96,8 @@ const FormReview = ({ offerId }) => {
                     >
                       <IconStar
                         className="form-rating-star-image"
-                        width={REVIEW_IMG_SHAPES.FORM_STAR.width}
-                        height={REVIEW_IMG_SHAPES.FORM_STAR.height}
+                        width={reviewImgShapes.FORM_STAR.width}
+                        height={reviewImgShapes.FORM_STAR.height}
                       />
                     </label>
                   </Fragment>
@@ -124,8 +124,8 @@ const FormReview = ({ offerId }) => {
                   <span className="d-inline align-text-bottom form-rating-star-help">
                     <IconStar
                       className="form-rating-star-image"
-                      width={REVIEW_IMG_SHAPES.HELP_STAR.width}
-                      height={REVIEW_IMG_SHAPES.HELP_STAR.height}
+                      width={reviewImgShapes.HELP_STAR.width}
+                      height={reviewImgShapes.HELP_STAR.height}
                     />
                     <span className="visually-hidden">star</span>
                   </span>
