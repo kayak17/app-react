@@ -5,7 +5,7 @@ import PlacesWrapper from '~/components/places/wrapper/wrapper';
 import useRouterNavigate from '~/hooks/use-router-navigate/use-router-navigate';
 import { AppSRTitles } from '~/constants';
 import {
-  offersPropTypes,
+  offersMapPropTypes,
   offersReducerPropTypes,
   refPropTypes,
 } from '~/prop-types';
@@ -48,7 +48,7 @@ const PageMainContent = ({
 };
 
 PageMainContent.propTypes = {
-  offersMap: offersPropTypes,
+  offersMap: offersMapPropTypes,
   offersReducer: offersReducerPropTypes,
   isOffersError: PropTypes.bool.isRequired,
   isOffersLoaded: PropTypes.bool.isRequired,
