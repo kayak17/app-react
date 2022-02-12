@@ -7,14 +7,12 @@ import {
   OfferImgShapes,
   OfferTitles,
   RatingTypes,
+  OFFER_CURRENCY,
+  OFFER_PRICE_PERIOD_NO_SLASH,
 } from '~/constants';
 import {
   offerPropTypes,
 } from '~/prop-types';
-import {
-  getOfferCurrency,
-  getOfferPricePeriodNoSlash,
-} from '~/utils';
 import './content.less';
 
 const PropertyContent = ({ offer, offerType }) => {
@@ -41,10 +39,10 @@ const PropertyContent = ({ offer, offerType }) => {
           justify-content-center mb-3"
         >
           <b className="position-relative fs-2 fst-italic property-price-value">
-            {getOfferCurrency()}&nbsp;{offer.price}&nbsp;
+            {OFFER_CURRENCY}&nbsp;{offer.price}&nbsp;
           </b>
           <span className="fs-5 fst-italic">
-            &nbsp;{getOfferPricePeriodNoSlash()}
+            &nbsp;{OFFER_PRICE_PERIOD_NO_SLASH}
           </span>
           <ButtonBookmark
             offerId={offer.id}
