@@ -9,12 +9,14 @@ const ReviewFormContainer = ({ offerId }) => {
   const isAuth = useSelector(getIsAuth);
 
   if (isAuth) {
-    <>
-      <p className="text-start fw-bold fst-italic">
-        {ReviewTitles.YOUR_REVIEW}
-      </p>
-      <FormReview offerId={offerId} />
-    </>
+    return (
+      <>
+        <p className="text-start fw-bold fst-italic">
+          {ReviewTitles.YOUR_REVIEW}
+        </p>
+        <FormReview offerId={offerId} />
+      </>
+    );
   }
 
   return (
