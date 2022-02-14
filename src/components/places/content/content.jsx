@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import OffersList from '~/components/offer/list/list';
 import BottomScrollList from '~/components/bottom-scroll-list/bottom-scroll-list';
+import withOffersListHover from '~/hocs/with-offers-list-hover/with-offers-list-hover';
 import FormFilters from '../form-filters/form-filters';
 import { OfferClassesTypes, OfferTitles } from '~/constants';
 import { offersReducerPropTypes, refPropTypes } from '~/prop-types';
 import { getHeaderLinkNext } from '~/utils';
+
+const OffersListWrapped = withOffersListHover(OffersList);
 
 const PlacesContent = ({
   offersReducer,
@@ -37,7 +40,7 @@ const PlacesContent = ({
           </div>
           <BottomScrollList
             render={() => (
-              <OffersList
+              <OffersListWrapped
                 offers={offers}
                 offerType={OfferClassesTypes[offersListType]}
               />
