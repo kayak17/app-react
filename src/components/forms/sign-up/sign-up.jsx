@@ -1,18 +1,21 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ErrorMessage, Field, Formik, Form } from 'formik';
-import ButtonCommon from '~/components/buttons/common/common';
-import CustomError from '../custom-error/custom-error';
+import { Formik, Form } from 'formik';
+import CustomAlert from '../custom-elements/alert/alert';
+import FormButtonSubmit from '../buttons/submit/submit';
+import FieldEmail from '../fields/email/email';
+import FieldName from '../fields/name/name';
+import FieldPassword from '../fields/password/password';
+import FieldPasswordConfirm from '../fields/password-confirm/password-confirm';
+import ModalsLink from '~/components/modals/link/link';
 import { sendFormRequest } from '~/services';
 import {
   APIRoutes,
   AppMessages,
   AppRoutes,
   AppTitles,
-  ModalIds,
-  FormInputPlaceholders,
-  FormSRTitles,
+  BsStyleTypes,
   ResponseStatusTexts,
   FORM_INITIAL_ERROR,
   FORM_INITIAL_SUCCESS,
@@ -30,15 +33,9 @@ const FormSignUp = ({ isModal }) => {
     passwordConfirm: '',
   };
 
-  const onInputFocus = () => {
+  const onInputFocus = useCallback(() => {
     setSignUpError(FORM_INITIAL_ERROR);
-  };
-
-  const onLoginLinkClick = (evt) => {
-    if (isModal) {
-      evt.preventDefault();
-    }
-  };
+  }, [setSignUpError]);
 
   const onSubmit = (values, { resetForm, setSubmitting }) => {
     sendFormRequest({
@@ -62,113 +59,33 @@ const FormSignUp = ({ isModal }) => {
         <Form>
           {!signUpSuccess ? (
             <>
+              <FieldName onFocus={onInputFocus} />
+              <FieldEmail onFocus={onInputFocus} />
+              <FieldPassword onFocus={onInputFocus} />
+              <FieldPasswordConfirm onFocus={onInputFocus} />
               <div className="app-form-group form-group">
-                <label className="visually-hidden" htmlFor="name">
-                  {FormSRTitles.NAME}
-                </label>
-                <Field
-                  className="app-form-control form-control"
-                  type="name"
-                  name="name"
-                  autoComplete="given-name"
-                  placeholder={FormInputPlaceholders.NAME}
-                  onFocus={onInputFocus}
-                />
-                <ErrorMessage
-                  name="name"
-                  component={CustomError}
-                />
-              </div>
-
-              <div className="app-form-group form-group">
-                <label className="visually-hidden" htmlFor="email">
-                  {FormSRTitles.EMAIL}
-                </label>
-                <Field
-                  className="app-form-control form-control"
-                  type="email"
-                  name="email"
-                  autoComplete="email"
-                  placeholder={FormInputPlaceholders.EMAIL}
-                  onFocus={onInputFocus}
-                />
-                <ErrorMessage
-                  name="email"
-                  component={CustomError}
-                />
-              </div>
-
-              <div className="app-form-group form-group">
-                <label className="visually-hidden" htmlFor="password">
-                  {FormSRTitles.PASSWORD}
-                </label>
-                <Field
-                  className="app-form-control form-control"
-                  type="password"
-                  name="password"
-                  autoComplete="current-password"
-                  placeholder={FormInputPlaceholders.PASSWORD}
-                  onFocus={onInputFocus}
-                />
-                <ErrorMessage
-                  name="password"
-                  component={CustomError}
-                />
-              </div>
-
-              <div className="app-form-group form-group">
-                <label className="visually-hidden" htmlFor="passwordConfirm">
-                  {FormSRTitles.PASSWORD}
-                </label>
-                <Field
-                  className="app-form-control form-control"
-                  type="password"
-                  name="passwordConfirm"
-                  autoComplete="new-password"
-                  placeholder={FormInputPlaceholders.PASSWORD_CONFIRM}
-                  onFocus={onInputFocus}
-                />
-                <ErrorMessage
-                  name="passwordConfirm"
-                  component={CustomError}
-                />
-              </div>
-
-              <div className="app-form-group form-group">
-                <ButtonCommon
+                <FormButtonSubmit
                   additionalClass="app-form-submit"
                   isLoading={isSubmitting}
                   title={AppTitles.SIGNUP}
                 />
               </div>
               {signUpError && (
-                <div className="app-form-group form-group">
-                  <div
-                    className="alert alert-danger text-center"
-                    role="alert"
-                  >
-                    {signUpError}
-                  </div>
-                </div>
+                <CustomAlert alertType={BsStyleTypes.DANGER}>
+                  {signUpError}
+                </CustomAlert>
               )}
             </>
           ) : (
-            <div className="app-form-group form-group">
-              <div
-                className="alert alert-success text-center"
-                role="alert"
-              >
+            <CustomAlert alertType={BsStyleTypes.SUCCESS}>
+              <>
                 <div>{AppMessages.SIGNUP_SUCCESS}</div>
                 <div>
                   {isModal ? (
-                    <a
-                      className="alert-link"
-                      data-modal={ModalIds.LOGIN}
-                      href={AppRoutes.LOGIN}
-                      onClick={onLoginLinkClick}
-                    >
-                      {AppTitles.LOGIN}
-                    </a>
+                    <ModalsLink
+                      linkClass={'alert-link'}
+                      propsConst={'LOGIN'}
+                    />
                   ) : (
                     <Link
                       className="alert-link"
@@ -178,8 +95,8 @@ const FormSignUp = ({ isModal }) => {
                     </Link>
                   )}
                 </div>
-              </div>
-            </div>
+              </>
+            </CustomAlert>
           )}
         </Form>
       )}
