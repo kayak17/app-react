@@ -36,6 +36,10 @@ export const ReviewTitles = {
   YOUR_REVIEW: 'Your review',
 };
 
+export const ReviewSRTitles = {
+  REVIEW: 'Tell how was your stay, what you like and what can be improved',
+};
+
 export const ReviewsPerPage = {
   ROOM: 5,
   ALL: '',
