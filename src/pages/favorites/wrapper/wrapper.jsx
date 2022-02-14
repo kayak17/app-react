@@ -5,15 +5,9 @@ import PropTypes from 'prop-types';
 import PageFavoritesContent from '../content/content';
 import useFetch from '~/hooks/use-fetch/use-fetch';
 import { getFavoriteOffersIdsByUser } from '~/modules/favorites';
-import { AppMessages, FetchingStatuses } from '~/constants';
-import {
-  getFavoriteOffersURL,
-  throwErrorToBoundary,
-} from '~/utils';
-import {
-  getOffersMapByCity,
-  getUpdatedOffersMap,
-} from '../helpers';
+import { AppMessages, AppTitles, FetchingStatuses } from '~/constants';
+import { getFavoriteOffersURL, throwErrorToBoundary } from '~/utils';
+import { getOffersMapByCity, getUpdatedOffersMap } from '../helpers';
 
 const PageFavoritesWrapper = ({ setIsLoading }) => {
   const favoriteOffersIdsByUser = useSelector(getFavoriteOffersIdsByUser);
@@ -62,11 +56,16 @@ const PageFavoritesWrapper = ({ setIsLoading }) => {
   }
 
   return (
-    <PageFavoritesContent
-      isLoaded={isLoaded}
-      offerIdsLength={favoriteOffersIdsByUser.length}
-      offersMapByCity={offersMapByCity}
-    />
+    <section className="page-content-wrapper">
+      <h1 className="app-title page-content-title">
+        {AppTitles.SAVED_LISTING}
+      </h1>
+      <PageFavoritesContent
+        isLoaded={isLoaded}
+        offerIdsLength={favoriteOffersIdsByUser.length}
+        offersMapByCity={offersMapByCity}
+      />
+    </section>
   );
 };
 
