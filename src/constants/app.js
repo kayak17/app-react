@@ -12,6 +12,17 @@ export const AppActionTypes = {
   UNKNOWN_ACTION_TYPE: 'Unknown action.type in ',
 };
 
+export const BsStyleTypes = {
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  SUCCESS: 'success',
+  DANGER: 'danger',
+  WARNING: 'warning',
+  INFO: 'info',
+  LIGHT: 'light',
+  DARK: 'dark',
+};
+
 export const AppReducers = {
   FAVORITES: 'FAVORITES',
   MAIN: 'MAIN',
