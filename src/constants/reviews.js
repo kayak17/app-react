@@ -30,7 +30,7 @@ export const ReviewTitles = {
   DESCRIBE_YOUR_STAY: ' and describe your stay with at least ',
   PLACES_NEARBY: 'Other places in the neighbourhood',
   TEXT_AMOUNT: `${REVIEW_COMMENT_LENGTH} characters`,
-  TEXTAREA_PLACEHOLDER: 'Tell how was your stay, what you like and what can be improved',
+  REVIEW_PLACEHOLDER: 'Tell how was your stay, what you like and what can be improved',
   TO_SUBMIT_REVIEW: 'To submit review please make sure to click ',
   TO_WRITE_REVIEW: 'To write review please ',
   YOUR_REVIEW: 'Your review',
