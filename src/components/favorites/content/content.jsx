@@ -8,7 +8,7 @@ import {
   getCityNameByCityId,
   getOffersByCityId,
 } from '../helpers';
-import './favorites.less';
+import '../favorites.less';
 
 const FavoritesContent = ({ offersMapByCity }) => {
   return (
