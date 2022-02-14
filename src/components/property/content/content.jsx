@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import PropertyFeatures from '../features/features';
+import PropertyGallery from '../gallery/gallery';
 import ButtonBookmark from '~/components/buttons/bookmark/bookmark';
 import RatingStars from '~/components/rating/stars/stars';
 import {
   BookmarkBtnTypes,
-  OfferImgShapes,
   OfferTitles,
   RatingTypes,
   OFFER_CURRENCY,
@@ -18,21 +18,10 @@ import './content.less';
 const PropertyContent = ({ offer, offerType }) => {
   return (
     <>
-      <div className="d-flex flex-wrap justify-content-between mb-4
-        property-gallery"
-      >
-        {offer.photos.map((item) => (
-          <div key={item}>
-            <img
-              className="rounded"
-              alt={OfferTitles.PLACE_IMAGE}
-              width={OfferImgShapes[offerType].width}
-              height={OfferImgShapes[offerType].height}
-              src={item}
-            />
-          </div>
-        ))}
-      </div>
+      <PropertyGallery
+        offerPhotos={offer.photos}
+        offerType={offerType}
+      />
 
       <div className="mb-3">
         <div className="position-relative d-flex align-items-center
