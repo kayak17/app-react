@@ -3,6 +3,7 @@ import OffersMap from '~/components/offer/map/map';
 import PropertyContent from '~/components/property/content/content';
 import PropertyNearby from '~/components/property/nearby/nearby';
 import PropertyReviews from '~/components/property/reviews/reviews';
+import ReviewFormContainer from '~/components/review/form-container/form-container';
 import {
   offerPropTypes,
   offersPropTypes,
@@ -35,14 +36,18 @@ const PageRoomContent = ({
           offer={offer}
           offerType={offerType}
         />
+
         {isReviewsLoaded && (
-          <PropertyReviews
-            offerId={offerId}
-            reviews={reviews}
-            reviewsCount={reviewsCount}
-            fetchReviews={fetchReviews}
-          />
+          <>
+            <PropertyReviews
+              reviews={reviews}
+              reviewsCount={reviewsCount}
+              fetchReviews={fetchReviews}
+            />
+            <ReviewFormContainer offerId={offerId} />
+          </>
         )}
+
         {canShowOffersNearby && (
           <PropertyNearby
             offers={offersNearby}
@@ -50,6 +55,7 @@ const PageRoomContent = ({
           />
         )}
       </section>
+
       {isCurrentOfferLoaded && (
         <section className="mb-5 property-map-container">
           <OffersMap
