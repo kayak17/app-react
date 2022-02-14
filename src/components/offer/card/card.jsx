@@ -1,18 +1,17 @@
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import OfferCardImg from '../card-img/card-img';
 import ButtonBookmark from '~/components/buttons/bookmark/bookmark';
 import RatingStars from '~/components/rating/stars/stars';
-import { getActivePinId, setActiveOffer } from '~/modules/offers-map';
+import { getActivePinId } from '~/modules/offers-map';
 import {
   AppRoutes,
   BookmarkBtnTypes,
   OfferClasses,
-  OfferImgShapes,
   OfferTitles,
   RatingTypes,
-  InitialModulesValues,
   OFFER_CURRENCY,
   OFFER_PRICE_PERIOD,
 } from '~/constants';
@@ -24,19 +23,12 @@ import '../offer.less';
 const OfferCard = ({
   offer,
   offerType,
+  handleOfferCardMouseEnter = () => false,
+  handleOfferCardMouseLeave = () => false,
 }) => {
   const offerId = offer.id;
   const offerLink = `${AppRoutes.OFFER}?id=${offerId}`;
   const activePinId = useSelector(getActivePinId);
-  const dispatch = useDispatch();
-
-  const handleOfferCardMouseEnter = () => {
-    dispatch(setActiveOffer(offer));
-  };
-
-  const handleOfferCardMouseLeave = () => {
-    dispatch(setActiveOffer(InitialModulesValues.ACTIVE_OFFER));
-  };
 
   return (
     <li
@@ -57,19 +49,11 @@ const OfferCard = ({
                   <span>{OfferTitles.FREE_WI_FI}</span>
                 </span>
               )}
-              <NavLink
-                className="d-flex justify-content-center align-items-center text-center"
-                to={offerLink}
-              >
-                <img
-                  className="rounded"
-                  alt={OfferTitles.PLACE_IMAGE}
-                  width={OfferImgShapes[offerType].width}
-                  height={OfferImgShapes[offerType].height}
-                  src={offer.image}
-                  loading="lazy"
-                />
-              </NavLink>
+              <OfferCardImg
+                offerImage={offer.image}
+                offerLink={offerLink}
+                offerType={offerType}
+              />
             </div>
           </div>
           <div className={`${OfferClasses[offerType]['info']} card-body py-1`}>
@@ -113,6 +97,8 @@ const OfferCard = ({
 OfferCard.propTypes = {
   offer: offerPropTypes,
   offerType: PropTypes.string.isRequired,
+  handleOfferCardMouseEnter: PropTypes.func,
+  handleOfferCardMouseLeave: PropTypes.func,
 };
 
 export default OfferCard;
