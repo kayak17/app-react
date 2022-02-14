@@ -1,67 +1,39 @@
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import PageFavoritesContentPlaceholder from '../content-placeholder/content-placeholder';
-import OffersList from '~/components/offer/list/list';
+import FavoritesContent from '~/components/favorites/content/content';
+import FavoritesContentPlaceholder from '~/components/favorites/content-placeholder/content-placeholder';
 import { AppTitles, OfferTypes } from '~/constants';
-import { getItemOrNullPropTypes } from '~/prop-types';
-import {
-  getCitiesFromOffersMapByCity,
-  getCityNameByCityId,
-  getLocationLinkByCityId,
-  getOffersByCityId,
-} from '~/utils';
-import './content.less';
+import { offersMapByCityPropTypes } from '~/prop-types';
 
 const PageFavoritesContent = ({ isLoaded, offerIdsLength, offersMapByCity }) => {
   const canShowPlaceholder = Boolean(offerIdsLength);
 
-  return (
-    <section className="page-content-wrapper">
-      <h1 className="app-title page-content-title">{AppTitles.SAVED_LISTING}</h1>
-      {isLoaded ? (
-        offersMapByCity && offersMapByCity.size ? (
-          <ul className="d-flex flex-column align-items-center list-unstyled">
-            {getCitiesFromOffersMapByCity(offersMapByCity).map((cityId) =>
-              <li key={cityId} className="d-flex">
-                <div className="favorites-link-container">
-                  <div>
-                    <Link
-                      className="btn btn-primary app-skewed-neg-15 fs-5-3 favorites-link"
-                      to={getLocationLinkByCityId(cityId)}
-                    >
-                      <span>{getCityNameByCityId(offersMapByCity, cityId)}</span>
-                    </Link>
-                  </div>
-                </div>
-                <div className="favorites-offers-container">
-                  <OffersList
-                    offers={getOffersByCityId(offersMapByCity, cityId)}
-                    offerType={OfferTypes.FAVORITE}
-                  />
-                </div>
-              </li>
-            )}
-          </ul>
-        ) : (
-          <h2 className="app-subtitle">{AppTitles.NOTHING_SAVED_YET}</h2>
-        )
-      ) : (
-        canShowPlaceholder && (
-          <PageFavoritesContentPlaceholder
-            offerType={OfferTypes.FAVORITE}
-          />
-        )
-      )}
-    </section>
-  );
+  if (isLoaded) {
+    if (offersMapByCity && offersMapByCity.size) {
+      return (
+        <FavoritesContent
+          offersMapByCity={offersMapByCity}
+        />
+      )
+    }
+
+    return (
+      <h2 className="app-subtitle">{AppTitles.NOTHING_SAVED_YET}</h2>
+    );
+  } else if (canShowPlaceholder) {
+    return (
+      <FavoritesContentPlaceholder
+        offerType={OfferTypes.FAVORITE}
+      />
+    );
+  }
+
+  return null;
 };
 
 PageFavoritesContent.propTypes = {
   isLoaded: PropTypes.bool.isRequired,
   offerIdsLength: PropTypes.number.isRequired,
-  offersMapByCity: getItemOrNullPropTypes(
-    PropTypes.instanceOf(Map).isRequired
-  ),
+  offersMapByCity: offersMapByCityPropTypes,
 };
 
 export default PageFavoritesContent;

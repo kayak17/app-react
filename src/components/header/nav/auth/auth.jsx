@@ -29,8 +29,8 @@ const HeaderNavAuth = () => {
   return (
     <NavDropdown
       align="end"
-      bsPrefix="d-flex align-items-center p-0
-        nav-link link-dark app-dropdown-toggle app-hover-opacity app-trasition"
+      bsPrefix="d-flex align-items-center p-0 nav-link link-dark
+        app-dropdown-toggle app-hover-opacity app-trasition"
       id="header-nav-dropdown"
       title={
         <>

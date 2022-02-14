@@ -12,7 +12,6 @@ import {
   OfferTypes,
 } from '~/constants';
 import {
-  adaptOffer,
   getHeaderLinkNext,
   getOfferURL,
   getOffersNearbyURL,
@@ -20,6 +19,9 @@ import {
   isOfferIdValid,
   throwErrorToBoundary,
 } from '~/utils';
+import {
+  adaptOffer,
+} from '~/utils/adapters/offer';
 
 const PageRoomWrapper = ({ setIsLoading }) => {
   const location = useLocation();

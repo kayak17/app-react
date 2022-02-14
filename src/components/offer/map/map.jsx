@@ -35,7 +35,7 @@ import {
 import {
   getMapCenterAndZoom,
   getMapTooltipMarkup,
-} from '~/utils';
+} from './helpers';
 import 'leaflet/dist/leaflet.css';
 
 class OffersMap extends Component {

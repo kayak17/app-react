@@ -1,6 +1,19 @@
+import { Link } from 'react-router-dom';
+import { AppRoutes, AppTitles } from '~/constants';
+
 const PageNotFoundContent = () => {
   return (
-    <h1>NotFound</h1>
+    <section className="page-content-wrapper">
+      <h1 className="app-title page-content-title">
+        {AppTitles.PAGE_NOT_FOUND}
+      </h1>
+      <Link
+        className="d-flex justify-content-center"
+        to={AppRoutes.MAIN}
+      >
+        {AppTitles.GO_TO_MAIN_PAGE}
+      </Link>
+    </section>
   );
 };
 

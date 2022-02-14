@@ -1,6 +1,5 @@
 import { compose } from 'redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import PrivateRoute from '../private-route/private-route';
+import { useRoutes } from 'react-router-dom';
 import withLazy from '~/hocs/with-lazy/with-lazy';
 import withModal from '~/hocs/with-modal/with-modal';
 import withToaster from '~/hocs/with-toaster/with-toaster';
@@ -10,43 +9,41 @@ import PageMain from '~/pages/main/container/container';
 import PageNotFound from '~/pages/not-found/container/container';
 import PageSignUp from '~/pages/sign-up/container/container';
 import PageRoom from '~/pages/room/container/container';
+import PrivateRoute from '../private-route/private-route';
 import { AppRoutes } from '~/constants';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoutes.MAIN}
-          element={<PageMain />}
-        />
-        <Route
-          path={AppRoutes.FAVORITES}
-          element={
-            <PrivateRoute
-              redirectURL={AppRoutes.LOGIN}
-              element={<PageFavorites />}
-            />
-          }
-        />
-        <Route
-          path={AppRoutes.LOGIN}
-          element={<PageLogin />}
-        />
-        <Route
-          path={AppRoutes.SIGNUP}
-          element={<PageSignUp />}
-        />
-        <Route
-          path={AppRoutes.OFFER}
-          element={<PageRoom />}
-        />
-        <Route
-          path="*"
-          element={<PageNotFound />}
-        />
-      </Routes>
-    </BrowserRouter>
+    useRoutes([
+      {
+        path: AppRoutes.MAIN,
+        element: <PageMain />,
+      },
+      {
+        path: AppRoutes.FAVORITES,
+        element:
+          <PrivateRoute
+            redirectURL={AppRoutes.LOGIN}
+            element={<PageFavorites />}
+          />
+      },
+      {
+        path: AppRoutes.LOGIN,
+        element: <PageLogin />,
+      },
+      {
+        path: AppRoutes.SIGNUP,
+        element: <PageSignUp />,
+      },
+      {
+        path: AppRoutes.OFFER,
+        element: <PageRoom />,
+      },
+      {
+        path: AppRoutes.ANY,
+        element: <PageNotFound />,
+      },
+    ])
   );
 };
 

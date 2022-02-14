@@ -1,8 +1,12 @@
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ErrorMessage, Field, Formik, Form } from 'formik';
+import { Formik, Form } from 'formik';
 import PropTypes from 'prop-types';
-import ButtonCommon from '~/components/buttons/common/common';
-import CustomError from '../custom-error/custom-error';
+import FormButtonSubmit from '../buttons/submit/submit';
+import CustomAlert from '../custom-elements/alert/alert';
+import FieldEmail from '../fields/email/email';
+import FieldPassword from '../fields/password/password';
+import ModalsLink from '~/components/modals/link/link';
 import {
   getIsError,
   getIsLoading,
@@ -11,14 +15,11 @@ import {
 } from '~/modules/user';
 import {
   AppMessages,
-  AppRoutes,
   AppTitles,
-  FormSRTitles,
-  FormInputPlaceholders,
+  BsStyleTypes,
   InitialModulesValues,
-  ModalIds,
 } from '~/constants';
-import { loginSchema } from '~/utils';
+import { loginSchema } from './validation';
 
 const FormLogin = ({ closeModal, isModal, navigate }) => {
   const authError = useSelector(getIsError);
@@ -30,13 +31,9 @@ const FormLogin = ({ closeModal, isModal, navigate }) => {
     password: '',
   };
 
-  const onInputFocus = () => {
+  const onInputFocus = useCallback(() => {
     dispatch(loginError(InitialModulesValues.ERROR));
-  };
-
-  const onSignUpLinkClick = (evt) => {
-    evt.preventDefault();
-  };
+  }, [dispatch]);
 
   const onSubmit = (values) => {
     const { email, password } = values;
@@ -51,68 +48,30 @@ const FormLogin = ({ closeModal, isModal, navigate }) => {
     >
       {() => (
         <Form>
-          <div className="app-form-group form-group">
-            <label className="visually-hidden" htmlFor="email">
-              {FormSRTitles.EMAIL}
-            </label>
-            <Field
-              className="app-form-control form-control"
-              type="email"
-              name="email"
-              autoComplete="email"
-              placeholder={FormInputPlaceholders.EMAIL}
-              onFocus={onInputFocus}
-            />
-            <ErrorMessage
-              name="email"
-              component={CustomError}
-            />
-          </div>
-          <div className="app-form-group form-group">
-            <label className="visually-hidden" htmlFor="password">
-              {FormSRTitles.PASSWORD}
-            </label>
-            <Field
-              className="app-form-control form-control"
-              type="password"
-              name="password"
-              autoComplete="current-password"
-              placeholder={FormInputPlaceholders.PASSWORD}
-              onFocus={onInputFocus}
-            />
-            <ErrorMessage
-              name="password"
-              component={CustomError}
-            />
-          </div>
+          <FieldEmail onFocus={onInputFocus} />
+          <FieldPassword onFocus={onInputFocus} />
           {isModal && (
-            <div className="app-form-group form-group">
-              <div className="alert alert-info text-center" role="alert">
-                <a
-                  className="alert-link"
-                  data-modal={ModalIds.SIGNUP}
-                  href={AppRoutes.SIGNUP}
-                  onClick={onSignUpLinkClick}
-                >
-                  {AppTitles.SIGNUP}
-                </a>
+            <CustomAlert>
+              <>
+                <ModalsLink
+                  linkClass={'alert-link'}
+                  propsConst={'SIGNUP'}
+                />
                 {AppMessages.DONT_HAVE_ACCOUNT}
-              </div>
-            </div>
+              </>
+            </CustomAlert>
           )}
           <div className="app-form-group form-group">
-            <ButtonCommon
+            <FormButtonSubmit
               additionalClass="app-form-submit"
               isLoading={isLoading}
               title={AppTitles.LOGIN}
             />
           </div>
           {authError && (
-            <div className="app-form-group form-group">
-              <div className="alert alert-danger text-center" role="alert">
-                {authError}
-              </div>
-            </div>
+            <CustomAlert alertType={BsStyleTypes.DANGER}>
+              {authError}
+            </CustomAlert>
           )}
           {/* for demo only */}
           <div className="app-form-group form-group">

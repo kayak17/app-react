@@ -30,3 +30,7 @@ export const offersReducerPropTypes = PropTypes.shape({
   headerLink: getItemOrNullPropTypes(PropTypes.object.isRequired),
   totalCount: PropTypes.string.isRequired,
 }).isRequired;
+
+export const offersMapByCityPropTypes = getItemOrNullPropTypes(
+  PropTypes.instanceOf(Map).isRequired
+);

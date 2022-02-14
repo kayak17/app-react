@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import OffersListPlaceholder from '~/components/offer/list-placeholder/list-placeholder';
 import { getArrayOfUndefineds } from '~/utils';
-import '../content/content.less';
+import '../favorites.less';
 
-const PageFavoritesContentPlaceholder = ({ offerType }) => {
+const FavoritesContentPlaceholder = ({ offerType }) => {
   const dataArray = getArrayOfUndefineds(3);
 
   return (
@@ -34,8 +34,8 @@ const PageFavoritesContentPlaceholder = ({ offerType }) => {
   );
 };
 
-PageFavoritesContentPlaceholder.propTypes = {
+FavoritesContentPlaceholder.propTypes = {
   offerType: PropTypes.string.isRequired,
 };
 
-export default PageFavoritesContentPlaceholder;
+export default FavoritesContentPlaceholder;

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import Spinner from 'react-bootstrap/Spinner';
 
-const ButtonCommon = ({
+const FormButtonSubmit = ({
   additionalClass,
   isLoading,
   title,
@@ -32,10 +32,10 @@ const ButtonCommon = ({
   );
 };
 
-ButtonCommon.propTypes = {
+FormButtonSubmit.propTypes = {
   additionalClass: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
 };
 
-export default ButtonCommon;
+export default FormButtonSubmit;

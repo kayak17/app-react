@@ -1,9 +1,11 @@
-import { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Fragment, useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { ErrorMessage, Field, Formik, Form } from 'formik';
-import ButtonCommon from '~/components/buttons/common/common';
-import CustomError from '../custom-error/custom-error';
+import CustomAlert from '../custom-elements/alert/alert';
+import CustomError from '../custom-elements/error/error';
+import FieldPropertyReview from '../fields/property-review/property-review';
+import FormButtonSubmit from '~/components/forms/buttons/submit/submit';
 import IconStar from '~/icons/star/star';
 import { getAuthToken } from '~/modules/user';
 import { sendFormRequest } from '~/services';
@@ -11,6 +13,7 @@ import {
   APIRoutes,
   AppMessages,
   AppTitles,
+  BsStyleTypes,
   ResponseStatusTexts,
   ReviewFormRatings,
   reviewImgShapes,
@@ -21,8 +24,10 @@ import {
 import {
   getAuthHeader,
   isOfferIdValid,
-  reviewSchema,
 } from '~/utils';
+import {
+  reviewSchema,
+} from './validation';
 import './review.less';
 
 const FormReview = ({ offerId }) => {
@@ -35,11 +40,11 @@ const FormReview = ({ offerId }) => {
     comment: '',
   };
 
-  const handleTextareaFocus = () => {
+  const onTextareaFocus = useCallback(() => {
     setReviewError(FORM_INITIAL_ERROR);
-  };
+  }, [setReviewError]);
 
-  const handleSubmit = (values, { resetForm, setSubmitting }) => {
+  const onSubmit = (values, { resetForm, setSubmitting }) => {
     const { rating, comment } = values;
     const parsedOfferId = parseInt(offerId, 10);
     const parsedRating = parseInt(rating, 10);
@@ -70,7 +75,7 @@ const FormReview = ({ offerId }) => {
     <Formik
       initialValues={initialValues}
       validationSchema={reviewSchema}
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
     >
       {({ isSubmitting, values }) => (
         <Form>
@@ -83,11 +88,11 @@ const FormReview = ({ offerId }) => {
                   <Fragment key={title}>
                     <Field
                       className="form-rating-input visually-hidden"
-                      type="radio"
-                      name="rating"
-                      value={mark}
-                      id={title}
                       checked={mark === values.rating}
+                      id={title}
+                      name="rating"
+                      type="radio"
+                      value={mark}
                     />
                     <label
                       className="form-rating-label me-1"
@@ -107,17 +112,7 @@ const FormReview = ({ offerId }) => {
                 name="rating"
                 component={CustomError}
               />
-              <Field
-                className="mt-3 mb-2 px-3 py-3 form-rating-textarea form-control"
-                component="textarea"
-                name="comment"
-                placeholder={ReviewTitles.TEXTAREA_PLACEHOLDER}
-                onFocus={handleTextareaFocus}
-              />
-              <ErrorMessage
-                name="comment"
-                component={CustomError}
-              />
+              <FieldPropertyReview onFocus={onTextareaFocus} />
               <div className="d-flex align-items-start justify-content-between">
                 <p className="mt-1 fs-6-5">
                   {ReviewTitles.TO_SUBMIT_REVIEW}
@@ -132,22 +127,28 @@ const FormReview = ({ offerId }) => {
                   {ReviewTitles.DESCRIBE_YOUR_STAY}
                   <b>{ReviewTitles.TEXT_AMOUNT}</b>
                 </p>
-                <ButtonCommon
+                <FormButtonSubmit
                   additionalClass="form-rating-submit form-submit"
                   isLoading={isSubmitting}
                   title={AppTitles.SUBMIT}
                 />
               </div>
               {reviewError && (
-                <div className="mt-3 alert alert-danger text-center" role="alert">
+                <CustomAlert
+                  alertClass="mt-3"
+                  alertType={BsStyleTypes.DANGER}
+                >
                   {reviewError}
-                </div>
+                </CustomAlert>
               )}
             </>
           ) : (
-            <div className="mt-3 alert alert-success text-center" role="alert">
+            <CustomAlert
+              alertClass="mt-3"
+              alertType={BsStyleTypes.SUCCESS}
+            >
               {AppMessages.REVIEW_POSTING_SUCCESS}
-            </div>
+            </CustomAlert>
           )}
         </Form>
       )}

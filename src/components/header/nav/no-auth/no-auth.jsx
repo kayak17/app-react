@@ -1,34 +1,22 @@
-import { AppRoutes, AppTitles, ModalIds } from '~/constants';
+import ModalsLink from '~/components/modals/link/link';
 
 const HeaderNavNoAuth = () => {
-  const handleClick = (evt) => {
-    evt.preventDefault();
-  };
-
   return (
     <ul className="nav">
       <li className="nav-item">
-        <a
-          className="px-1 nav-link link-dark app-hover-opacity app-trasition"
-          href={AppRoutes.LOGIN}
-          data-modal={ModalIds.LOGIN}
-          onClick={handleClick}
-        >
-          {AppTitles.LOGIN}
-        </a>
+        <ModalsLink
+          linkClass={'px-1 nav-link link-dark app-hover-opacity app-trasition'}
+          propsConst={'LOGIN'}
+        />
       </li>
       <li className="nav-item">
         <span className="px-1 nav-link link-dark">|</span>
       </li>
       <li className="nav-item">
-        <a
-          className="px-1 nav-link link-dark app-hover-opacity app-trasition"
-          href={AppRoutes.SIGNUP}
-          data-modal={ModalIds.SIGNUP}
-          onClick={handleClick}
-        >
-          {AppTitles.SIGNUP}
-        </a>
+        <ModalsLink
+          linkClass={'px-1 nav-link link-dark app-hover-opacity app-trasition'}
+          propsConst={'SIGNUP'}
+        />
       </li>
     </ul>
   );
