@@ -38,7 +38,7 @@ const ButtonBookmark = ({ offerId, bookmarkType }) => {
     BookmarkBtnTitles.IN_BOOKMARKS : BookmarkBtnTitles.TO_BOOKMARKS
   const loginModalId = isAuth ? ModalIds.NONE : ModalIds.LOGIN;
 
-  const handleBookmarkBtnClick = () => {
+  const onBookmarkBtnClick = () => {
     if (isAuth && userId) {
       dispatch(setFavoriteOffersIds(
         getUpdatedFavoriteOffers({
@@ -65,7 +65,7 @@ const ButtonBookmark = ({ offerId, bookmarkType }) => {
       data-modal={loginModalId}
       title={btnTitle}
       type="button"
-      onClick={handleBookmarkBtnClick}
+      onClick={onBookmarkBtnClick}
     >
       <IconBookmark
         className={BookmarkBtnClasses[bookmarkType]['icon']}
