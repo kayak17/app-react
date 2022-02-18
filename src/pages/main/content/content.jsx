@@ -7,7 +7,6 @@ import { AppSRTitles } from '~/constants';
 import {
   offersMapPropTypes,
   offersReducerPropTypes,
-  refPropTypes,
 } from '~/prop-types';
 import './content.less';
 
@@ -16,8 +15,6 @@ const PageMainContent = ({
   offersReducer,
   isOffersError,
   isOffersLoaded,
-  scrollContainer,
-  setScrolledOffers,
 }) => {
   const redirectToRoute = useRouterNavigate();
 
@@ -32,8 +29,6 @@ const PageMainContent = ({
             offersReducer={offersReducer}
             isOffersError={isOffersError}
             isOffersLoaded={isOffersLoaded}
-            scrollContainer={scrollContainer}
-            setScrolledOffers={setScrolledOffers}
           />
         </section>
         <section className="col-6 g-0 main-map-container">
@@ -52,8 +47,6 @@ PageMainContent.propTypes = {
   offersReducer: offersReducerPropTypes,
   isOffersError: PropTypes.bool.isRequired,
   isOffersLoaded: PropTypes.bool.isRequired,
-  scrollContainer: refPropTypes,
-  setScrolledOffers: PropTypes.func.isRequired,
 };
 
 export default memo(PageMainContent);
