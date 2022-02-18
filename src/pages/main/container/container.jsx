@@ -1,12 +1,12 @@
 import { lazy } from 'react';
-import PageWrapper from '~/components/page-wrapper/page-wrapper';
+import PageWrapperSpinner from '~/components/page-wrapper-spinner/page-wrapper-spinner';
 import MainLayout from '~/layouts/main/main';
 
 const PageMainWrapper = lazy(() => import('../wrapper/wrapper'));
 
 const PageMainContainer = () => {
   return (
-    <PageWrapper
+    <PageWrapperSpinner
       Layout={MainLayout}
       PageContent={PageMainWrapper}
     />
