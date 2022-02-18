@@ -16,15 +16,15 @@ const withModal = (WrappedComponent) => {
       if (modal) {
         setModalOpen(modal);
       }
-    }, [setModalOpen]);
+    }, []);
 
     const handleCloseModal = useCallback(() => {
       setModalOpen(ModalIds.NONE);
-    }, [setModalOpen]);
+    }, []);
 
     return (
       <div
-        className="app-modal-container"
+        className="app-modal-container app-full-viewport"
         onClick={handleOpenModal}
       >
         <WrappedComponent
