@@ -35,7 +35,7 @@ const FormSignUp = ({ isModal }) => {
 
   const onInputFocus = useCallback(() => {
     setSignUpError(FORM_INITIAL_ERROR);
-  }, [setSignUpError]);
+  }, []);
 
   const onSubmit = (values, { resetForm, setSubmitting }) => {
     sendFormRequest({
