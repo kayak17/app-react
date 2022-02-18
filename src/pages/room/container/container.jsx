@@ -1,12 +1,12 @@
 import { lazy } from 'react';
-import PageWrapper from '~/components/page-wrapper/page-wrapper';
+import PageWrapperSpinner from '~/components/page-wrapper-spinner/page-wrapper-spinner';
 import CommonLayout from '~/layouts/common/common';
 
 const PageRoomWrapper = lazy(() => import('../wrapper/wrapper'));
 
 const PageRoomContainer = () => {
   return (
-    <PageWrapper
+    <PageWrapperSpinner
       Layout={CommonLayout}
       PageContent={PageRoomWrapper}
     />
