@@ -5,7 +5,7 @@ import FormReview from '~/components/forms/review/review';
 import { getIsAuth } from '~/modules/user';
 import { ReviewTitles } from '~/constants';
 
-const ReviewFormContainer = ({ offerId }) => {
+const ReviewFormContainer = ({ offerId, fetchReviews }) => {
   const isAuth = useSelector(getIsAuth);
 
   if (isAuth) {
@@ -14,7 +14,10 @@ const ReviewFormContainer = ({ offerId }) => {
         <p className="text-start fw-bold fst-italic">
           {ReviewTitles.YOUR_REVIEW}
         </p>
-        <FormReview offerId={offerId} />
+        <FormReview
+          offerId={offerId}
+          fetchReviews={fetchReviews}
+        />
       </>
     );
   }
@@ -33,6 +36,7 @@ const ReviewFormContainer = ({ offerId }) => {
 
 ReviewFormContainer.propTypes = {
   offerId: PropTypes.number.isRequired,
+  fetchReviews: PropTypes.func.isRequired,
 };
 
 export default ReviewFormContainer;
