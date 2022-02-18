@@ -1,6 +1,6 @@
 import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
-import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import { createContext, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -25,6 +25,9 @@ import {
   getOffersMapURL,
   getUnknownActionTypeMsg,
 } from '~/utils';
+
+export const ScrollContainerContext = createContext(null);
+export const ScrolledOffersDispatchContext = createContext(null);
 
 const PageMainWrapper = ({ setIsLoading }) => {
   const COMPONENT_NAME = 'PageMainWrapper';
@@ -74,7 +77,7 @@ const PageMainWrapper = ({ setIsLoading }) => {
 
   const [offersReducer, dispatchData] = useReducer(reducer, initialState);
 
-  const handleDispatchData = useCallback((payload) => {
+  const setOffersData = useCallback((payload) => {
     dispatchData({
       type: AppActionTypes.SET_DATA,
       payload: {
@@ -85,16 +88,6 @@ const PageMainWrapper = ({ setIsLoading }) => {
       },
     });
   }, [activeCityName]);
-
-  const handleSetScrolledOffers = useCallback((payload) => {
-    dispatchData({
-      type: AppActionTypes.SET_SCROLLED_DATA,
-      payload: {
-        data: offersReducer.data.concat(payload.data),
-        headerLink: payload.headerLink,
-      },
-    });
-  }, [offersReducer.data]);
 
   const {
     state: stateCities,
@@ -127,7 +120,7 @@ const PageMainWrapper = ({ setIsLoading }) => {
     fetchData: fetchOffers,
   } = useFetchCached({
     onSuccess: (payload) => {
-      handleDispatchData(payload);
+      setOffersData(payload);
       setIsLoading(false);
     },
     onFail: () => {
@@ -168,19 +161,20 @@ const PageMainWrapper = ({ setIsLoading }) => {
       isCitiesLoaded && isOffersLoaded &&
       prevOffersURL !== offersURL
     ) {
+      appScrollTo(scrollContainer);
       const payload = cacheoffers.current[offersURL];
 
       if (isEmpty(payload)) {
         setIsLoading(true);
         fetchOffers(offersURL);
       } else {
-        handleDispatchData(payload);
+        setOffersData(payload);
       }
     }
   }, [
     cacheoffers,
     fetchOffers,
-    handleDispatchData,
+    setOffersData,
     isCitiesLoaded,
     isOffersLoaded,
     offersURL,
@@ -210,20 +204,6 @@ const PageMainWrapper = ({ setIsLoading }) => {
     prevOffersMapURL,
   ]);
 
-  useEffect(() => {
-    if (
-      isCitiesLoaded && isOffersLoaded &&
-      offersURL !== prevOffersURL
-    ) {
-      appScrollTo(scrollContainer);
-    }
-  }, [
-    offersURL,
-    prevOffersURL,
-    isCitiesLoaded,
-    isOffersLoaded,
-  ]);
-
   return (
     <>
       <CitiesWrapper
@@ -231,14 +211,16 @@ const PageMainWrapper = ({ setIsLoading }) => {
         isCitiesError={isCitiesError}
         isCitiesLoaded={isCitiesLoaded}
       />
-      <PageMainContent
-        offersMap={offersMap}
-        offersReducer={offersReducer}
-        isOffersError={isOffersError}
-        isOffersLoaded={isOffersLoaded}
-        scrollContainer={scrollContainer}
-        setScrolledOffers={handleSetScrolledOffers}
-      />
+      <ScrollContainerContext.Provider value={scrollContainer}>
+        <ScrolledOffersDispatchContext.Provider value={dispatchData}>
+          <PageMainContent
+            offersMap={offersMap}
+            offersReducer={offersReducer}
+            isOffersError={isOffersError}
+            isOffersLoaded={isOffersLoaded}
+          />
+        </ScrolledOffersDispatchContext.Provider>
+      </ScrollContainerContext.Provider>
     </>
   );
 };
