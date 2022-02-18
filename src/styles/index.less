@@ -108,7 +108,7 @@ body {
 .app-full-viewport {
   width: 100%;
   height: 100vh;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .app-skewed-pos-15 {
@@ -119,33 +119,11 @@ body {
   transform: skew(-15deg);
 }
 
-.app-spinner-over {
+.app-spinner {
   position: fixed;
   z-index: 100000;
   top: calc(50% - 60px);
   left: calc(50% - 60px);
-  width: 120px;
-  height: 120px;
-  border: 16px solid @bgr-primary-color;
-  border-top: 16px solid @primary-color;
-  border-radius: 50%;
-  animation: spin 2s linear infinite;
-}
-
-.app-spinner-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-}
-
-.app-spinner {
   width: 120px;
   height: 120px;
   border: 16px solid @bgr-primary-color;
