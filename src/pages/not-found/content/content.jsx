@@ -8,7 +8,7 @@ const PageNotFoundContent = () => {
         {AppTitles.PAGE_NOT_FOUND}
       </h1>
       <Link
-        className="d-flex justify-content-center"
+        className="d-flex justify-content-center text-dark"
         to={AppRoutes.MAIN}
       >
         {AppTitles.GO_TO_MAIN_PAGE}
