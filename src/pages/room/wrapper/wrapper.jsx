@@ -1,17 +1,19 @@
 import isEmpty from 'lodash/isEmpty';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PageRoomContent from '../content/content';
 import PageRoomContentPlaceholder from '../content-placeholder/content-placeholder';
+import PropertyReviews from '~/components/property/reviews/reviews';
+import ReviewFormContainer from '~/components/review/form-container/form-container';
 import useFetch from '~/hooks/use-fetch/use-fetch';
-import useRouterNavigate from '~/hooks/use-router-navigate/use-router-navigate';
 import {
   AppMessages,
   FetchingStatuses,
   OfferTypes,
 } from '~/constants';
 import {
+  appScrollTo,
   getHeaderLinkNext,
   getOfferURL,
   getOffersNearbyURL,
@@ -34,13 +36,26 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   }
 
   const offerType = OfferTypes.ROOM;
-  const redirectToRoute = useRouterNavigate();
+  const reviewsUrl = getReviewsURL(offerId, offerType);
 
   const [offer, setOffer] = useState({});
   const [reviews, setReviews] = useState([]);
-  const [reviewsCount, setReviewsCount] = useState('0');
+  const [reviewsTotalCount, setReviewsTotalCount] = useState('0');
   const [reviewsLinkNext, setReviewsLinkNext] = useState('');
   const [offersNearby, setOffersNearby] = useState([]);
+  const scrollContainer = useRef(null);
+
+  const setReviewsData = (payload) => {
+    setReviews(payload.data);
+    setReviewsTotalCount(payload.totalCount);
+    setReviewsLinkNext(getHeaderLinkNext(payload.headerLink));
+  };
+
+  const setReviewsScrolledData = (payload) => {
+    setReviews(reviews.concat(payload.data));
+    setReviewsTotalCount(payload.totalCount);
+    setReviewsLinkNext(getHeaderLinkNext(payload.headerLink));
+  };
 
   const { state: stateOffer } = useFetch({
     url: getOfferURL(offerId),
@@ -55,13 +70,29 @@ const PageRoomWrapper = ({ setIsLoading }) => {
 
   const {
     state: stateReviews,
-    fetchData: fetchReviews,
   } = useFetch({
-    url: getReviewsURL(offerId, offerType),
+    url: reviewsUrl,
     onSuccess: (payload) => {
-      setReviews(reviews.concat(payload.data));
-      setReviewsCount(payload.totalCount);
-      setReviewsLinkNext(getHeaderLinkNext(payload.headerLink));
+      setReviewsData(payload);
+    },
+  });
+
+  const {
+    fetchData: reFetchReviews,
+  } = useFetch({
+    onSuccess: (payload) => {
+      setReviewsData(payload);
+      appScrollTo(scrollContainer);
+    },
+  });
+
+  const {
+    state: stateMoreReviews,
+    fetchData: fetchMoreReviews,
+  } = useFetch({
+    onSuccess: (payload) => {
+      setReviewsScrolledData(payload);
+      appScrollTo(scrollContainer);
     },
   });
 
@@ -75,7 +106,7 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   const isOfferError = stateOffer.status === FetchingStatuses.ERROR;
   const isOfferLoaded = stateOffer.status === FetchingStatuses.LOADED;
   const isReviewsLoaded = stateReviews.status === FetchingStatuses.LOADED;
-  const isMoreReviewsStartLoading = stateReviews.status === FetchingStatuses.START;
+  const isMoreReviewsStartLoading = stateMoreReviews.status === FetchingStatuses.START;
   const isOffersNearbyLoaded = stateOffersNearby.status === FetchingStatuses.LOADED;
 
   const isError = (
@@ -106,14 +137,15 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     setIsLoading,
   ]);
 
-  const handleFetchReviews = useCallback(() => {
+  const handleReFetchReviews = useCallback(() => {
+    reFetchReviews(reviewsUrl);
+  }, [reFetchReviews, reviewsUrl]);
+
+  const handleFetchMoreReviews = useCallback(() => {
     if (reviewsLinkNext.length) {
-      fetchReviews(reviewsLinkNext);
+      fetchMoreReviews(reviewsLinkNext);
     }
-  }, [
-    fetchReviews,
-    reviewsLinkNext,
-  ]);
+  }, [fetchMoreReviews, reviewsLinkNext]);
 
   if (isOfferError || isOfferLoaded && isEmpty(offer)) {
     throwErrorToBoundary(AppMessages.DATA_LOADING_ERROR);
@@ -123,19 +155,29 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     );
   }
 
+  const propertyReviewsWrapper = () => (
+    <div ref={scrollContainer}>
+      <PropertyReviews
+        reviews={reviews}
+        reviewsTotalCount={reviewsTotalCount}
+        fetchReviews={handleFetchMoreReviews}
+      />
+      <ReviewFormContainer
+        offerId={offerId}
+        fetchReviews={handleReFetchReviews}
+      />
+    </div>
+  );
+
   return (
     <PageRoomContent
       offer={offer}
-      offerId={offerId}
       offerType={offerType}
       offersNearby={offersNearby}
-      reviews={reviews}
-      reviewsCount={reviewsCount}
       isReviewsLoaded={isReviewsLoaded}
       isCurrentOfferLoaded={isOfferLoaded}
       isOffersNearbyLoaded={isOffersNearbyLoaded}
-      fetchReviews={handleFetchReviews}
-      redirectToRoute={redirectToRoute}
+      PropertyReviewsWrapper={propertyReviewsWrapper}
     />
   );
 };
