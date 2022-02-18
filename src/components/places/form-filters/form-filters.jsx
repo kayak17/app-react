@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import CustomNavItem from '~/components/custom-react-bootstrap/nav-item/nav-item';
@@ -22,13 +21,12 @@ import './form-filters.less';
 const FormFilters = ({ scrollContainer }) => {
   const offersListType = useSelector(getOffersListType);
   const sortingType = useSelector(getSortingType);
-  const [sorting, setSorting] = useState(SortingTypes[sortingType]);
+  const sorting = SortingTypes[sortingType];
   const dispatch = useDispatch();
 
   const onSortingItemClick = (sortingItem) => {
     if (sortingType !== sortingItem) {
       dispatch(setSortingType(sortingItem));
-      setSorting(SortingTypes[sortingItem]);
     }
   };
 
