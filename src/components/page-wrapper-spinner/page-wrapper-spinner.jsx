@@ -17,14 +17,16 @@ const PageWrapperSpinner = ({ Layout, PageContent }) => {
   }, [dispatch, isLoading]);
 
   return (
-    <div className={clsx('app-page-wrapper app-full-viewport',
-      { 'app-disabled': isLoading }
-    )}>
-      <Layout>
-        <ErrorBoundary setIsLoading={handleSetIsLoading}>
-          <PageContent setIsLoading={handleSetIsLoading} />
-        </ErrorBoundary>
-      </Layout>
+    <>
+      <div className={clsx('app-page-wrapper app-full-viewport',
+        { 'app-disabled': isLoading }
+      )}>
+        <Layout>
+          <ErrorBoundary setIsLoading={handleSetIsLoading}>
+            <PageContent setIsLoading={handleSetIsLoading} />
+          </ErrorBoundary>
+        </Layout>
+      </div>
       {isLoading && (
         <div className="app-spinner">
           <span className="visually-hidden">
@@ -32,7 +34,7 @@ const PageWrapperSpinner = ({ Layout, PageContent }) => {
           </span>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
