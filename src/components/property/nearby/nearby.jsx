@@ -1,22 +1,27 @@
 import PropTypes from 'prop-types';
 import OffersList from '~/components/offer/list/list';
-import withOffersListHover from '~/hocs/with-offers-list-hover/with-offers-list-hover';
+import useOffersListHover from '~/hooks/use-offers-list-hover/use-offers-list-hover';
 import { ReviewTitles } from '~/constants';
 import { offersPropTypes } from '~/prop-types';
 import './nearby.less';
 
-const OffersListWrapped = withOffersListHover(OffersList);
-
 const PropertyNearby = ({ offers, offerType }) => {
+  const {
+    handleOfferCardMouseEnter,
+    handleOfferCardMouseLeave,
+  } = useOffersListHover();
+
   return (
     <section>
       <h2 className="mt-4 mb-4 text-center app-subtitle">
         {ReviewTitles.PLACES_NEARBY}
       </h2>
       <div className="pt-2 ms-auto me-auto property-offers-nearby">
-        <OffersListWrapped
+        <OffersList
           offers={offers}
           offerType={offerType}
+          handleOfferCardMouseEnter={handleOfferCardMouseEnter}
+          handleOfferCardMouseLeave={handleOfferCardMouseLeave}
         />
       </div>
     </section>
