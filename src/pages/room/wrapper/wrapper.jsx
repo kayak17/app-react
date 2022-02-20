@@ -1,5 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PageRoomContent from '../content/content';
@@ -8,6 +8,7 @@ import PropertyReviews from '~/components/property/reviews/reviews';
 import ReviewFormContainer from '~/components/review/form-container/form-container';
 import useFetch from '~/hooks/use-fetch/use-fetch';
 import {
+  AppActionTypes,
   AppMessages,
   FetchingStatuses,
   OfferTypes,
@@ -18,6 +19,7 @@ import {
   getOfferURL,
   getOffersNearbyURL,
   getReviewsURL,
+  getUnknownActionTypeMsg,
   isOfferIdValid,
   throwErrorToBoundary,
 } from '~/utils';
@@ -35,26 +37,49 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     throwErrorToBoundary(AppMessages.INCORRECT_OFFERID);
   }
 
+  const COMPONENT_NAME = 'PageRoomWrapper';
   const offerType = OfferTypes.ROOM;
   const reviewsUrl = getReviewsURL(offerId, offerType);
 
   const [offer, setOffer] = useState({});
-  const [reviews, setReviews] = useState([]);
-  const [reviewsTotalCount, setReviewsTotalCount] = useState('0');
-  const [reviewsLinkNext, setReviewsLinkNext] = useState('');
   const [offersNearby, setOffersNearby] = useState([]);
   const scrollContainer = useRef(null);
 
-  const setReviewsData = (payload) => {
-    setReviews(payload.data);
-    setReviewsTotalCount(payload.totalCount);
-    setReviewsLinkNext(getHeaderLinkNext(payload.headerLink));
+  const initialState = {
+    data: [],
+    headerLink: {},
+    totalCount: '',
   };
 
-  const setReviewsScrolledData = (payload) => {
-    setReviews(reviews.concat(payload.data));
-    setReviewsTotalCount(payload.totalCount);
-    setReviewsLinkNext(getHeaderLinkNext(payload.headerLink));
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case AppActionTypes.SET_DATA:
+        return Object.assign({}, state, {
+          data: action.payload.data,
+          headerLink: action.payload.headerLink,
+          totalCount: action.payload.totalCount,
+        });
+      case AppActionTypes.SET_SCROLLED_DATA:
+        return Object.assign({}, state, {
+          data: action.payload.data,
+          headerLink: action.payload.headerLink,
+        });
+      default:
+        throw new Error(getUnknownActionTypeMsg(COMPONENT_NAME));
+    }
+  };
+
+  const [reviews, dispatchData] = useReducer(reducer, initialState);
+
+  const setReviewsData = (payload) => {
+    dispatchData({
+      type: AppActionTypes.SET_DATA,
+      payload: {
+        data: payload.data,
+        headerLink: payload.headerLink,
+        totalCount: payload.totalCount,
+      },
+    });
   };
 
   const { state: stateOffer } = useFetch({
@@ -91,7 +116,14 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     fetchData: fetchMoreReviews,
   } = useFetch({
     onSuccess: (payload) => {
-      setReviewsScrolledData(payload);
+      dispatchData({
+        type: AppActionTypes.SET_SCROLLED_DATA,
+        payload: {
+          data: reviews.data.concat(payload.data),
+          headerLink: payload.headerLink,
+        },
+      });
+
       appScrollTo(scrollContainer);
     },
   });
@@ -142,10 +174,12 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   }, [reFetchReviews, reviewsUrl]);
 
   const handleFetchMoreReviews = useCallback(() => {
+    const reviewsLinkNext = getHeaderLinkNext(reviews.headerLink);
+
     if (reviewsLinkNext.length) {
       fetchMoreReviews(reviewsLinkNext);
     }
-  }, [fetchMoreReviews, reviewsLinkNext]);
+  }, [fetchMoreReviews, reviews.headerLink]);
 
   if (isOfferError || isOfferLoaded && isEmpty(offer)) {
     throwErrorToBoundary(AppMessages.DATA_LOADING_ERROR);
@@ -158,8 +192,8 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   const propertyReviewsWrapper = () => (
     <div ref={scrollContainer}>
       <PropertyReviews
-        reviews={reviews}
-        reviewsTotalCount={reviewsTotalCount}
+        reviews={reviews.data}
+        reviewsTotalCount={reviews.totalCount}
         fetchReviews={handleFetchMoreReviews}
       />
       <ReviewFormContainer
