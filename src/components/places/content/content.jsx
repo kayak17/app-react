@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useCallback, useContext } from 'react';
 import OffersList from '~/components/offer/list/list';
 import BottomScrollList from '~/components/bottom-scroll-list/bottom-scroll-list';
-import withOffersListHover from '~/hocs/with-offers-list-hover/with-offers-list-hover';
+import useOffersListHover from '~/hooks/use-offers-list-hover/use-offers-list-hover';
 import FormFilters from '../form-filters/form-filters';
 import {
   ScrollContainerContext,
@@ -16,14 +16,16 @@ import {
 import { offersReducerPropTypes } from '~/prop-types';
 import { getHeaderLinkNext } from '~/utils';
 
-const OffersListWrapped = withOffersListHover(OffersList);
-
 const PlacesContent = ({
   offersReducer,
   offersListType,
 }) => {
   const scrollContainer = useContext(ScrollContainerContext);
   const dispatchData = useContext(ScrolledOffersDispatchContext);
+  const {
+    handleOfferCardMouseEnter,
+    handleOfferCardMouseLeave,
+  } = useOffersListHover();
 
   const headerLinkNext = getHeaderLinkNext(offersReducer.headerLink);
   const activeCityName = offersReducer.activeCityName;
@@ -60,9 +62,11 @@ const PlacesContent = ({
           </div>
           <BottomScrollList
             render={() => (
-              <OffersListWrapped
+              <OffersList
                 offers={offers}
                 offerType={OfferClassesTypes[offersListType]}
+                handleOfferCardMouseEnter={handleOfferCardMouseEnter}
+                handleOfferCardMouseLeave={handleOfferCardMouseLeave}
               />
             )}
             containerClass={'pt-2 ps-2'}
