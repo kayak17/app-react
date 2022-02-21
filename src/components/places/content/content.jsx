@@ -5,6 +5,7 @@ import BottomScrollList from '~/components/bottom-scroll-list/bottom-scroll-list
 import useOffersListHover from '~/hooks/use-offers-list-hover/use-offers-list-hover';
 import FormFilters from '../form-filters/form-filters';
 import {
+  ScrolledOffersContext,
   ScrollContainerContext,
   ScrolledOffersDispatchContext,
 } from '~/pages/main/wrapper/wrapper';
@@ -13,13 +14,10 @@ import {
   OfferClassesTypes,
   OfferTitles,
 } from '~/constants';
-import { offersReducerPropTypes } from '~/prop-types';
 import { getHeaderLinkNext } from '~/utils';
 
-const PlacesContent = ({
-  offersReducer,
-  offersListType,
-}) => {
+const PlacesContent = ({ offersListType }) => {
+  const offersReducer = useContext(ScrolledOffersContext);
   const scrollContainer = useContext(ScrollContainerContext);
   const dispatchData = useContext(ScrolledOffersDispatchContext);
   const {
@@ -83,7 +81,6 @@ const PlacesContent = ({
 };
 
 PlacesContent.propTypes = {
-  offersReducer: offersReducerPropTypes,
   offersListType: PropTypes.string.isRequired,
 };
 
