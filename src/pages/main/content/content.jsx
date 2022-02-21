@@ -4,15 +4,11 @@ import OffersMap from '~/components/offer/map/map';
 import PlacesWrapper from '~/components/places/wrapper/wrapper';
 import useRouterNavigate from '~/hooks/use-router-navigate/use-router-navigate';
 import { AppSRTitles } from '~/constants';
-import {
-  offersMapPropTypes,
-  offersReducerPropTypes,
-} from '~/prop-types';
+import { offersMapPropTypes } from '~/prop-types';
 import './content.less';
 
 const PageMainContent = ({
   offersMap,
-  offersReducer,
   isOffersError,
   isOffersLoaded,
 }) => {
@@ -24,9 +20,10 @@ const PageMainContent = ({
         <h1 className="visually-hidden">
           {AppSRTitles.MAIN_PAGE_PLACES}
         </h1>
-        <section className="col-6 g-0 d-flex flex-column text-center main-places-container">
+        <section className="col-6 g-0 d-flex flex-column text-center
+          main-places-container"
+        >
           <PlacesWrapper
-            offersReducer={offersReducer}
             isOffersError={isOffersError}
             isOffersLoaded={isOffersLoaded}
           />
@@ -44,7 +41,6 @@ const PageMainContent = ({
 
 PageMainContent.propTypes = {
   offersMap: offersMapPropTypes,
-  offersReducer: offersReducerPropTypes,
   isOffersError: PropTypes.bool.isRequired,
   isOffersLoaded: PropTypes.bool.isRequired,
 };
