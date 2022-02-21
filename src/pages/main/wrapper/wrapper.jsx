@@ -26,6 +26,7 @@ import {
   getUnknownActionTypeMsg,
 } from '~/utils';
 
+export const ScrolledOffersContext = createContext(null);
 export const ScrollContainerContext = createContext(null);
 export const ScrolledOffersDispatchContext = createContext(null);
 
@@ -211,16 +212,17 @@ const PageMainWrapper = ({ setIsLoading }) => {
         isCitiesError={isCitiesError}
         isCitiesLoaded={isCitiesLoaded}
       />
-      <ScrollContainerContext.Provider value={scrollContainer}>
-        <ScrolledOffersDispatchContext.Provider value={dispatchData}>
-          <PageMainContent
-            offersMap={offersMap}
-            offersReducer={offersReducer}
-            isOffersError={isOffersError}
-            isOffersLoaded={isOffersLoaded}
-          />
-        </ScrolledOffersDispatchContext.Provider>
-      </ScrollContainerContext.Provider>
+      <ScrolledOffersContext.Provider value={offersReducer}>
+        <ScrollContainerContext.Provider value={scrollContainer}>
+          <ScrolledOffersDispatchContext.Provider value={dispatchData}>
+            <PageMainContent
+              offersMap={offersMap}
+              isOffersError={isOffersError}
+              isOffersLoaded={isOffersLoaded}
+            />
+          </ScrolledOffersDispatchContext.Provider>
+        </ScrollContainerContext.Provider>
+      </ScrolledOffersContext.Provider>
     </>
   );
 };
