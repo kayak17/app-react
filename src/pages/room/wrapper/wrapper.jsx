@@ -138,7 +138,6 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   const isOfferError = stateOffer.status === FetchingStatuses.ERROR;
   const isOfferLoaded = stateOffer.status === FetchingStatuses.LOADED;
   const isReviewsLoaded = stateReviews.status === FetchingStatuses.LOADED;
-  const isMoreReviewsStartLoading = stateMoreReviews.status === FetchingStatuses.START;
   const isOffersNearbyLoaded = stateOffersNearby.status === FetchingStatuses.LOADED;
 
   const isError = (
@@ -156,16 +155,6 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   }, [
     isError,
     isLoaded,
-    setIsLoading,
-  ]);
-
-  useEffect(() => {
-    if (isOfferLoaded && isMoreReviewsStartLoading) {
-      setIsLoading(true);
-    }
-  }, [
-    isOfferLoaded,
-    isMoreReviewsStartLoading,
     setIsLoading,
   ]);
 
