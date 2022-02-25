@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { memo } from 'react';
 import OffersMap from '~/components/offer/map/map';
 import PlacesWrapper from '~/components/places/wrapper/wrapper';
-import useRouterNavigate from '~/hooks/use-router-navigate/use-router-navigate';
 import { AppSRTitles } from '~/constants';
 import { offersMapPropTypes } from '~/prop-types';
 import './content.less';
@@ -12,8 +11,6 @@ const PageMainContent = ({
   isOffersError,
   isOffersLoaded,
 }) => {
-  const redirectToRoute = useRouterNavigate();
-
   return (
     <>
       <div className="row mx-0">
@@ -29,10 +26,7 @@ const PageMainContent = ({
           />
         </section>
         <section className="col-6 g-0 main-map-container">
-          <OffersMap
-            offers={offersMap}
-            redirectToRoute={redirectToRoute}
-          />
+          <OffersMap offers={offersMap} />
         </section>
       </div>
     </>
