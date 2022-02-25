@@ -112,7 +112,6 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   });
 
   const {
-    state: stateMoreReviews,
     fetchData: fetchMoreReviews,
   } = useFetch({
     onSuccess: (payload) => {
