@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import OffersMap from '~/components/offer/map/map';
 import PropertyContent from '~/components/property/content/content';
 import PropertyNearby from '~/components/property/nearby/nearby';
-import useRouterNavigate from '~/hooks/use-router-navigate/use-router-navigate';
 import { offerPropTypes, offersPropTypes } from '~/prop-types';
 import './content.less';
 
@@ -15,7 +14,6 @@ const PageRoomContent = ({
   isOffersNearbyLoaded,
   PropertyReviewsWrapper,
 }) => {
-  const redirectToRoute = useRouterNavigate();
   const canShowOffersNearby = isOffersNearbyLoaded &&
     Boolean(offersNearby.length);
 
@@ -46,7 +44,6 @@ const PageRoomContent = ({
           <OffersMap
             currentOffer={offer}
             offers={offersNearby}
-            redirectToRoute={redirectToRoute}
           />
         </section>
       )}
