@@ -1,21 +1,25 @@
 import isEmpty from 'lodash/isEmpty';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PageRoomContent from '../content/content';
 import PageRoomContentPlaceholder from '../content-placeholder/content-placeholder';
+import PropertyReviews from '~/components/property/reviews/reviews';
+import ReviewFormContainer from '~/components/review/form-container/form-container';
 import useFetch from '~/hooks/use-fetch/use-fetch';
-import useRouterNavigate from '~/hooks/use-router-navigate/use-router-navigate';
 import {
+  AppActionTypes,
   AppMessages,
   FetchingStatuses,
   OfferTypes,
 } from '~/constants';
 import {
+  appScrollTo,
   getHeaderLinkNext,
   getOfferURL,
   getOffersNearbyURL,
   getReviewsURL,
+  getUnknownActionTypeMsg,
   isOfferIdValid,
   throwErrorToBoundary,
 } from '~/utils';
@@ -33,14 +37,50 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     throwErrorToBoundary(AppMessages.INCORRECT_OFFERID);
   }
 
+  const COMPONENT_NAME = 'PageRoomWrapper';
   const offerType = OfferTypes.ROOM;
-  const redirectToRoute = useRouterNavigate();
+  const reviewsUrl = getReviewsURL(offerId, offerType);
 
   const [offer, setOffer] = useState({});
-  const [reviews, setReviews] = useState([]);
-  const [reviewsCount, setReviewsCount] = useState('0');
-  const [reviewsLinkNext, setReviewsLinkNext] = useState('');
   const [offersNearby, setOffersNearby] = useState([]);
+  const scrollContainer = useRef(null);
+
+  const initialState = {
+    data: [],
+    headerLink: {},
+    totalCount: '',
+  };
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case AppActionTypes.SET_DATA:
+        return Object.assign({}, state, {
+          data: action.payload.data,
+          headerLink: action.payload.headerLink,
+          totalCount: action.payload.totalCount,
+        });
+      case AppActionTypes.SET_SCROLLED_DATA:
+        return Object.assign({}, state, {
+          data: action.payload.data,
+          headerLink: action.payload.headerLink,
+        });
+      default:
+        throw new Error(getUnknownActionTypeMsg(COMPONENT_NAME));
+    }
+  };
+
+  const [reviews, dispatchData] = useReducer(reducer, initialState);
+
+  const setReviewsData = (payload) => {
+    dispatchData({
+      type: AppActionTypes.SET_DATA,
+      payload: {
+        data: payload.data,
+        headerLink: payload.headerLink,
+        totalCount: payload.totalCount,
+      },
+    });
+  };
 
   const { state: stateOffer } = useFetch({
     url: getOfferURL(offerId),
@@ -55,13 +95,35 @@ const PageRoomWrapper = ({ setIsLoading }) => {
 
   const {
     state: stateReviews,
-    fetchData: fetchReviews,
   } = useFetch({
-    url: getReviewsURL(offerId, offerType),
+    url: reviewsUrl,
     onSuccess: (payload) => {
-      setReviews(reviews.concat(payload.data));
-      setReviewsCount(payload.totalCount);
-      setReviewsLinkNext(getHeaderLinkNext(payload.headerLink));
+      setReviewsData(payload);
+    },
+  });
+
+  const {
+    fetchData: reFetchReviews,
+  } = useFetch({
+    onSuccess: (payload) => {
+      setReviewsData(payload);
+      appScrollTo(scrollContainer);
+    },
+  });
+
+  const {
+    fetchData: fetchMoreReviews,
+  } = useFetch({
+    onSuccess: (payload) => {
+      dispatchData({
+        type: AppActionTypes.SET_SCROLLED_DATA,
+        payload: {
+          data: reviews.data.concat(payload.data),
+          headerLink: payload.headerLink,
+        },
+      });
+
+      appScrollTo(scrollContainer);
     },
   });
 
@@ -75,7 +137,6 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   const isOfferError = stateOffer.status === FetchingStatuses.ERROR;
   const isOfferLoaded = stateOffer.status === FetchingStatuses.LOADED;
   const isReviewsLoaded = stateReviews.status === FetchingStatuses.LOADED;
-  const isMoreReviewsStartLoading = stateReviews.status === FetchingStatuses.START;
   const isOffersNearbyLoaded = stateOffersNearby.status === FetchingStatuses.LOADED;
 
   const isError = (
@@ -96,24 +157,17 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     setIsLoading,
   ]);
 
-  useEffect(() => {
-    if (isOfferLoaded && isMoreReviewsStartLoading) {
-      setIsLoading(true);
-    }
-  }, [
-    isOfferLoaded,
-    isMoreReviewsStartLoading,
-    setIsLoading,
-  ]);
+  const handleReFetchReviews = useCallback(() => {
+    reFetchReviews(reviewsUrl);
+  }, [reFetchReviews, reviewsUrl]);
 
-  const handleFetchReviews = useCallback(() => {
+  const handleFetchMoreReviews = useCallback(() => {
+    const reviewsLinkNext = getHeaderLinkNext(reviews.headerLink);
+
     if (reviewsLinkNext.length) {
-      fetchReviews(reviewsLinkNext);
+      fetchMoreReviews(reviewsLinkNext);
     }
-  }, [
-    fetchReviews,
-    reviewsLinkNext,
-  ]);
+  }, [fetchMoreReviews, reviews.headerLink]);
 
   if (isOfferError || isOfferLoaded && isEmpty(offer)) {
     throwErrorToBoundary(AppMessages.DATA_LOADING_ERROR);
@@ -123,19 +177,29 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     );
   }
 
+  const propertyReviewsWrapper = () => (
+    <div ref={scrollContainer}>
+      <PropertyReviews
+        reviews={reviews.data}
+        reviewsTotalCount={reviews.totalCount}
+        fetchReviews={handleFetchMoreReviews}
+      />
+      <ReviewFormContainer
+        offerId={offerId}
+        fetchReviews={handleReFetchReviews}
+      />
+    </div>
+  );
+
   return (
     <PageRoomContent
       offer={offer}
-      offerId={offerId}
       offerType={offerType}
       offersNearby={offersNearby}
-      reviews={reviews}
-      reviewsCount={reviewsCount}
       isReviewsLoaded={isReviewsLoaded}
       isCurrentOfferLoaded={isOfferLoaded}
       isOffersNearbyLoaded={isOffersNearbyLoaded}
-      fetchReviews={handleFetchReviews}
-      redirectToRoute={redirectToRoute}
+      PropertyReviewsWrapper={propertyReviewsWrapper}
     />
   );
 };

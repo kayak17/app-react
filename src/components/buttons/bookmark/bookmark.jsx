@@ -1,6 +1,7 @@
 import clsx from 'clsx';
+import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import IconBookmark from '~/icons/bookmark/bookmark';
 import {
   getFavoriteOffersIds,
@@ -27,7 +28,7 @@ import './bookmark.less';
 
 const ButtonBookmark = ({ offerId, bookmarkType }) => {
   const dispatch = useDispatch();
-  const favoriteOffersIds = useSelector(getFavoriteOffersIds, shallowEqual);
+  const favoriteOffersIds = useSelector(getFavoriteOffersIds, isEqual);
   const favoriteOffersIdsByUser = useSelector(getFavoriteOffersIdsByUser);
   const isAuth = useSelector(getIsAuth);
   const userId = useSelector(getUserId);

@@ -1,11 +1,10 @@
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import useFetch from '~/hooks/use-fetch/use-fetch';
 import { setIsLoading } from '~/modules/process';
-import { FetchingStatuses } from '~/constants';
 import { refPropTypes } from '~/prop-types';
 
 const BottomScrollList = ({
@@ -25,22 +24,18 @@ const BottomScrollList = ({
 
   const listRef = useBottomScrollListener(handleScrollOnBottom);
 
-  const { state, fetchData } = useFetch({
+  const { fetchData } = useFetch({
     onRequest: () => {
       dispatch(setIsLoading(true));
     },
     onSuccess: (payload) => {
       setScrolledItems(payload);
+      dispatch(setIsLoading(false));
+    },
+    onError: () => {
+      dispatch(setIsLoading(false));
     },
   });
-
-  useEffect(() => {
-    if (state.status === FetchingStatuses.LOADING) {
-      dispatch(setIsLoading(true));
-    } else {
-      dispatch(setIsLoading(false));
-    }
-  }, [dispatch, state.status]);
 
   return (
     <div

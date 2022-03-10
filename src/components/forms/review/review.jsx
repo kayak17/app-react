@@ -30,7 +30,7 @@ import {
 } from './validation';
 import './review.less';
 
-const FormReview = ({ offerId }) => {
+const FormReview = ({ offerId, fetchReviews }) => {
   const authToken = useSelector(getAuthToken);
   const [reviewError, setReviewError] = useState(FORM_INITIAL_ERROR);
   const [reviewSuccess, setReviewSuccess] = useState(FORM_INITIAL_SUCCESS);
@@ -42,7 +42,15 @@ const FormReview = ({ offerId }) => {
 
   const onTextareaFocus = useCallback(() => {
     setReviewError(FORM_INITIAL_ERROR);
-  }, [setReviewError]);
+  }, []);
+
+  const onMsgSuccessCloseBtnClick = (evt) => {
+    evt.preventDefault();
+
+    setReviewSuccess(FORM_INITIAL_ERROR);
+    setReviewError(FORM_INITIAL_ERROR);
+    fetchReviews();
+  };
 
   const onSubmit = (values, { resetForm, setSubmitting }) => {
     const { rating, comment } = values;
@@ -144,10 +152,20 @@ const FormReview = ({ offerId }) => {
             </>
           ) : (
             <CustomAlert
-              alertClass="mt-3"
+              alertClass="d-flex mt-3"
               alertType={BsStyleTypes.SUCCESS}
             >
-              {AppMessages.REVIEW_POSTING_SUCCESS}
+              <>
+                <span className="ms-auto">
+                  {AppMessages.REVIEW_POSTING_SUCCESS}
+                </span>
+                <button
+                  className="ms-auto btn-close"
+                  aria-label="Close"
+                  type="button"
+                  onClick={onMsgSuccessCloseBtnClick}
+                ></button>
+              </>
             </CustomAlert>
           )}
         </Form>
@@ -158,6 +176,7 @@ const FormReview = ({ offerId }) => {
 
 FormReview.propTypes = {
   offerId: PropTypes.number.isRequired,
+  fetchReviews: PropTypes.func.isRequired,
 };
 
 export default FormReview;

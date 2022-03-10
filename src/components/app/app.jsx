@@ -2,7 +2,6 @@ import { compose } from 'redux';
 import { useRoutes } from 'react-router-dom';
 import withLazy from '~/hocs/with-lazy/with-lazy';
 import withModal from '~/hocs/with-modal/with-modal';
-import withToaster from '~/hocs/with-toaster/with-toaster';
 import PageFavorites from '~/pages/favorites/container/container';
 import PageLogin from '~/pages/login/container/container';
 import PageMain from '~/pages/main/container/container';
@@ -49,8 +48,7 @@ const App = () => {
 
 const enhance = compose(
   withLazy,
-  withModal,
-  withToaster
+  withModal
 );
 
 export default enhance(App);

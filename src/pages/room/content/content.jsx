@@ -2,27 +2,17 @@ import PropTypes from 'prop-types';
 import OffersMap from '~/components/offer/map/map';
 import PropertyContent from '~/components/property/content/content';
 import PropertyNearby from '~/components/property/nearby/nearby';
-import PropertyReviews from '~/components/property/reviews/reviews';
-import ReviewFormContainer from '~/components/review/form-container/form-container';
-import {
-  offerPropTypes,
-  offersPropTypes,
-  reviewsPropTypes,
-} from '~/prop-types';
+import { offerPropTypes, offersPropTypes } from '~/prop-types';
 import './content.less';
 
 const PageRoomContent = ({
   offer,
-  offerId,
   offerType,
   offersNearby,
-  reviews,
-  reviewsCount,
   isReviewsLoaded,
   isCurrentOfferLoaded,
   isOffersNearbyLoaded,
-  fetchReviews,
-  redirectToRoute,
+  PropertyReviewsWrapper,
 }) => {
   const canShowOffersNearby = isOffersNearbyLoaded &&
     Boolean(offersNearby.length);
@@ -38,14 +28,7 @@ const PageRoomContent = ({
         />
 
         {isReviewsLoaded && (
-          <>
-            <PropertyReviews
-              reviews={reviews}
-              reviewsCount={reviewsCount}
-              fetchReviews={fetchReviews}
-            />
-            <ReviewFormContainer offerId={offerId} />
-          </>
+          <PropertyReviewsWrapper />
         )}
 
         {canShowOffersNearby && (
@@ -56,12 +39,11 @@ const PageRoomContent = ({
         )}
       </section>
 
-      {isCurrentOfferLoaded && (
+      {isCurrentOfferLoaded && canShowOffersNearby && (
         <section className="mb-5 property-map-container">
           <OffersMap
             currentOffer={offer}
             offers={offersNearby}
-            redirectToRoute={redirectToRoute}
           />
         </section>
       )}
@@ -71,16 +53,12 @@ const PageRoomContent = ({
 
 PageRoomContent.propTypes = {
   offer: offerPropTypes,
-  offerId: PropTypes.number.isRequired,
   offerType: PropTypes.string.isRequired,
   offersNearby: offersPropTypes,
-  reviews: reviewsPropTypes,
-  reviewsCount: PropTypes.string.isRequired,
   isReviewsLoaded: PropTypes.bool.isRequired,
   isCurrentOfferLoaded: PropTypes.bool.isRequired,
   isOffersNearbyLoaded: PropTypes.bool.isRequired,
-  fetchReviews: PropTypes.func.isRequired,
-  redirectToRoute: PropTypes.func.isRequired,
+  PropertyReviewsWrapper: PropTypes.elementType.isRequired,
 };
 
 export default PageRoomContent;

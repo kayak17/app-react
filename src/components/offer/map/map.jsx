@@ -1,9 +1,10 @@
+import leaflet from 'leaflet';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
-import { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import leaflet from 'leaflet';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import usePrevious from '~/hooks/use-previous/use-previous';
+import useRouterNavigate from '~/hooks/use-router-navigate/use-router-navigate';
 import {
   getActiveCity,
 } from '~/modules/main';
@@ -17,53 +18,52 @@ import {
   MAP_ID,
   MAP_TILE_LAYER,
   MAP_TILE_LAYER_ATTRIBUTION,
-  MAP_TOOLTIP_SETTING,
   MAP_ZOOM_DEFAULT,
   MAP_DEFAULT_ICON_DATA,
   MAP_ACTIVE_ICON_DATA,
   MAP_CURRENT_ICON_DATA,
-  AppRoutes,
-  InitialModulesValues,
 } from '~/constants';
 import {
-  cityPropTypes,
   offerPropTypes,
   offersMapPropTypes,
-  mapPinIdPropTypes,
   getItemOrNullPropTypes,
 } from '~/prop-types';
 import {
+  addMarkers,
+  proceedMarkers,
   getMapCenterAndZoom,
-  getMapTooltipMarkup,
 } from './helpers';
 import 'leaflet/dist/leaflet.css';
 
-class OffersMap extends Component {
-  constructor(props) {
-    super(props);
+const icon = leaflet.icon(MAP_DEFAULT_ICON_DATA);
+const activeIcon = leaflet.icon(MAP_ACTIVE_ICON_DATA);
+const currentIcon = leaflet.icon(MAP_CURRENT_ICON_DATA);
 
-    this.map = null;
-    this.markers = [];
-    this.zoom = MAP_ZOOM_DEFAULT;
-    this.center = MAP_CENTER_DEFAULT;
-    this.tooltipSettings = MAP_TOOLTIP_SETTING;
-    this.icon = leaflet.icon(MAP_DEFAULT_ICON_DATA);
-    this.activeIcon = leaflet.icon(MAP_ACTIVE_ICON_DATA);
-    this.currentIcon = leaflet.icon(MAP_CURRENT_ICON_DATA);
-  }
+const OffersMap = ({ offers, currentOffer }) => {
+  const redirectToRoute = useRouterNavigate();
+  const prevOffers = usePrevious(offers);
+  const prevCurrentOffer = usePrevious(currentOffer);
+  const activeCity = useSelector(getActiveCity, isEqual);
+  const prevActiveCity = usePrevious(activeCity);
+  const activeOffer = useSelector(getActiveOffer, isEqual);
+  const prevActiveOffer = usePrevious(activeOffer);
+  const activePinId = useSelector(getActivePinId);
+  const dispatch = useDispatch();
 
-  componentDidMount() {
-    const {
-      offers,
-      activeCity,
-      currentOffer,
-    } = this.props;
+  const {
+    center: centerInitial,
+    zoom: zoomInitial,
+  } = getMapCenterAndZoom(activeCity);
 
-    const { center, zoom } = getMapCenterAndZoom(activeCity);
+  const map = useRef(null);
+  const markers = useRef([]);
+  const [center, setCenter] = useState(centerInitial);
+  const [zoom, setZoom] = useState(zoomInitial);
 
-    this.map = leaflet.map(MAP_ID, {
-      center,
-      zoom,
+  useEffect(() => {
+    map.current = leaflet.map(MAP_ID, {
+      center: MAP_CENTER_DEFAULT,
+      zoom: MAP_ZOOM_DEFAULT,
       marker: true,
     });
 
@@ -71,189 +71,95 @@ class OffersMap extends Component {
       .tileLayer(MAP_TILE_LAYER, {
         attribution: MAP_TILE_LAYER_ATTRIBUTION,
       })
-      .addTo(this.map);
+      .addTo(map.current);
 
-    if (offers.length) {
-      this._addMarkers(offers);
-    }
+    return () => {
+      if (markers.current.length) {
+        markers.current.forEach((item) => {
+          item.off('click');
+          item.off('mouseover');
+          item.off('mouseout');
+          item.removeFrom(map.current);
+        });
 
-    if (!isEmpty(currentOffer)) {
-      this._addMarkerCurrentOffer(currentOffer);
-    }
+        markers.current = [];
+      }
+    };
+  }, []);
 
-    if (!isEmpty(activeCity)) {
-      this.center = activeCity.coordinates;
-      this.zoom = activeCity.zoom;
-      this.map.flyTo(this.center, this.zoom);
-    }
-  }
+  useEffect(() => {
+    map.current.flyTo(center, zoom);
+  }, [center, zoom]);
 
-  componentDidUpdate(prevProps) {
-    const {
-      activeCity,
-      activeOffer,
-      currentOffer,
-      offers,
-    } = this.props;
-
+  useEffect(() => {
     if (
-      !isEqual(prevProps.offers, offers) ||
-      !isEqual(prevProps.currentOffer, currentOffer)
+      !isEmpty(activeCity) &&
+      !isEqual(prevActiveCity, activeCity)
     ) {
-      this._removeMarkers();
-
-      if (offers.length) {
-        this._addMarkers(offers);
-      }
-
-      if (!isEmpty(currentOffer)) {
-        this._addMarkerCurrentOffer(currentOffer);
-      }
+      setCenter(activeCity.coordinates);
+      setZoom(activeCity.zoom);
     }
+  }, [activeCity, prevActiveCity]);
 
-    if (!isEqual(prevProps.activeOffer, activeOffer)) {
-      if (!isEmpty(prevProps.activeOffer)) {
-        for (const marker of this.markers) {
-          if (marker._offerId === prevProps.activeOffer.id) {
-            marker.setIcon(this.icon);
-            marker._isActive = false;
-            break;
-          }
-        }
-      }
-
-      if (!isEmpty(activeOffer)) {
-        for (const marker of this.markers) {
-          if (marker._offerId === activeOffer.id) {
-            marker.setIcon(this.activeIcon);
-            marker._isActive = true;
-            break;
-          }
-        }
-      } else {
-        for (const marker of this.markers) {
-          if (marker._isActive === true) {
-            marker.setIcon(this.icon);
-            marker._isActive = false;
-            break;
-          }
-        }
-
-        this.map.flyTo(this.center, this.zoom);
-      }
-    }
-
+  useEffect(() => {
     if (
-      !isEqual(prevProps.activeCity, activeCity) &&
-      !isEmpty(activeCity)
+      !isEqual(prevOffers, offers) ||
+      !isEqual(prevCurrentOffer, currentOffer)
     ) {
-      this.center = activeCity.coordinates;
-      this.zoom = activeCity.zoom;
-      this.map.flyTo(this.center, this.zoom);
+      addMarkers({
+        map,
+        markers,
+        offers,
+        currentOffer,
+        activeOffer,
+        icon,
+        activeIcon,
+        currentIcon,
+        activePinId,
+        setActivePinId,
+        redirectToRoute,
+        dispatch,
+      });
     }
-  }
+  }, [
+    markers,
+    offers,
+    prevOffers,
+    currentOffer,
+    prevCurrentOffer,
+    activeOffer,
+    activePinId,
+    dispatch,
+    redirectToRoute,
+  ]);
 
-  componentWillUnmount() {
-    this._removeMarkers();
-  }
-
-  _getOfferIcon(activeOfferId, activePinId, offerId) {
-    return (
-      activeOfferId && activeOfferId === offerId ||
-      activePinId === offerId
-    ) ? this.activeIcon : this.icon;
-  }
-
-  _addMarkers(offers) {
-    const {
-      activeOffer,
-      activePinId,
-      setActivePinIdAction,
-      redirectToRoute,
-    } = this.props;
-
-    const activeOfferId = !isEmpty(activeOffer) && activeOffer.id;
-
-    offers.forEach((offer) => {
-      const { coordinates, id: offerId } = offer;
-
-      const marker = leaflet
-        .marker(coordinates, {
-          icon: this._getOfferIcon(activeOfferId, activePinId, offerId)
-        })
-        .addTo(this.map)
-        .bindTooltip(
-          getMapTooltipMarkup(offer),
-          this.tooltipSettings
-        );
-
-      marker._offerId = offerId;
-
-      marker.on('click', () => {
-        redirectToRoute(`${AppRoutes.OFFER}?id=${offerId}`);
+  useEffect(() => {
+    if (
+      !isEqual(prevActiveOffer, activeOffer) &&
+      markers.current.length
+    ) {
+      proceedMarkers({
+        icon,
+        activeIcon,
+        markers,
+        activeOffer,
+        prevActiveOffer,
       });
+    }
+  }, [
+    markers,
+    activeOffer,
+    prevActiveOffer,
+  ]);
 
-      marker.on('mouseover', () => {
-        marker.setIcon(this.activeIcon).openTooltip();
-        setActivePinIdAction(offerId);
-      });
-
-      marker.on('mouseout', () => {
-        marker.setIcon(this.icon);
-        setActivePinIdAction(InitialModulesValues.PIN_ID);
-      });
-
-      this.markers.push(marker);
-    });
-  }
-
-  _addMarkerCurrentOffer(currentOffer) {
-    const marker = leaflet.marker(
-      currentOffer.coordinates,
-      { icon: this.currentIcon }
-    ).addTo(this.map);
-
-    this.markers.push(marker);
-  }
-
-  _removeMarkers() {
-    this.markers.forEach((item) => {
-      item.off('click');
-      item.off('mouseover');
-      item.off('mouseout');
-      item.removeFrom(this.map);
-    });
-
-    this.markers = [];
-  }
-
-  render() {
-    return (
-      <div id={MAP_ID} className="d-flex bg-light text-center w-100 h-100"></div>
-    );
-  }
-}
+  return (
+    <div id={MAP_ID} className="d-flex bg-light text-center w-100 h-100"></div>
+  );
+};
 
 OffersMap.propTypes = {
   offers: offersMapPropTypes,
-  redirectToRoute: PropTypes.func.isRequired,
-  activeCity: cityPropTypes,
-  activeOffer: getItemOrNullPropTypes(offerPropTypes),
   currentOffer: getItemOrNullPropTypes(offerPropTypes),
-  activePinId: mapPinIdPropTypes,
-  setActivePinIdAction: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  activeCity: getActiveCity(state),
-  activeOffer: getActiveOffer(state),
-  activePinId: getActivePinId(state),
-});
-
-const mapDispatchToProps = ((dispatch) => ({
-  setActivePinIdAction(pinId) {
-    dispatch(setActivePinId(pinId));
-  },
-}));
-
-export default connect(mapStateToProps, mapDispatchToProps)(OffersMap);
+export default OffersMap;

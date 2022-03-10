@@ -5,10 +5,10 @@ import { reviewsPropTypes } from '~/prop-types';
 
 const PropertyReviews = ({
   reviews,
-  reviewsCount,
+  reviewsTotalCount,
   fetchReviews,
 }) => {
-  const canShowLoadMoreBtn = reviews.length < parseInt(reviewsCount, 10);
+  const canShowLoadMoreBtn = reviews.length < parseInt(reviewsTotalCount, 10);
 
   const onLoadMoreBtnClick = () => {
     if (canShowLoadMoreBtn) {
@@ -22,7 +22,7 @@ const PropertyReviews = ({
         <h2 className="app-subtitle mb-4">
           {AppTitles.REVIEWS}
           &nbsp;&middot;&nbsp;
-          <span>{reviewsCount}</span>
+          <span>{reviewsTotalCount}</span>
         </h2>
         <ReviewsList reviews={reviews} />
         {canShowLoadMoreBtn && (
@@ -49,7 +49,7 @@ const PropertyReviews = ({
 
 PropertyReviews.propTypes = {
   reviews: reviewsPropTypes,
-  reviewsCount: PropTypes.string.isRequired,
+  reviewsTotalCount: PropTypes.string.isRequired,
   fetchReviews: PropTypes.func.isRequired,
 };
 

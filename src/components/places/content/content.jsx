@@ -1,24 +1,44 @@
 import PropTypes from 'prop-types';
+import { useCallback, useContext } from 'react';
 import OffersList from '~/components/offer/list/list';
 import BottomScrollList from '~/components/bottom-scroll-list/bottom-scroll-list';
-import withOffersListHover from '~/hocs/with-offers-list-hover/with-offers-list-hover';
+import useOffersListHover from '~/hooks/use-offers-list-hover/use-offers-list-hover';
 import FormFilters from '../form-filters/form-filters';
-import { OfferClassesTypes, OfferTitles } from '~/constants';
-import { offersReducerPropTypes, refPropTypes } from '~/prop-types';
+import {
+  ScrolledOffersContext,
+  ScrollContainerContext,
+  ScrolledOffersDispatchContext,
+} from '~/pages/main/wrapper/wrapper';
+import {
+  AppActionTypes,
+  OfferClassesTypes,
+  OfferTitles,
+} from '~/constants';
 import { getHeaderLinkNext } from '~/utils';
 
-const OffersListWrapped = withOffersListHover(OffersList);
+const PlacesContent = ({ offersListType }) => {
+  const offersReducer = useContext(ScrolledOffersContext);
+  const scrollContainer = useContext(ScrollContainerContext);
+  const dispatchData = useContext(ScrolledOffersDispatchContext);
+  const {
+    handleOfferCardMouseEnter,
+    handleOfferCardMouseLeave,
+  } = useOffersListHover();
 
-const PlacesContent = ({
-  offersReducer,
-  offersListType,
-  scrollContainer,
-  setScrolledOffers,
-}) => {
   const headerLinkNext = getHeaderLinkNext(offersReducer.headerLink);
   const activeCityName = offersReducer.activeCityName;
   const totalCount = offersReducer.totalCount;
   const offers = offersReducer.data;
+
+  const handleSetScrolledOffers = useCallback((payload) => {
+    dispatchData({
+      type: AppActionTypes.SET_SCROLLED_DATA,
+      payload: {
+        data: offersReducer.data.concat(payload.data),
+        headerLink: payload.headerLink,
+      },
+    });
+  }, [offersReducer.data, dispatchData]);
 
   const getTitle = () => {
     if (offers.length) {
@@ -40,15 +60,17 @@ const PlacesContent = ({
           </div>
           <BottomScrollList
             render={() => (
-              <OffersListWrapped
+              <OffersList
                 offers={offers}
                 offerType={OfferClassesTypes[offersListType]}
+                handleOfferCardMouseEnter={handleOfferCardMouseEnter}
+                handleOfferCardMouseLeave={handleOfferCardMouseLeave}
               />
             )}
             containerClass={'pt-2 ps-2'}
             headerLinkNext={headerLinkNext}
             scrollContainer={scrollContainer}
-            setScrolledItems={setScrolledOffers}
+            setScrolledItems={handleSetScrolledOffers}
           />
         </>
       ) : (
@@ -59,10 +81,7 @@ const PlacesContent = ({
 };
 
 PlacesContent.propTypes = {
-  offersReducer: offersReducerPropTypes,
   offersListType: PropTypes.string.isRequired,
-  scrollContainer: refPropTypes,
-  setScrolledOffers: PropTypes.func.isRequired,
 };
 
 export default PlacesContent;
