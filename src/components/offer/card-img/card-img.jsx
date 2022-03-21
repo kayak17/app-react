@@ -22,7 +22,6 @@ const OfferCardImg = ({
       />
     </NavLink>
   );
-
 };
 
 OfferCardImg.propTypes = {
