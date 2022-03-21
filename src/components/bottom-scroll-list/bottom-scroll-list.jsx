@@ -5,13 +5,11 @@ import { useDispatch } from 'react-redux';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import useFetch from '~/hooks/use-fetch/use-fetch';
 import { setIsLoading } from '~/modules/process';
-import { refPropTypes } from '~/prop-types';
 
 const BottomScrollList = ({
-  render,
+  Content,
   containerClass,
   headerLinkNext,
-  scrollContainer,
   setScrolledItems,
 }) => {
   const dispatch = useDispatch();
@@ -39,23 +37,18 @@ const BottomScrollList = ({
 
   return (
     <div
-      className={clsx('overflow-auto position-relative', containerClass)}
+      className={clsx('overflow-auto', containerClass)}
       ref={listRef}
     >
-      <div
-        className="position-absolute top-0 w-100"
-        ref={scrollContainer}
-      />
-      {render()}
+      {<Content />}
     </div>
   );
 }
 
 BottomScrollList.propTypes = {
-  render: PropTypes.func.isRequired,
+  Content: PropTypes.elementType.isRequired,
   containerClass: PropTypes.string,
   headerLinkNext: PropTypes.string.isRequired,
-  scrollContainer: refPropTypes,
   setScrolledItems: PropTypes.func.isRequired,
 };
 
