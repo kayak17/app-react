@@ -48,6 +48,16 @@ const PlacesContent = ({ offersListType }) => {
     return `${OfferTitles.NO_PLACES_TO_STAY_IN}${activeCityName}`;
   };
 
+  const OffersListWrapped = () => (
+    <OffersList
+      ref={scrollContainer}
+      offers={offers}
+      offerType={OfferClassesTypes[offersListType]}
+      handleOfferCardMouseEnter={handleOfferCardMouseEnter}
+      handleOfferCardMouseLeave={handleOfferCardMouseLeave}
+    />
+  );
+
   return (
     <>
       <h2 className="px-5 my-3 app-subtitle">
@@ -59,17 +69,9 @@ const PlacesContent = ({ offersListType }) => {
             <FormFilters scrollContainer={scrollContainer} />
           </div>
           <BottomScrollList
-            render={() => (
-              <OffersList
-                offers={offers}
-                offerType={OfferClassesTypes[offersListType]}
-                handleOfferCardMouseEnter={handleOfferCardMouseEnter}
-                handleOfferCardMouseLeave={handleOfferCardMouseLeave}
-              />
-            )}
+            Content={OffersListWrapped}
             containerClass={'pt-2 ps-2'}
             headerLinkNext={headerLinkNext}
-            scrollContainer={scrollContainer}
             setScrolledItems={handleSetScrolledOffers}
           />
         </>

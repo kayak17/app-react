@@ -177,7 +177,7 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     );
   }
 
-  const propertyReviewsWrapper = () => (
+  const PropertyReviewsWrapped = () => (
     <div ref={scrollContainer}>
       <PropertyReviews
         reviews={reviews.data}
@@ -199,7 +199,7 @@ const PageRoomWrapper = ({ setIsLoading }) => {
       isReviewsLoaded={isReviewsLoaded}
       isCurrentOfferLoaded={isOfferLoaded}
       isOffersNearbyLoaded={isOffersNearbyLoaded}
-      PropertyReviewsWrapper={propertyReviewsWrapper}
+      PropertyReviewsWrapper={PropertyReviewsWrapped}
     />
   );
 };
