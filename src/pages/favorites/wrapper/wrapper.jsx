@@ -4,18 +4,19 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import PageFavoritesContent from '../content/content';
 import useFetch from '~/hooks/use-fetch/use-fetch';
+import usePrevious from '~/hooks/use-previous/use-previous';
 import { getFavoriteOffersIdsByUser } from '~/modules/favorites';
 import { AppMessages, AppTitles, FetchingStatuses } from '~/constants';
-import { getFavoriteOffersURL, throwErrorToBoundary } from '~/utils';
+import { copyMap, getFavoriteOffersURL, throwErrorToBoundary } from '~/utils';
 import { getOffersMapByCity, getUpdatedOffersMap } from '../helpers';
 
 const PageFavoritesWrapper = ({ setIsLoading }) => {
-  const favoriteOffersIdsByUser = useSelector(getFavoriteOffersIdsByUser);
-  const [favoriteOffersIds, setFavoriteOffersIds] = useState(favoriteOffersIdsByUser);
-  const [offersMapByCity, setOffersMapByCity] = useState(undefined);
+  const favoriteOffersIds = useSelector(getFavoriteOffersIdsByUser);
+  const prevFavoriteOffersIds = usePrevious(favoriteOffersIds);
+  const [offersMapByCity, setOffersMapByCity] = useState();
 
   const { state } = useFetch({
-    url: getFavoriteOffersURL(favoriteOffersIdsByUser),
+    url: getFavoriteOffersURL(favoriteOffersIds),
     onRequest: () => {
       setIsLoading(true);
     },
@@ -37,23 +38,21 @@ const PageFavoritesWrapper = ({ setIsLoading }) => {
     setIsLoading,
   ]);
 
-  useEffect(() => {
-    if (isLoaded && !isEqual(favoriteOffersIds, favoriteOffersIdsByUser)) {
-      setOffersMapByCity(
-        getUpdatedOffersMap(offersMapByCity, favoriteOffersIdsByUser)
-      );
-      setFavoriteOffersIds(favoriteOffersIdsByUser);
-    }
-  }, [
-    isLoaded,
-    offersMapByCity,
-    favoriteOffersIds,
-    favoriteOffersIdsByUser,
-  ]);
-
   if (isError) {
     throwErrorToBoundary(AppMessages.DATA_LOADING_ERROR);
   }
+
+  useEffect(() => {
+    if (isLoaded && !isEqual(prevFavoriteOffersIds, favoriteOffersIds)) {
+      setOffersMapByCity((prevOffersMapByCity) => (
+        getUpdatedOffersMap(copyMap(prevOffersMapByCity), favoriteOffersIds)
+      ));
+    }
+  }, [
+    isLoaded,
+    favoriteOffersIds,
+    prevFavoriteOffersIds,
+  ]);
 
   return (
     <section className="page-content-wrapper">
@@ -62,7 +61,6 @@ const PageFavoritesWrapper = ({ setIsLoading }) => {
       </h1>
       <PageFavoritesContent
         isLoaded={isLoaded}
-        offerIdsLength={favoriteOffersIdsByUser.length}
         offersMapByCity={offersMapByCity}
       />
     </section>
