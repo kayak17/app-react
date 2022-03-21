@@ -6,8 +6,11 @@ import {
 } from '~/constants';
 
 export const appScrollTo = (scrollContainer) => {
-  if (scrollContainer && scrollContainer.current) {
-    scrollContainer.current.scrollIntoView();
+  if (
+    scrollContainer && scrollContainer.current &&
+    scrollContainer.current.parentElement
+  ) {
+    scrollContainer.current.parentElement.scrollTo(0, 0);
   }
 };
 
