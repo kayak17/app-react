@@ -18,6 +18,12 @@ export const capitalizeFirstLetter = (str) => (
   str.charAt(0).toUpperCase() + str.slice(1)
 );
 
+export const copyMap = (existingMap) => (
+  new Map(JSON.parse(
+    JSON.stringify(Array.from(existingMap))
+  ))
+);
+
 export const getAuthHeader = (token) => (
   {
     headers: {
