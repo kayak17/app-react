@@ -19,7 +19,7 @@ const OffersListPlaceholder = ({
       ))}
     </ul>
   );
-}
+};
 
 OffersListPlaceholder.propTypes = {
   offers: emptyArrayPropTypes,
