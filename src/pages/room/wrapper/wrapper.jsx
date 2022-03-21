@@ -14,7 +14,7 @@ import {
   OfferTypes,
 } from '~/constants';
 import {
-  appScrollTo,
+  appScrollIntoView,
   getHeaderLinkNext,
   getOfferURL,
   getOffersNearbyURL,
@@ -107,7 +107,7 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   } = useFetch({
     onSuccess: (payload) => {
       setReviewsData(payload);
-      appScrollTo(scrollContainer);
+      appScrollIntoView(scrollContainer);
     },
   });
 
@@ -123,7 +123,7 @@ const PageRoomWrapper = ({ setIsLoading }) => {
         },
       });
 
-      appScrollTo(scrollContainer);
+      appScrollIntoView(scrollContainer);
     },
   });
 
