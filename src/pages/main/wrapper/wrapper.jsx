@@ -23,7 +23,7 @@ import {
   appScrollTo,
   getOffersURL,
   getOffersMapURL,
-  getUnknownActionTypeMsg,
+  throwUnknownActionError,
 } from '~/utils';
 
 export const ScrolledOffersContext = createContext(null);
@@ -60,19 +60,21 @@ const PageMainWrapper = ({ setIsLoading }) => {
   const reducer = (state, action) => {
     switch (action.type) {
       case AppActionTypes.SET_DATA:
-        return Object.assign({}, state, {
+        return {
+          ...state,
           activeCityName: action.payload.activeCityName,
           data: action.payload.data,
           headerLink: action.payload.headerLink,
           totalCount: action.payload.totalCount,
-        });
+        };
       case AppActionTypes.SET_SCROLLED_DATA:
-        return Object.assign({}, state, {
+        return {
+          ...state,
           data: action.payload.data,
           headerLink: action.payload.headerLink,
-        });
+        };
       default:
-        throw new Error(getUnknownActionTypeMsg(COMPONENT_NAME));
+        throwUnknownActionError(COMPONENT_NAME);
     }
   };
 
