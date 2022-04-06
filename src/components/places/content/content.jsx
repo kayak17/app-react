@@ -8,7 +8,7 @@ import {
   ScrolledOffersContext,
   ScrollContainerContext,
   ScrolledOffersDispatchContext,
-} from '~/pages/main/wrapper/wrapper';
+} from '~/pages/main/wrapper-offers/wrapper-offers';
 import {
   AppActionTypes,
   OfferClassesTypes,
