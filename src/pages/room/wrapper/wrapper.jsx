@@ -10,7 +10,6 @@ import useFetch from '~/hooks/use-fetch/use-fetch';
 import {
   AppActionTypes,
   AppMessages,
-  FetchingStatuses,
   OfferTypes,
 } from '~/constants';
 import {
@@ -84,7 +83,10 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     });
   };
 
-  const { state: stateOffer } = useFetch({
+  const {
+    isError: isOfferError,
+    isLoaded: isOfferLoaded,
+  } = useFetch({
     url: getOfferURL(offerId),
     onRequest: () => {
       setIsLoading(true);
@@ -100,7 +102,7 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   });
 
   const {
-    state: stateReviews,
+    isLoaded: isReviewsLoaded,
   } = useFetch({
     url: reviewsUrl,
     onSuccess: (payload) => {
@@ -133,17 +135,12 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     },
   });
 
-  const { state: stateOffersNearby } = useFetch({
+  const { isLoaded: isOffersNearbyLoaded } = useFetch({
     url: getOffersNearbyURL(offerId),
     onSuccess: (payload) => {
       setOffersNearby(payload.data);
     },
   });
-
-  const isOfferError = stateOffer.status === FetchingStatuses.ERROR;
-  const isOfferLoaded = stateOffer.status === FetchingStatuses.LOADED;
-  const isReviewsLoaded = stateReviews.status === FetchingStatuses.LOADED;
-  const isOffersNearbyLoaded = stateOffersNearby.status === FetchingStatuses.LOADED;
 
   const handleReFetchReviews = useCallback(() => {
     reFetchReviews(reviewsUrl);
