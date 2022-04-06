@@ -14,14 +14,6 @@ const BottomScrollList = ({
 }) => {
   const dispatch = useDispatch();
 
-  const handleScrollOnBottom = useCallback(() => {
-    if (headerLinkNext.length) {
-      fetchData(headerLinkNext);
-    }
-  }, [headerLinkNext, fetchData]);
-
-  const listRef = useBottomScrollListener(handleScrollOnBottom);
-
   const { fetchData } = useFetch({
     onRequest: () => {
       dispatch(setIsLoading(true));
@@ -34,6 +26,14 @@ const BottomScrollList = ({
       dispatch(setIsLoading(false));
     },
   });
+
+  const handleScrollOnBottom = useCallback(() => {
+    if (headerLinkNext.length) {
+      fetchData(headerLinkNext);
+    }
+  }, [headerLinkNext, fetchData]);
+
+  const listRef = useBottomScrollListener(handleScrollOnBottom);
 
   return (
     <div
