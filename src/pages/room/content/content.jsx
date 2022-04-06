@@ -9,7 +9,6 @@ const PageRoomContent = ({
   offer,
   offerType,
   offersNearby,
-  isReviewsLoaded,
   isCurrentOfferLoaded,
   isOffersNearbyLoaded,
   PropertyReviewsWrapper,
@@ -27,9 +26,7 @@ const PageRoomContent = ({
           offerType={offerType}
         />
 
-        {isReviewsLoaded && (
-          <PropertyReviewsWrapper />
-        )}
+        <PropertyReviewsWrapper />
 
         {canShowOffersNearby && (
           <PropertyNearby
@@ -55,7 +52,6 @@ PageRoomContent.propTypes = {
   offer: offerPropTypes,
   offerType: PropTypes.string.isRequired,
   offersNearby: offersPropTypes,
-  isReviewsLoaded: PropTypes.bool.isRequired,
   isCurrentOfferLoaded: PropTypes.bool.isRequired,
   isOffersNearbyLoaded: PropTypes.bool.isRequired,
   PropertyReviewsWrapper: PropTypes.elementType.isRequired,
