@@ -11,10 +11,8 @@ const PageWrapperSpinner = ({ Layout, PageContent }) => {
   const dispatch = useDispatch();
 
   const handleSetIsLoading = useCallback((flag) => {
-    if (isLoading !== flag) {
-      dispatch(setIsLoading(flag));
-    }
-  }, [dispatch, isLoading]);
+    dispatch(setIsLoading(flag));
+  }, [dispatch]);
 
   return (
     <>

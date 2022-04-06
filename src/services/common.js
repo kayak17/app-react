@@ -5,28 +5,46 @@ import {
   ResponseStatusTexts,
 } from '~/constants';
 
-export const setApiRequest = (url, data, config) => {
-  if (data) {
-    return api.post(url, data, config);
-  } else {
-    return api.get(url, config);
+export const REQUEST_TYPES = {
+  GET: 'get',
+  DELETE: 'delete',
+  PATCH: 'patch',
+  POST: 'post',
+  PUT: 'put',
+};
+
+export const setApiRequest = ({
+  url, data, config, requestType,
+}) => {
+  switch (requestType) {
+    case REQUEST_TYPES.DELETE:
+      return api.delete(url, config);
+    case REQUEST_TYPES.PATCH:
+      return api.patch(url, data, config);
+    case REQUEST_TYPES.POST:
+      return api.post(url, data, config);
+    case REQUEST_TYPES.PUT:
+      return api.put(url, data, config);
+    default:
+      return api.get(url, config);
   }
 };
 
 export const sendRequest = ({
-  config = undefined,
-  data = undefined,
+  url,
+  data,
+  config,
   onRequest = () => false,
   onSuccess = () => false,
   onError = () => false,
+  requestType = REQUEST_TYPES.GET,
   responseStatusText = ResponseStatusTexts.OK,
-  url,
 }) => {
   onRequest();
 
   // setTimeout - for demo only
   setTimeout(() => {
-    setApiRequest(url, data, config)
+    setApiRequest({ url, data, config, requestType })
       .then((response) => {
         if (response.statusText === responseStatusText) {
           onSuccess(response);
@@ -35,26 +53,27 @@ export const sendRequest = ({
         }
       })
       .catch(({ message }) => {
-        onError(message || AppMessages.DATA_POSTING_ERROR);
+        onError(message || AppMessages.DATA_LOADING_ERROR);
       });
   }, 500);
 };
 
 export const sendFormRequest = ({
-  config = undefined,
-  data = undefined,
+  url,
+  data,
+  config,
   resetForm = () => false,
   setError = () => false,
   setSubmitting = () => false,
   setSuccess = () => false,
+  requestType = REQUEST_TYPES.POST,
   responseStatusText = ResponseStatusTexts.OK,
-  url,
 }) => {
   setError(FORM_INITIAL_ERROR);
 
   // setTimeout - for demo only
   setTimeout(() => {
-    setApiRequest(url, data, config)
+    setApiRequest({ url, data, config, requestType })
       .then((response) => {
         if (response.statusText === responseStatusText) {
           setSuccess(true);

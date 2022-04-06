@@ -1,10 +1,10 @@
 import isEqual from 'lodash/isEqual';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import FavoritesContent from '~/components/favorites/content/content';
 import FavoritesContentPlaceholder from '~/components/favorites/content-placeholder/content-placeholder';
 import { AppTitles, OfferTypes } from '~/constants';
 import { offersMapByCityPropTypes } from '~/prop-types';
-import { memo } from 'react';
 
 const PageFavoritesContent = ({ isLoaded, offersMapByCity }) => {
   if (isLoaded) {
