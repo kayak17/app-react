@@ -111,7 +111,6 @@ const useFetch = (props) => {
         return {
           ...state,
           status: FetchingStatuses.ERROR,
-          error: action.payload,
         };
       default:
         throwUnknownActionError(HOOK_NAME);
