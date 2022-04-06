@@ -1,5 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
-import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import { useCallback, useReducer, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PageRoomContent from '../content/content';
@@ -19,9 +19,9 @@ import {
   getOfferURL,
   getOffersNearbyURL,
   getReviewsURL,
-  getUnknownActionTypeMsg,
   isOfferIdValid,
   throwErrorToBoundary,
+  throwUnknownActionError,
 } from '~/utils';
 import {
   adaptOffer,
@@ -54,18 +54,20 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   const reducer = (state, action) => {
     switch (action.type) {
       case AppActionTypes.SET_DATA:
-        return Object.assign({}, state, {
+        return {
+          ...state,
           data: action.payload.data,
           headerLink: action.payload.headerLink,
           totalCount: action.payload.totalCount,
-        });
+        };
       case AppActionTypes.SET_SCROLLED_DATA:
-        return Object.assign({}, state, {
+        return {
+          ...state,
           data: action.payload.data,
           headerLink: action.payload.headerLink,
-        });
+        };
       default:
-        throw new Error(getUnknownActionTypeMsg(COMPONENT_NAME));
+        throwUnknownActionError(COMPONENT_NAME);
     }
   };
 
@@ -90,6 +92,10 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     onSuccess: (payload) => {
       const offer = adaptOffer(payload.data.slice()[0]);
       setOffer(offer);
+      setIsLoading(false);
+    },
+    onFail: () => {
+      setIsLoading(false);
     },
   });
 
@@ -139,24 +145,6 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   const isReviewsLoaded = stateReviews.status === FetchingStatuses.LOADED;
   const isOffersNearbyLoaded = stateOffersNearby.status === FetchingStatuses.LOADED;
 
-  const isError = (
-    isOfferError ||
-    stateReviews.status === FetchingStatuses.ERROR ||
-    stateOffersNearby.status === FetchingStatuses.ERROR
-  );
-
-  const isLoaded = isOfferLoaded && isReviewsLoaded;
-
-  useEffect(() => {
-    if (isError || isLoaded) {
-      setIsLoading(false);
-    }
-  }, [
-    isError,
-    isLoaded,
-    setIsLoading,
-  ]);
-
   const handleReFetchReviews = useCallback(() => {
     reFetchReviews(reviewsUrl);
   }, [reFetchReviews, reviewsUrl]);
@@ -170,7 +158,7 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   }, [fetchMoreReviews, reviews.headerLink]);
 
   if (isOfferError || isOfferLoaded && isEmpty(offer)) {
-    throwErrorToBoundary(AppMessages.DATA_LOADING_ERROR);
+    throwErrorToBoundary();
   } else if (!isOfferLoaded) {
     return (
       <PageRoomContentPlaceholder offerType={offerType} />
