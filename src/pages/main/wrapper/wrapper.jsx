@@ -17,7 +17,6 @@ import {
 import {
   APIRoutes,
   AppActionTypes,
-  FetchingStatuses,
 } from '~/constants';
 import {
   appScrollTo,
@@ -93,7 +92,8 @@ const PageMainWrapper = ({ setIsLoading }) => {
   }, [activeCityName]);
 
   const {
-    state: stateCities,
+    isError: isCitiesError,
+    isLoaded: isCitiesLoaded,
   } = useFetchCached({
     url: APIRoutes.CITIES,
     onRequest: () => {
@@ -119,7 +119,8 @@ const PageMainWrapper = ({ setIsLoading }) => {
 
   const {
     cache: cacheoffers,
-    state: stateOffers,
+    isError: isOffersError,
+    isLoaded: isOffersLoaded,
     fetchData: fetchOffers,
   } = useFetchCached({
     onSuccess: (payload) => {
@@ -133,31 +134,13 @@ const PageMainWrapper = ({ setIsLoading }) => {
 
   const {
     cache: cacheoffersMap,
-    state: stateOffersMap,
+    isLoaded: isOffersMapLoaded,
     fetchData: fetchMapOffers,
   } = useFetchCached({
     onSuccess: (payload) => {
       setOffersMap(payload.data);
     },
   });
-
-  const isCitiesError = (
-    stateCities.status === FetchingStatuses.ERROR
-  );
-  const isCitiesLoaded = (
-    stateCities.status === FetchingStatuses.LOADED
-  );
-
-  const isOffersError = (
-    stateOffers.status === FetchingStatuses.ERROR
-  );
-  const isOffersLoaded = (
-    stateOffers.status === FetchingStatuses.LOADED
-  );
-
-  const isOffersMapLoaded = (
-    stateOffersMap.status === FetchingStatuses.LOADED
-  );
 
   useEffect(() => {
     if (
