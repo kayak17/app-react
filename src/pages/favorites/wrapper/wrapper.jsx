@@ -6,7 +6,7 @@ import PageFavoritesContent from '../content/content';
 import useFetch from '~/hooks/use-fetch/use-fetch';
 import usePrevious from '~/hooks/use-previous/use-previous';
 import { getFavoriteOffersIdsByUser } from '~/modules/favorites';
-import { AppMessages, AppTitles, FetchingStatuses } from '~/constants';
+import { AppMessages, AppTitles } from '~/constants';
 import { copyMap, getFavoriteOffersURL, throwErrorToBoundary } from '~/utils';
 import { getOffersMapByCity, getUpdatedOffersMap } from '../helpers';
 
@@ -15,7 +15,7 @@ const PageFavoritesWrapper = ({ setIsLoading }) => {
   const prevFavoriteOffersIds = usePrevious(favoriteOffersIds);
   const [offersMapByCity, setOffersMapByCity] = useState();
 
-  const { state } = useFetch({
+  const { isError, isLoaded } = useFetch({
     url: getFavoriteOffersURL(favoriteOffersIds),
     onRequest: () => {
       setIsLoading(true);
@@ -28,9 +28,6 @@ const PageFavoritesWrapper = ({ setIsLoading }) => {
       setIsLoading(false);
     },
   });
-
-  const isError = state.status === FetchingStatuses.ERROR;
-  const isLoaded = state.status === FetchingStatuses.LOADED;
 
   if (isError) {
     throwErrorToBoundary(AppMessages.DATA_LOADING_ERROR);
