@@ -1,13 +1,11 @@
 import PropTypes from 'prop-types';
 import { memo } from 'react';
-import OffersMap from '~/components/offer/map/map';
+import OffersMapContainer from '~/components/offer/map-container/map-container';
 import PlacesWrapper from '~/components/places/wrapper/wrapper';
 import { AppSRTitles } from '~/constants';
-import { offersMapPropTypes } from '~/prop-types';
 import './content.less';
 
 const PageMainContent = ({
-  offersMap,
   isOffersError,
   isOffersLoaded,
 }) => {
@@ -26,7 +24,7 @@ const PageMainContent = ({
           />
         </section>
         <section className="col-6 g-0 main-map-container">
-          <OffersMap offers={offersMap} />
+          <OffersMapContainer />
         </section>
       </div>
     </>
@@ -34,7 +32,6 @@ const PageMainContent = ({
 };
 
 PageMainContent.propTypes = {
-  offersMap: offersMapPropTypes,
   isOffersError: PropTypes.bool.isRequired,
   isOffersLoaded: PropTypes.bool.isRequired,
 };
