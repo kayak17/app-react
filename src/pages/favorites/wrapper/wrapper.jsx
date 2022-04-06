@@ -22,21 +22,15 @@ const PageFavoritesWrapper = ({ setIsLoading }) => {
     },
     onSuccess: (payload) => {
       setOffersMapByCity(getOffersMapByCity(payload.data));
+      setIsLoading(false);
+    },
+    onFail: () => {
+      setIsLoading(false);
     },
   });
 
   const isError = state.status === FetchingStatuses.ERROR;
   const isLoaded = state.status === FetchingStatuses.LOADED;
-
-  useEffect(() => {
-    if (isError || isLoaded) {
-      setIsLoading(false);
-    }
-  }, [
-    isError,
-    isLoaded,
-    setIsLoading,
-  ]);
 
   if (isError) {
     throwErrorToBoundary(AppMessages.DATA_LOADING_ERROR);
