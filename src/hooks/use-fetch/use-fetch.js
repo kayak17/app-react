@@ -22,12 +22,11 @@ import { throwUnknownActionError } from '~/utils';
 /**
  * Object with data from server response and useFetch hook status
  * @typedef {Object} stateObject
- * @property {string} status - useFetch hook status, can be one of FetchingStatuses enum constants
+ * @property {string} url - request url
  * @property {array} data - data from server response
  * @property {Object} headerLink - link header from server response
  * @property {string} totalCount - x-total-count header from server response
- * @property {undefined|string} error - request error message
- * @property {string} url - request url
+ * @property {string} status - useFetch hook status, can be one of FetchingStatuses enum constants
  */
 
 /**
@@ -52,7 +51,6 @@ import { throwUnknownActionError } from '~/utils';
 /**
  * Custom React hook for data fetching without caching
  * @param {string} [url] - if not transfered, request won't start automatically, call fetchData to send request manually
- * @param {Object} [post] - if transfered, request type will be "post"
  * @param {function} [onRequest=()=>false] - callback to run before request was sent
  * @param {onSuccessCallback} [onSuccess=()=>false] - callback to run if request was successful
  * @param {onFailCallback} [onFail=()=>false] - callback to run if request failed
@@ -64,7 +62,6 @@ const useFetch = (props) => {
 
   const propTypes = {
     url: PropTypes.string,
-    post: PropTypes.object,
     onRequest: PropTypes.func,
     onSuccess: PropTypes.func,
     onFail: PropTypes.func,
@@ -74,19 +71,17 @@ const useFetch = (props) => {
 
   const {
     url,
-    post,
     onRequest = () => false,
     onSuccess = () => false,
     onFail = () => false,
   } = props;
 
   const initialState = {
-    status: FetchingStatuses.IDLE,
+    url,
     data: [],
     headerLink: {},
     totalCount: '',
-    error: undefined,
-    url,
+    status: FetchingStatuses.IDLE,
   };
 
   const reducer = (state, action) => {
@@ -95,7 +90,7 @@ const useFetch = (props) => {
         return { ...initialState };
       case AppActionTypes.START:
         return {
-          ...state,
+          ...initialState,
           status: FetchingStatuses.START,
           url: action.payload,
         };
@@ -166,7 +161,6 @@ const useFetch = (props) => {
       dispatch({ type: AppActionTypes.LOADING });
 
       sendRequest({
-        data: post,
         onSuccess: onRequestSuccess,
         onError: onRequestError,
         url: state.url,
@@ -181,14 +175,19 @@ const useFetch = (props) => {
     }
   }, [
     url,
-    post,
     state,
     onRequest,
     onSuccess,
     onFail,
   ]);
 
-  return { fetchData, state };
+  return {
+    state,
+    fetchData,
+    isError: state.status === FetchingStatuses.ERROR,
+    isLoaded: state.status === FetchingStatuses.LOADED,
+    isLoading: state.status === FetchingStatuses.LOADING,
+  };
 };
 
 export default useFetch;
