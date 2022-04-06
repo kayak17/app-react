@@ -1,13 +1,9 @@
-import { useEffect, useReducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import parse from 'parse-link-header';
 import { sendRequest } from '~/services';
-import {
-  AppActionTypes,
-  FetchingStatuses,
-  ResponseStatusTexts,
-} from '~/constants';
-import { getUnknownActionTypeMsg } from '~/utils';
+import { AppActionTypes, FetchingStatuses } from '~/constants';
+import { throwUnknownActionError } from '~/utils';
 
 /**
  * Object with data from server response
@@ -96,41 +92,45 @@ const useFetch = (props) => {
   const reducer = (state, action) => {
     switch (action.type) {
       case AppActionTypes.IDLE:
-        return Object.assign({}, initialState);
+        return { ...initialState };
       case AppActionTypes.START:
-        return Object.assign({}, initialState, {
+        return {
+          ...state,
           status: FetchingStatuses.START,
           url: action.payload,
-        });
+        };
       case AppActionTypes.LOADING:
-        return Object.assign({}, state, {
+        return {
+          ...state,
           status: FetchingStatuses.LOADING,
-        });
+        };
       case AppActionTypes.LOADED:
-        return Object.assign({}, state, {
+        return {
+          ...state,
           status: FetchingStatuses.LOADED,
           data: action.payload.data,
           headerLink: action.payload.headerLink,
           totalCount: action.payload.totalCount,
-        });
+        };
       case AppActionTypes.ERROR:
-        return Object.assign({}, state, {
+        return {
+          ...state,
           status: FetchingStatuses.ERROR,
           error: action.payload,
-        });
+        };
       default:
-        throw new Error(getUnknownActionTypeMsg(HOOK_NAME));
+        throwUnknownActionError(HOOK_NAME);
     }
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const fetchData = (newUrl) => {
+  const fetchData = useCallback((newUrl) => {
     dispatch({
       type: AppActionTypes.START,
       payload: newUrl,
     });
-  };
+  }, []);
 
   useEffect(() => {
     const onRequestSuccess = (response) => {
@@ -169,7 +169,6 @@ const useFetch = (props) => {
         data: post,
         onSuccess: onRequestSuccess,
         onError: onRequestError,
-        responseStatusText: ResponseStatusTexts.OK,
         url: state.url,
       });
     };
