@@ -34,12 +34,11 @@ import { throwUnknownActionError } from '~/utils';
 /**
  * Object with data from server response and useFetch hook status
  * @typedef {Object} stateObject
- * @property {string} status - useFetch hook status, can be one of FetchingStatuses enum constants
+ * @property {string} url - request url
  * @property {array} data - data from server response
  * @property {Object} headerLink - link header from server response
  * @property {string} totalCount - x-total-count header from server response
- * @property {undefined|string} error - request error message
- * @property {string} url - request url
+ * @property {string} status - useFetch hook status, can be one of FetchingStatuses enum constants
  */
 
 /**
@@ -65,7 +64,6 @@ import { throwUnknownActionError } from '~/utils';
 /**
  * Custom React hook for data fetching with caching
  * @param {string} [url] - if not transfered, request won't start automatically, call fetchData to send request manually
- * @param {Object} [post] - if transfered, request type will be "post"
  * @param {function} [onRequest=()=>false] - callback to run before request was sent
  * @param {onSuccessCallback} [onSuccess=()=>false] - callback to run if request was successful
  * @param {onFailCallback} [onFail=()=>false] - callback to run if request failed
@@ -77,7 +75,6 @@ const useFetchCached = (props) => {
 
   const propTypes = {
     url: PropTypes.string,
-    post: PropTypes.object,
     onRequest: PropTypes.func,
     onSuccess: PropTypes.func,
     onFail: PropTypes.func,
@@ -87,7 +84,6 @@ const useFetchCached = (props) => {
 
   const {
     url,
-    post,
     onRequest = () => false,
     onSuccess = () => false,
     onFail = () => false,
@@ -96,12 +92,11 @@ const useFetchCached = (props) => {
   const cache = useRef({});
 
   const initialState = {
-    status: FetchingStatuses.IDLE,
+    url,
     data: [],
     headerLink: {},
     totalCount: '',
-    error: undefined,
-    url,
+    status: FetchingStatuses.IDLE,
   };
 
   const reducer = (state, action) => {
@@ -110,7 +105,7 @@ const useFetchCached = (props) => {
         return { ...initialState };
       case AppActionTypes.START:
         return {
-          ...state,
+          ...initialState,
           status: FetchingStatuses.START,
           url: action.payload,
         };
@@ -131,7 +126,6 @@ const useFetchCached = (props) => {
         return {
           ...state,
           status: FetchingStatuses.ERROR,
-          error: action.payload,
         };
       default:
         throwUnknownActionError(HOOK_NAME);
@@ -192,7 +186,6 @@ const useFetchCached = (props) => {
         });
       } else {
         sendRequest({
-          data: post,
           onSuccess: onRequestSuccess,
           onError: onRequestError,
           url: state.url,
@@ -208,14 +201,20 @@ const useFetchCached = (props) => {
     }
   }, [
     url,
-    post,
     state,
     onRequest,
     onSuccess,
     onFail,
   ]);
 
-  return { cache, fetchData, state };
+  return {
+    cache,
+    state,
+    fetchData,
+    isError: state.status === FetchingStatuses.ERROR,
+    isLoaded: state.status === FetchingStatuses.LOADED,
+    isLoading: state.status === FetchingStatuses.LOADING,
+  };
 };
 
 export default useFetchCached;
