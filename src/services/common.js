@@ -50,6 +50,7 @@ export const sendRequest = ({
           onSuccess(response);
         } else {
           onError(AppMessages.DATA_LOADING_ERROR);
+          throw new Error(AppMessages.DATA_LOADING_ERROR);
         }
       })
       .catch(({ message }) => {
