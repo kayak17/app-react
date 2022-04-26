@@ -84,9 +84,6 @@ module.exports = (_, { mode }) => ({
         use: {
           loader: "babel-loader",
           options: {
-            plugins: [
-              ["@babel/transform-runtime"]
-            ],
             presets: [
               ["@babel/preset-react", {
                 "runtime": "automatic"
