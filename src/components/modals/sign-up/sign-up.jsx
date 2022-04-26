@@ -1,5 +1,5 @@
 import CustomModal from '~/components/custom-react-bootstrap/modal/modal';
-import FormSignUp from '~/components/forms/sign-up/sign-up';
+import FormSignUpWrapper from '~/components/forms/sign-up/wrapper/wrapper';
 import { AppTitles, ModalIds } from '~/constants';
 import { ModalCommonPropTypes } from '~/prop-types';
 
@@ -14,7 +14,7 @@ const ModalSignUp = ({
       title={AppTitles.SIGNUP}
       handleClose={handleClose}
     >
-      <FormSignUp
+      <FormSignUpWrapper
         closeModal={handleClose}
         isModal={true}
       />
