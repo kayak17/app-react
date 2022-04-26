@@ -33,12 +33,12 @@
 
 - React v17
 - React hooks
-- React router
+- React Router
 - React Bootstrap
 - Redux
 - Redux hooks
-- Redux actions
-- Redux persist
+- Redux Actions
+- Redux Persist
 - Redux thunk
 - Reselect
 - Axios
