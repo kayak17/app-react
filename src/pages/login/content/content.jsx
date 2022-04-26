@@ -1,4 +1,4 @@
-import FormLogin from '~/components/forms/login/login';
+import FormLoginWrapper from '~/components/forms/login/wrapper/wrapper';
 import useRouterNavigate from '~/hooks/use-router-navigate/use-router-navigate';
 import { AppTitles } from '~/constants';
 
@@ -11,7 +11,7 @@ const PageLoginContent = () => {
         {AppTitles.LOGIN}
       </h1>
       <div className="page-form">
-        <FormLogin navigate={navigate} />
+        <FormLoginWrapper navigate={navigate} />
       </div>
     </section>
   );
