@@ -1,5 +1,5 @@
 import CustomModal from '~/components/custom-react-bootstrap/modal/modal';
-import FormLogin from '~/components/forms/login/login';
+import FormLoginWrapper from '~/components/forms/login/wrapper/wrapper';
 import { AppTitles, ModalIds } from '~/constants';
 import { ModalCommonPropTypes } from '~/prop-types';
 
@@ -14,7 +14,7 @@ const ModalLogin = ({
       title={AppTitles.LOGIN}
       handleClose={handleClose}
     >
-      <FormLogin
+      <FormLoginWrapper
         closeModal={handleClose}
         isModal={true}
       />

@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
-import PropTypes from 'prop-types';
-import FormButtonSubmit from '../buttons/submit/submit';
-import CustomAlert from '../custom-elements/alert/alert';
-import FieldEmail from '../fields/email/email';
-import FieldPassword from '../fields/password/password';
-import ModalsLink from '~/components/modals/link/link';
+import ErrorAlert from '../../common/error-alert/error-alert';
+import FieldEmail from '../../fields/email/email';
+import FieldPassword from '../../fields/password/password';
+import FormButtonSubmit from '../../buttons/submit/submit';
+import FormLoginInfoMsgModal from '../info-msg-modal/info-msg-modal';
+import { loginSchema } from '../validation';
 import {
   getIsError,
   getIsLoading,
@@ -14,14 +15,11 @@ import {
   loginError,
 } from '~/modules/user';
 import {
-  AppMessages,
   AppTitles,
-  BsStyleTypes,
   InitialModulesValues,
 } from '~/constants';
-import { loginSchema } from './validation';
 
-const FormLogin = ({ closeModal, isModal, navigate }) => {
+const FormLoginWrapper = ({ closeModal, isModal, navigate }) => {
   const authError = useSelector(getIsError);
   const isLoading = useSelector(getIsLoading);
   const dispatch = useDispatch();
@@ -51,15 +49,7 @@ const FormLogin = ({ closeModal, isModal, navigate }) => {
           <FieldEmail onFocus={onInputFocus} />
           <FieldPassword onFocus={onInputFocus} />
           {isModal && (
-            <CustomAlert>
-              <>
-                <ModalsLink
-                  linkClass={'alert-link'}
-                  propsConst={'SIGNUP'}
-                />
-                {AppMessages.DONT_HAVE_ACCOUNT}
-              </>
-            </CustomAlert>
+            <FormLoginInfoMsgModal />
           )}
           <div className="app-form-group form-group">
             <FormButtonSubmit
@@ -69,9 +59,7 @@ const FormLogin = ({ closeModal, isModal, navigate }) => {
             />
           </div>
           {authError && (
-            <CustomAlert alertType={BsStyleTypes.DANGER}>
-              {authError}
-            </CustomAlert>
+            <ErrorAlert errorMsg={authError} />
           )}
           {/* for demo only */}
           <div className="app-form-group form-group">
@@ -85,10 +73,10 @@ const FormLogin = ({ closeModal, isModal, navigate }) => {
   );
 };
 
-FormLogin.propTypes = {
+FormLoginWrapper.propTypes = {
   closeModal: PropTypes.func,
   isModal: PropTypes.bool,
   navigate: PropTypes.func,
 };
 
-export default FormLogin;
+export default FormLoginWrapper;

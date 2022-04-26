@@ -62,7 +62,9 @@ const PageRoomWrapper = ({ setIsLoading }) => {
     },
   });
 
-  const { isLoaded: isOffersNearbyLoaded } = useFetch({
+  const {
+    isLoaded: isOffersNearbyLoaded,
+  } = useFetch({
     url: getOffersNearbyURL(offerId),
     onSuccess: (payload) => {
       setOffersNearby(payload.data);

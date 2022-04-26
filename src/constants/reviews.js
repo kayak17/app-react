@@ -2,7 +2,7 @@ export const REVIEW_AVATAR_ALT = 'Reviews avatar';
 export const REVIEW_COMMENT_LENGTH = 50;
 export const REVIEW_DATE_FORMAT = 'MMMM yyyy';
 
-export const reviewImgShapes = {
+export const ReviewImgShapes = {
   AVATAR: {
     width: 54,
     height: 54,
