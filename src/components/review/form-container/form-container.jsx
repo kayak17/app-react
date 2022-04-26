@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import ModalsLink from '~/components/modals/link/link';
-import FormReview from '~/components/forms/review/review';
+import FormReviewWrapper from '~/components/forms/review/wrapper/wrapper';
 import { getIsAuth } from '~/modules/user';
 import { ReviewTitles } from '~/constants';
 
@@ -14,7 +14,7 @@ const ReviewFormContainer = ({ offerId, fetchReviews }) => {
         <p className="text-start fw-bold fst-italic">
           {ReviewTitles.YOUR_REVIEW}
         </p>
-        <FormReview
+        <FormReviewWrapper
           offerId={offerId}
           fetchReviews={fetchReviews}
         />
