@@ -1,4 +1,4 @@
-import FormSignUp from '~/components/forms/sign-up/sign-up';
+import FormSignUpWrapper from '~/components/forms/sign-up/wrapper/wrapper';
 import { AppTitles } from '~/constants';
 
 const PageSignUpContent = () => {
@@ -8,7 +8,7 @@ const PageSignUpContent = () => {
         {AppTitles.SIGNUP}
       </h1>
       <div className="page-form">
-        <FormSignUp />
+        <FormSignUpWrapper />
       </div>
     </section>
   );
