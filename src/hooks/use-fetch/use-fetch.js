@@ -37,7 +37,7 @@ import { throwUnknownActionError } from '~/utils';
 
 /**
  * Callback to run if request failed
- * @callback onFailCallback
+ * @callback onErrorCallback
  * @param {message} string - error message
  */
 
@@ -53,7 +53,7 @@ import { throwUnknownActionError } from '~/utils';
  * @param {string} [url] - if not transfered, request won't start automatically, call fetchData to send request manually
  * @param {function} [onRequest=()=>false] - callback to run before request was sent
  * @param {onSuccessCallback} [onSuccess=()=>false] - callback to run if request was successful
- * @param {onFailCallback} [onFail=()=>false] - callback to run if request failed
+ * @param {onErrorCallback} [onError=()=>false] - callback to run if request failed
  * @return {Output} - output object
  */
 
@@ -64,7 +64,7 @@ const useFetch = (props) => {
     url: PropTypes.string,
     onRequest: PropTypes.func,
     onSuccess: PropTypes.func,
-    onFail: PropTypes.func,
+    onError: PropTypes.func,
   };
 
   PropTypes.checkPropTypes(propTypes, props, 'prop', HOOK_NAME);
@@ -73,7 +73,7 @@ const useFetch = (props) => {
     url,
     onRequest = () => false,
     onSuccess = () => false,
-    onFail = () => false,
+    onError = () => false,
   } = props;
 
   const initialState = {
@@ -144,7 +144,7 @@ const useFetch = (props) => {
     };
 
     const onRequestError = (message) => {
-      onFail(message);
+      onError(message);
 
       dispatch({
         type: AppActionTypes.ERROR,
@@ -177,7 +177,7 @@ const useFetch = (props) => {
     state,
     onRequest,
     onSuccess,
-    onFail,
+    onError,
   ]);
 
   return {
