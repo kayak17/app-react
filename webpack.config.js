@@ -1,3 +1,4 @@
+require("dotenv").config();
 const path = require("path");
 const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -96,7 +97,7 @@ module.exports = (_, { mode }) => ({
     ]
   },
   devServer: {
-    port: 1337,
+    port: process.env.port,
     historyApiFallback: true,
   },
   resolve: {
