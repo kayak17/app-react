@@ -26,6 +26,7 @@
     "copy-webpack-plugin": "10.2.0",
     "css-loader": "6.5.1",
     "cssnano": "5.0.15",
+    "dotenv": "16.0.1",
     "eslint": "8.6.0",
     "eslint-plugin-react": "7.28.0",
     "eslint-plugin-react-hooks": "4.3.0",
