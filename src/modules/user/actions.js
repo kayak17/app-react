@@ -26,7 +26,10 @@ export const login = ({ email, password, closeModal, navigate }) => {
             dispatch(loginSuccess(response.data));
           } else {
             dispatch(loginError(AppMessages.DATA_POSTING_ERROR));
-            throw new Error(AppMessages.DATA_POSTING_ERROR);
+
+            throw new Error(
+              `${AppMessages.BAD_RESPONSE_STATUS} in login action: ${response.statusText ?? ''}`
+            );
           }
         })
         .then(() => {
