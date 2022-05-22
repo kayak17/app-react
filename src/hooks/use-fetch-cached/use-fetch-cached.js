@@ -188,6 +188,7 @@ const useFetchCached = (props) => {
         sendRequest({
           onSuccess: onRequestSuccess,
           onError: onRequestError,
+          requestTitle: HOOK_NAME,
           url: state.url,
         });
       }
