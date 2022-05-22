@@ -2,6 +2,7 @@ import { api } from '~/store';
 import {
   FORM_INITIAL_ERROR,
   AppMessages,
+  AppTitles,
   ResponseStatusTexts,
 } from '~/constants';
 
@@ -38,6 +39,7 @@ export const sendRequest = ({
   onSuccess = () => false,
   onError = () => false,
   requestType = REQUEST_TYPES.GET,
+  requestTitle = AppTitles.NO_TITLE_EXIST,
   responseStatusText = ResponseStatusTexts.OK,
 }) => {
   onRequest();
@@ -49,8 +51,9 @@ export const sendRequest = ({
         if (response.statusText === responseStatusText) {
           onSuccess(response);
         } else {
-          onError(AppMessages.DATA_LOADING_ERROR);
-          throw new Error(AppMessages.DATA_LOADING_ERROR);
+          onError(
+            `${AppMessages.BAD_RESPONSE_STATUS} in ${requestTitle}: ${response.statusText ?? ''}`
+          );
         }
       })
       .catch(({ message }) => {
@@ -68,6 +71,7 @@ export const sendFormRequest = ({
   setSubmitting = () => false,
   setSuccess = () => false,
   requestType = REQUEST_TYPES.POST,
+  requestTitle = AppTitles.NO_TITLE_EXIST,
   responseStatusText = ResponseStatusTexts.OK,
 }) => {
   setError(FORM_INITIAL_ERROR);
@@ -83,7 +87,10 @@ export const sendFormRequest = ({
         } else {
           setError(AppMessages.DATA_POSTING_ERROR);
           setSubmitting(false);
-          throw new Error(AppMessages.DATA_POSTING_ERROR);
+
+          throw new Error(
+            `${AppMessages.BAD_RESPONSE_STATUS} in ${requestTitle}: ${response.statusText ?? ''}`
+          );
         }
       })
       .catch(({ message }) => {
