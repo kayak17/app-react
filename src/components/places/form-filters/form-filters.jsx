@@ -1,85 +1,15 @@
-import clsx from 'clsx';
-import { useDispatch, useSelector } from 'react-redux';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import CustomNavItem from '~/components/custom-react-bootstrap/nav-item/nav-item';
-import {
-  getOffersListType,
-  setOffersListType,
-  getSortingType,
-  setSortingType,
-} from '~/modules/main';
-import {
-  OfferStyleTypes,
-  OFFERS_LIST_TYPE_ARIA_LABEL,
-  SortingTypes,
-  SORTING_TITLE,
-} from '~/constants';
+import PlacesFiltersSorting from '../filters/sorting/sorting';
+import PlacesFiltersListStyle from '../filters/list-style/list-style';
 import { refPropTypes } from '~/prop-types';
-import { appScrollTo } from '~/utils';
-import './form-filters.less';
 
 const FormFilters = ({ scrollContainer }) => {
-  const offersListType = useSelector(getOffersListType);
-  const sortingType = useSelector(getSortingType);
-  const sorting = SortingTypes[sortingType];
-  const dispatch = useDispatch();
-
-  const onSortingItemClick = (sortingItem) => {
-    if (sortingType !== sortingItem) {
-      dispatch(setSortingType(sortingItem));
-    }
-  };
-
-  const onOffersTypeItemClick = (listType) => {
-    if (offersListType !== listType) {
-      appScrollTo(scrollContainer);
-      dispatch(setOffersListType(listType));
-    }
-  };
-
   return (
     <form className="d-flex pb-1 fs-6-3">
-      <div className="d-flex">
-        <b>{SORTING_TITLE}</b>
-        <NavDropdown
-          bsPrefix="d-flex align-items-center mx-2 px-0 py-0 nav-link link-dark
-            app-dropdown-toggle-sm app-hover-opacity app-trasition"
-          id="sorting-options-dropdown"
-          title={<>{sorting}</>}
-        >
-          {Object.keys(SortingTypes).map((item) => (
-            <NavDropdown.Item
-              as={CustomNavItem}
-              key={item}
-              active={sortingType === item}
-              onClick={() => onSortingItemClick(item)}
-            >
-              <>{SortingTypes[item]}</>
-            </NavDropdown.Item>
-          ))}
-        </NavDropdown>
-      </div>
-      <div
-        className="ms-auto btn-group"
-        aria-label={OFFERS_LIST_TYPE_ARIA_LABEL}
-        role="group"
+      <PlacesFiltersSorting></PlacesFiltersSorting>
+      <PlacesFiltersListStyle
+        scrollContainer={scrollContainer}
       >
-        {
-          Object.values(OfferStyleTypes).map((item) => (
-            <button
-              key={item}
-              className={
-                clsx(`btn btn-light places-list-btn places-list-btn-${item}`,
-                  { 'active': offersListType === item }
-                )
-              }
-              type="button"
-              title={item}
-              onClick={() => onOffersTypeItemClick(item)}
-            />
-          ))
-        }
-      </div>
+      </PlacesFiltersListStyle>
     </form>
   );
 };
