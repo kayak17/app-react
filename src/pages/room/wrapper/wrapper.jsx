@@ -5,18 +5,11 @@ import PropTypes from 'prop-types';
 import PageRoomContent from '../content/content';
 import PageRoomContentPlaceholder from '../content-placeholder/content-placeholder';
 import PropertyReviewsWrapper from '~/components/property/reviews-wrapper/reviews-wrapper';
-import useFetch from '~/hooks/use-fetch/use-fetch';
 import { AppMessages, OfferTypes } from '~/constants';
-import {
-  getOfferURL,
-  getOffersNearbyURL,
-  getReviewsURL,
-  isOfferIdValid,
-  throwErrorToBoundary,
-} from '~/utils';
-import {
-  adaptOffer,
-} from '~/utils/adapters/offer';
+import { getReviewsURL, isOfferIdValid, throwErrorToBoundary } from '~/utils';
+import useFetchOffer from './use-fetch-offer';
+import useFetchReviews from './use-fetch-reviews';
+import useFetchOffersNearby from './use-fetch-offers-nearby';
 
 const PageRoomWrapper = ({ setIsLoading }) => {
   const location = useLocation();
@@ -36,39 +29,26 @@ const PageRoomWrapper = ({ setIsLoading }) => {
   const [reviewsData, setReviewsData] = useState({});
 
   const {
-    isError: isOfferError,
-    isLoaded: isOfferLoaded,
-  } = useFetch({
-    url: getOfferURL(offerId),
-    onRequest: () => {
-      setIsLoading(true);
-    },
-    onSuccess: (payload) => {
-      const offer = adaptOffer(payload.data.slice()[0]);
-      setOffer(offer);
-      setIsLoading(false);
-    },
-    onFail: () => {
-      setIsLoading(false);
-    },
+    isOfferError,
+    isOfferLoaded,
+  } = useFetchOffer({
+    offerId,
+    setOffer,
+    setIsLoading,
   });
 
   const {
-    isLoaded: isReviewsLoaded,
-  } = useFetch({
-    url: reviewsUrl,
-    onSuccess: (payload) => {
-      setReviewsData(payload);
-    },
+    isReviewsLoaded,
+  } = useFetchReviews({
+    reviewsUrl,
+    setReviewsData,
   });
 
   const {
-    isLoaded: isOffersNearbyLoaded,
-  } = useFetch({
-    url: getOffersNearbyURL(offerId),
-    onSuccess: (payload) => {
-      setOffersNearby(payload.data);
-    },
+    isOffersNearbyLoaded,
+  } = useFetchOffersNearby({
+    offerId,
+    setOffersNearby,
   });
 
   if (isOfferError || isOfferLoaded && isEmpty(offer)) {

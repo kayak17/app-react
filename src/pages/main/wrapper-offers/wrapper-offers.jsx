@@ -9,7 +9,6 @@ import {
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import PageMainContent from '../content/content';
-import useFetchCached from '~/hooks/use-fetch-cached/use-fetch-cached';
 import usePrevious from '~/hooks/use-previous/use-previous';
 import {
   getActiveCityId,
@@ -24,6 +23,7 @@ import {
   getOffersURL,
   throwUnknownActionError,
 } from '~/utils';
+import useFetchOffers from './use-fetch-offers';
 
 export const ScrolledOffersContext = createContext(null);
 export const ScrollContainerContext = createContext(null);
@@ -82,19 +82,14 @@ const PageMainWrapperOffers = ({ setIsLoading }) => {
   }, [activeCityName]);
 
   const {
-    cache: cacheoffers,
-    isError: isOffersError,
-    isLoaded: isOffersLoaded,
-    fetchData: fetchOffers,
-  } = useFetchCached({
-    url: offersURL,
-    onSuccess: (payload) => {
-      setOffersData(payload);
-      setIsLoading(false);
-    },
-    onFail: () => {
-      setIsLoading(false);
-    },
+    cacheoffers,
+    isOffersError,
+    isOffersLoaded,
+    fetchOffers,
+  } = useFetchOffers({
+    offersURL,
+    setOffersData,
+    setIsLoading,
   });
 
   useEffect(() => {

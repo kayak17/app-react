@@ -2,10 +2,10 @@ import isEmpty from 'lodash/isEmpty';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import OffersMap from '../map/map';
-import useFetchCached from '~/hooks/use-fetch-cached/use-fetch-cached';
 import usePrevious from '~/hooks/use-previous/use-previous';
 import { getActiveCityId } from '~/modules/main';
 import { getOffersMapURL } from '~/utils';
+import useFetchOffersMap from './use-fetch-offers-map';
 
 const OffersMapContainer = () => {
   const activeCityId = useSelector(getActiveCityId);
@@ -14,14 +14,12 @@ const OffersMapContainer = () => {
   const prevOffersMapURL = usePrevious(offersMapURL);
 
   const {
-    cache: cacheoffersMap,
-    isLoaded: isOffersMapLoaded,
-    fetchData: fetchMapOffers,
-  } = useFetchCached({
-    url: offersMapURL,
-    onSuccess: (payload) => {
-      setOffersMap(payload.data);
-    },
+    cacheoffersMap,
+    isOffersMapLoaded,
+    fetchMapOffers,
+  } = useFetchOffersMap({
+    offersMapURL,
+    setOffersMap,
   });
 
   useEffect(() => {

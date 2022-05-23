@@ -1,5 +1,3 @@
-import isEqual from 'lodash/isEqual';
-import { memo } from 'react';
 import PropTypes from 'prop-types';
 import FavoritesContent from '~/components/favorites/content/content';
 import FavoritesContentPlaceholder from '~/components/favorites/content-placeholder/content-placeholder';
@@ -35,9 +33,4 @@ PageFavoritesContent.propTypes = {
   offersMapByCity: offersMapByCityPropTypes,
 };
 
-const arePropsEqual = (prevProps, newProps) => (
-  prevProps.isLoaded === newProps.isLoaded &&
-  isEqual(prevProps.offersMapByCity, newProps.offersMapByCity)
-);
-
-export default memo(PageFavoritesContent, arePropsEqual);
+export default PageFavoritesContent;

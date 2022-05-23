@@ -39,7 +39,7 @@
 - Redux hooks
 - Redux Actions
 - Redux Persist
-- Redux thunk
+- Redux Thunk
 - Reselect
 - Axios
 - Formik
