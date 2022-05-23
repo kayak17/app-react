@@ -1,0 +1,44 @@
+@import "~/styles/common.less";
+
+.places-list-btn {
+  position: relative;
+  width: 27px;
+  height: 100%;
+  box-shadow: none !important;
+}
+
+.places-list-btn-row::before,
+.places-list-btn-row::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  width: 12px;
+  height: 2px;
+  background: @btn-font-color;
+}
+
+.places-list-btn-row::before {
+  top: 6px;
+}
+
+.places-list-btn-row::after {
+  top: 12px;
+}
+
+.places-list-btn-column::before,
+.places-list-btn-column::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  height: 10px;
+  width: 2px;
+  background: @btn-font-color;
+}
+
+.places-list-btn-column::before {
+  left: 8px;
+}
+
+.places-list-btn-column::after {
+  left: 14px;
+}
