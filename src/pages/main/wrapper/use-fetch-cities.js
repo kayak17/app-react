@@ -2,7 +2,7 @@ import find from 'lodash/find';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import useFetchCached from '~/hooks/use-fetch-cached/use-fetch-cached';
+import useFetch from '~/hooks/use-fetch/use-fetch';
 import { getActiveCityId, setActiveCity } from '~/modules/main';
 import { APIRoutes } from '~/constants';
 
@@ -31,7 +31,7 @@ const useFetchCities = (props) => {
   const {
     isError: isCitiesError,
     isLoaded: isCitiesLoaded,
-  } = useFetchCached({
+  } = useFetch({
     url: APIRoutes.CITIES,
     onRequest: () => {
       setIsLoading(true);
