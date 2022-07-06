@@ -54,6 +54,8 @@ export const getToastSetting = ({
   },
 });
 
+export const isMultipleOfFour = (num) => num % 4 === 0;
+
 export const throwErrorToBoundary = (
   msg = AppMessages.DATA_LOADING_ERROR
 ) => {
