@@ -14,6 +14,7 @@ export const APIRoutes = {
 
 export const AppRoutes = {
   ANY: '*',
+  COUNTERS: '/counters',
   MAIN: '/',
   FAVORITES: '/favorites',
   LOGIN: '/login',
