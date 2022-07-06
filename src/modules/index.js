@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import counters from './counters';
 import favorites from './favorites';
 import main from './main';
 import offersMap from './offers-map';
@@ -19,6 +20,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  [AppReducers.COUNTERS]: counters,
   [AppReducers.FAVORITES]: favorites,
   [AppReducers.MAIN]: main,
   [AppReducers.OFFERS_MAP]: offersMap,
