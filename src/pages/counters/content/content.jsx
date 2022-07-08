@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
-import CounterList from '~/components/counter-list/counter-list';
+import CounterList from '~/components/counters/counter-list/counter-list';
 import { addCounter } from '~/modules/counters';
 import { AppTitles } from '~/constants';
 
