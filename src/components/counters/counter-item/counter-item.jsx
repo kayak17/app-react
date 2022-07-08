@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { memo } from 'react';
 import { AppTitles } from '~/constants';
-import './counter.less';
+import './counter-item.less';
 
-const Counter = ({
+const CounterItem = ({
   id: counterId,
   value: counterValue,
   onRemoveCounter,
@@ -44,7 +44,7 @@ const Counter = ({
   );
 }
 
-Counter.propTypes = {
+CounterItem.propTypes = {
   id: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   onRemoveCounter: PropTypes.func.isRequired,
@@ -52,4 +52,4 @@ Counter.propTypes = {
   onIncrementCounter: PropTypes.func.isRequired,
 };
 
-export default memo(Counter);
+export default memo(CounterItem);

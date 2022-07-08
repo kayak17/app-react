@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Counter from '../counter/counter';
+import CounterItem from '../counter-item/counter-item';
 import CounterSpecial from '../counter-special/counter-special';
 import {
   getCounters,
@@ -43,7 +43,7 @@ const CounterList = () => {
     }
 
     return (
-      <Counter
+      <CounterItem
         key={item.id}
         id={item.id}
         value={item.value}
