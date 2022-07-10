@@ -15,7 +15,7 @@ const ErrorAlert = ({ alertClass, errorMsg }) => {
 };
 
 ErrorAlert.propTypes = {
-  alertClass: PropTypes.string.isRequired,
+  alertClass: PropTypes.string,
   errorMsg: PropTypes.string.isRequired,
 };
 
