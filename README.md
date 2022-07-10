@@ -1,7 +1,7 @@
 # my-app-react
 
 Личный демо-проект на React.js  
-Дизайн, данные и идея взяты из другого проекта  
+Дизайн, часть данных и идея взяты из другого проекта  
 Изначально проект создавался для обкатки новых для меня технологий:
 
 - lazy loading страниц и частей приложения
@@ -10,7 +10,7 @@
 - библиотека Redux Actions для упрощения работы с Redux actions и Redux reducers
 - библиотека Redux Persist для синхронизации Redux store с localStorage
 - применение response headers: "X-Total-Count" и "Links" для пагинации
-- применение React context, хука useReducer, компонента ErrorBoundary итд
+- применение React context, хука useReducer, компонента ErrorBoundary
 
 Для демонстрационных целей при работе с однотипными задачами были применены разные архитектурные решения: 
 
@@ -27,7 +27,7 @@
 1. Установить глобально json-server
 
 ```
- npm install -g json-server
+ npm install -g json-server@0.17.0
 ```
 
 2. Установить локальные зависимости для проекта
