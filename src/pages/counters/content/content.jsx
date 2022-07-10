@@ -19,7 +19,7 @@ const PageCountersContent = () => {
       </h1>
       <div className="page-form">
         <ul></ul>
-        <li>Every fourth counter on the page doesn't have "+" and "-" buttons, but every second increases its value by one</li>
+        <li>Every fourth counter on the page doesn&apos;t have &apos;+&lsquo; and &apos;-&lsquo; buttons, but every second increases its value by one</li>
         <li>Value of every new counter on the page is set equal to the sum of the values of all previous counters on the page</li>
         <button
           type="button"
