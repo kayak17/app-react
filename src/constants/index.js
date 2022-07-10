@@ -5,7 +5,6 @@ export * from './forms';
 export * from './markup';
 export * from './messages';
 export * from './modals';
-export * from './modules';
 export * from './offers';
 export * from './offers-map';
 export * from './rating';
