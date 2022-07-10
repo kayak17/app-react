@@ -5,27 +5,27 @@ import {
   setOffersListType,
   setSortingType,
 } from './actions';
-import { InitialModulesValues } from '~/constants';
+import { InitialValues } from './constants';
 
 const activeCity = handleActions(
   {
     [setActiveCity]: (_state, action) => action.payload,
   },
-  InitialModulesValues.ACTIVE_CITY
+  InitialValues.ACTIVE_CITY
 );
 
 const offersListType = handleActions(
   {
     [setOffersListType]: (_state, action) => action.payload,
   },
-  InitialModulesValues.OFFERS_LIST_TYPE
+  InitialValues.OFFERS_LIST_TYPE
 );
 
 const sortingType = handleActions(
   {
     [setSortingType]: (_state, action) => action.payload,
   },
-  InitialModulesValues.SORTING_TYPE
+  InitialValues.SORTING_TYPE
 );
 
 export default combineReducers({
