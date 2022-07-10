@@ -9,6 +9,7 @@ import FormButtonSubmit from '../../buttons/submit/submit';
 import FormLoginInfoMsgModal from '../info-msg-modal/info-msg-modal';
 import { loginSchema } from '../validation';
 import {
+  InitialValues,
   getIsError,
   getIsLoading,
   login,
@@ -16,7 +17,6 @@ import {
 } from '~/modules/user';
 import {
   AppTitles,
-  InitialModulesValues,
 } from '~/constants';
 
 const FormLoginWrapper = ({ closeModal, isModal, navigate }) => {
@@ -30,7 +30,7 @@ const FormLoginWrapper = ({ closeModal, isModal, navigate }) => {
   };
 
   const onInputFocus = useCallback(() => {
-    dispatch(loginError(InitialModulesValues.ERROR));
+    dispatch(loginError(InitialValues.ERROR));
   }, [dispatch]);
 
   const onSubmit = (values) => {

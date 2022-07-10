@@ -6,17 +6,15 @@ import {
   loginError,
   logoutRequest,
 } from './actions';
-import {
-  AuthStatuses,
-  InitialModulesValues,
-} from '~/constants';
+import { InitialValues } from './constants';
+import { AuthStatuses } from '~/constants';
 
 const authInfo = handleActions(
   {
     [loginSuccess]: (_state, action) => action.payload,
-    [logoutRequest]: () => InitialModulesValues.AUTH_INFO,
+    [logoutRequest]: () => InitialValues.AUTH_INFO,
   },
-  InitialModulesValues.AUTH_INFO
+  InitialValues.AUTH_INFO
 );
 
 const authStatus = handleActions(
@@ -39,12 +37,12 @@ const isLoading = handleActions(
 
 const isError = handleActions(
   {
-    [loginRequest]: () => InitialModulesValues.ERROR,
-    [loginSuccess]: () => InitialModulesValues.ERROR,
+    [loginRequest]: () => InitialValues.ERROR,
+    [loginSuccess]: () => InitialValues.ERROR,
     [loginError]: (_state, action) => action.payload,
-    [logoutRequest]: () => InitialModulesValues.ERROR,
+    [logoutRequest]: () => InitialValues.ERROR,
   },
-  InitialModulesValues.ERROR
+  InitialValues.ERROR
 );
 
 export default combineReducers({

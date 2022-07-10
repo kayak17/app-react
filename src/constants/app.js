@@ -1,4 +1,3 @@
-export const APP_DEFAULT_AVATAR = 'img/icon-avatar.svg';
 export const APP_LOCAL_STORAGE_NAME = 'myAppRoot';
 
 export const AppActionTypes = {
@@ -10,17 +9,6 @@ export const AppActionTypes = {
   SET_SCROLLED_DATA: 'SET_SCROLLED_DATA',
   START: 'START',
   UNKNOWN_ACTION_TYPE: 'Unknown action.type in ',
-};
-
-export const BsStyleTypes = {
-  PRIMARY: 'primary',
-  SECONDARY: 'secondary',
-  SUCCESS: 'success',
-  DANGER: 'danger',
-  WARNING: 'warning',
-  INFO: 'info',
-  LIGHT: 'light',
-  DARK: 'dark',
 };
 
 export const AppReducers = {

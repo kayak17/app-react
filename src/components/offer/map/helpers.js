@@ -1,8 +1,8 @@
 import leaflet from 'leaflet';
 import isEmpty from 'lodash/isEmpty';
+import { InitialValues } from '~/modules/offers-map';
 import {
   AppRoutes,
-  InitialModulesValues,
   OfferSrTitles,
   MAP_CENTER_DEFAULT,
   MAP_ZOOM_DEFAULT,
@@ -105,7 +105,7 @@ export const addMarkers = ({
 
       marker.on('mouseout', () => {
         marker.setIcon(icon);
-        dispatch(setActivePinId(InitialModulesValues.PIN_ID));
+        dispatch(setActivePinId(InitialValues.PIN_ID));
       });
 
       markers.current.push(marker);

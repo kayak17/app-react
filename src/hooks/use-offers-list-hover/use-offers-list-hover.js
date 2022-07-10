@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { setActiveOffer } from '~/modules/offers-map';
-import { InitialModulesValues } from '~/constants';
+import { InitialValues, setActiveOffer } from '~/modules/offers-map';
 
 const useOffersListHover = () => {
   const dispatch = useDispatch();
@@ -11,7 +10,7 @@ const useOffersListHover = () => {
   }, [dispatch]);
 
   const handleOfferCardMouseLeave = useCallback(() => {
-    dispatch(setActiveOffer(InitialModulesValues.ACTIVE_OFFER));
+    dispatch(setActiveOffer(InitialValues.ACTIVE_OFFER));
   }, [dispatch]);
 
   return {
