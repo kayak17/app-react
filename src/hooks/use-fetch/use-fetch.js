@@ -2,7 +2,7 @@ import { useCallback, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import parse from 'parse-link-header';
 import { sendRequest } from '~/services';
-import { AppActionTypes, FetchingStatuses } from '~/constants';
+import { AppActionTypes, FetchingStatuses, HttpHeaders } from '~/constants';
 import { throwUnknownActionError } from '~/utils';
 
 /**
@@ -132,7 +132,7 @@ const useFetch = (props) => {
       const payload = {
         data,
         headerLink: parse(headers.link),
-        totalCount: headers['x-total-count'],
+        totalCount: headers[HttpHeaders.X_TOTAL_COUNT],
       };
 
       onSuccess(payload);
