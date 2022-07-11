@@ -2,7 +2,6 @@ import { compose } from 'redux';
 import { useRoutes } from 'react-router-dom';
 import withLazy from '~/hocs/with-lazy/with-lazy';
 import withModal from '~/hocs/with-modal/with-modal';
-import PageCounters from '~/pages/counters/container/container';
 import PageFavorites from '~/pages/favorites/container/container';
 import PageLogin from '~/pages/login/container/container';
 import PageMain from '~/pages/main/container/container';
@@ -38,10 +37,6 @@ const App = () => {
       {
         path: AppRoutes.OFFER,
         element: <PageRoom />,
-      },
-      {
-        path: AppRoutes.COUNTERS,
-        element: <PageCounters />,
       },
       {
         path: AppRoutes.ANY,

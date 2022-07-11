@@ -7,7 +7,10 @@ import {
   ResponseStatusTexts,
   ToastTypes,
 } from '~/constants';
-import { getToastSetting } from '~/utils';
+import {
+  getBadResponseMsg,
+  getToastSetting,
+} from '~/utils';
 
 export const loginRequest = createAction('LOGIN_REQUEST');
 export const loginSuccess = createAction('LOGIN_SUCCESS');
@@ -28,7 +31,7 @@ export const login = ({ email, password, closeModal, navigate }) => {
             dispatch(loginError(AppMessages.DATA_POSTING_ERROR));
 
             throw new Error(
-              `${AppMessages.BAD_RESPONSE_STATUS} in login action: ${response.statusText ?? ''}`
+              getBadResponseMsg('login', response.statusText)
             );
           }
         })

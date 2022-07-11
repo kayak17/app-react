@@ -1,4 +1,3 @@
-import remove from 'lodash/remove';
 import uniqBy from 'lodash/uniqBy';
 
 export const getCitiesFromOffers = (offers) => (
@@ -18,22 +17,6 @@ export const getOffersMapByCity = (offers) => {
   });
 
   offersMap.forEach((value, key, map) => {
-    if (!value.length) {
-      map.delete(key);
-    }
-  });
-
-  return offersMap;
-};
-
-export const getUpdatedOffersMap = (offersMap, offersIds) => {
-  offersMap.forEach((value, key, map) => {
-    value.forEach((offer) => {
-      if (!offersIds.find((itm) => itm === offer.id)) {
-        remove(value, (item) => item.id === offer.id);
-      }
-    });
-
     if (!value.length) {
       map.delete(key);
     }

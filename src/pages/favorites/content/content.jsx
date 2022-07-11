@@ -2,11 +2,14 @@ import PropTypes from 'prop-types';
 import FavoritesContent from '~/components/favorites/content/content';
 import FavoritesContentPlaceholder from '~/components/favorites/content-placeholder/content-placeholder';
 import { AppTitles, OfferTypes } from '~/constants';
-import { offersMapByCityPropTypes } from '~/prop-types';
+import { getItemOrNullPropTypes, offersPropTypes } from '~/prop-types';
+import { getOffersMapByCity } from '../helpers';
 
-const PageFavoritesContent = ({ isLoaded, offersMapByCity }) => {
+const PageFavoritesContent = ({ isLoaded, favoriteOffers }) => {
   if (isLoaded) {
-    if (offersMapByCity && offersMapByCity.size) {
+    if (favoriteOffers && favoriteOffers.length) {
+      const offersMapByCity = getOffersMapByCity(favoriteOffers);
+
       return (
         <FavoritesContent
           offersMapByCity={offersMapByCity}
@@ -30,7 +33,7 @@ const PageFavoritesContent = ({ isLoaded, offersMapByCity }) => {
 
 PageFavoritesContent.propTypes = {
   isLoaded: PropTypes.bool.isRequired,
-  offersMapByCity: offersMapByCityPropTypes,
+  favoriteOffers: getItemOrNullPropTypes(offersPropTypes),
 };
 
 export default PageFavoritesContent;

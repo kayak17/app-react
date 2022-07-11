@@ -1,41 +1,18 @@
 import isEqual from 'lodash/isEqual';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PageFavoritesContent from '../content/content';
-import usePrevious from '~/hooks/use-previous/use-previous';
-import { getFavoriteOffersIdsByUser } from '~/modules/favorites';
-import { AppMessages, AppTitles } from '~/constants';
-import { copyMap, throwErrorToBoundary } from '~/utils';
-import { getUpdatedOffersMap } from '../helpers';
-import useFetchFavorites from './use-fetch-favorites';
+import { fetchFavorites, getFavorites, getIsLoaded } from '~/modules/favorites';
+import { AppTitles } from '~/constants';
 
-const PageFavoritesWrapper = ({ setIsLoading }) => {
-  const favoriteOffersIds = useSelector(getFavoriteOffersIdsByUser);
-  const prevFavoriteOffersIds = usePrevious(favoriteOffersIds);
-  const [offersMapByCity, setOffersMapByCity] = useState();
-
-  const { isError, isLoaded } = useFetchFavorites({
-    setIsLoading,
-    favoriteOffersIds,
-    setOffersMapByCity,
-  });
-
-  if (isError) {
-    throwErrorToBoundary(AppMessages.DATA_LOADING_ERROR);
-  }
+const PageFavoritesWrapper = () => {
+  const dispatch = useDispatch();
+  const favoriteOffers = useSelector(getFavorites, isEqual);
+  const isLoaded = useSelector(getIsLoaded);
 
   useEffect(() => {
-    if (isLoaded && !isEqual(prevFavoriteOffersIds, favoriteOffersIds)) {
-      setOffersMapByCity((prevOffersMapByCity) => (
-        getUpdatedOffersMap(copyMap(prevOffersMapByCity), favoriteOffersIds)
-      ));
-    }
-  }, [
-    isLoaded,
-    favoriteOffersIds,
-    prevFavoriteOffersIds,
-  ]);
+    dispatch(fetchFavorites());
+  }, [dispatch]);
 
   return (
     <section className="page-content-wrapper">
@@ -44,14 +21,10 @@ const PageFavoritesWrapper = ({ setIsLoading }) => {
       </h1>
       <PageFavoritesContent
         isLoaded={isLoaded}
-        offersMapByCity={offersMapByCity}
+        favoriteOffers={favoriteOffers}
       />
     </section>
   );
-};
-
-PageFavoritesWrapper.propTypes = {
-  setIsLoading: PropTypes.func.isRequired,
 };
 
 export default PageFavoritesWrapper;
