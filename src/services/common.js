@@ -5,6 +5,9 @@ import {
   AppTitles,
   ResponseStatusTexts,
 } from '~/constants';
+import {
+  getBadResponseMsg,
+} from '~/utils';
 
 export const REQUEST_TYPES = {
   GET: 'get',
@@ -52,7 +55,7 @@ export const sendRequest = ({
           onSuccess(response);
         } else {
           onError(
-            `${AppMessages.BAD_RESPONSE_STATUS} in ${requestTitle}: ${response.statusText ?? ''}`
+            getBadResponseMsg(requestTitle, response.statusText)
           );
         }
       })
@@ -82,20 +85,20 @@ export const sendFormRequest = ({
       .then((response) => {
         if (response.statusText === responseStatusText) {
           setSuccess(true);
-          setSubmitting(false);
           resetForm();
         } else {
           setError(AppMessages.DATA_POSTING_ERROR);
-          setSubmitting(false);
 
           throw new Error(
-            `${AppMessages.BAD_RESPONSE_STATUS} in ${requestTitle}: ${response.statusText ?? ''}`
+            getBadResponseMsg(requestTitle, response.statusText)
           );
         }
       })
+      .finally(() => {
+        setSubmitting(false);
+      })
       .catch(({ message }) => {
         setError(message || AppMessages.DATA_POSTING_ERROR);
-        setSubmitting(false);
       });
   }, 500);
 };
