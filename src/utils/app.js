@@ -42,6 +42,10 @@ export const getArrayOfUndefineds = (arrLength) => (
   new Array(arrLength).fill(undefined)
 );
 
+export const getBadResponseMsg = (actionName, statusText) => (
+  `Bad response status in ${actionName} action: ${statusText ?? ""}`
+);
+
 export const getToastSetting = ({
   position = 'bottom-center',
   toastType = ToastTypes.DEFAULT,
