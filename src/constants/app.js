@@ -37,6 +37,10 @@ export const HttpCodes = {
   UNAUTHORIZED: 401,
 };
 
+export const HttpHeaders = {
+  X_TOTAL_COUNT: 'x-total-count',
+};
+
 export const ResponseStatusTexts = {
   CREATED: 'Created',
   OK: 'OK',
