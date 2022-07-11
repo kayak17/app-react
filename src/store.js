@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import { createAPI } from './services';
 import rootReducer from './modules';
 import { setTotalCounterMiddleware } from './modules/counters';
+import { updateFavoritesMiddleware } from './modules/favorites';
 import { logout } from './modules/user';
 
 export const api = createAPI(
@@ -15,7 +16,8 @@ export const store = createStore(
   rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
-    applyMiddleware(setTotalCounterMiddleware)
+    applyMiddleware(setTotalCounterMiddleware),
+    applyMiddleware(updateFavoritesMiddleware)
   )
 );
 
