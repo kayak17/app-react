@@ -1,85 +1,31 @@
 import isEmpty from 'lodash/isEmpty';
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useReducer,
-  useRef,
-} from 'react';
+import { createContext, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import PageMainContent from '../content/content';
 import usePrevious from '~/hooks/use-previous/use-previous';
-import {
-  getActiveCityId,
-  getActiveCityName,
-  getSortingType,
-} from '~/modules/main';
-import {
-  AppActionTypes,
-} from '~/constants';
-import {
-  appScrollTo,
-  getOffersURL,
-  throwUnknownActionError,
-} from '~/utils';
+import { getActiveCityId, getSortingType } from '~/modules/main';
+import { appScrollTo, getOffersURL } from '~/utils';
 import useFetchOffers from './use-fetch-offers';
+import useOffersReducer from './use-offers-reducer';
 
 export const ScrolledOffersContext = createContext(null);
 export const ScrollContainerContext = createContext(null);
 export const ScrolledOffersDispatchContext = createContext(null);
 
 const PageMainWrapperOffers = ({ setIsLoading }) => {
-  const COMPONENT_NAME = 'PageMainWrapperOffers';
   const activeCityId = useSelector(getActiveCityId);
-  const activeCityName = useSelector(getActiveCityName);
   const sortingType = useSelector(getSortingType);
   const scrollContainer = useRef(null);
 
   const offersURL = getOffersURL(activeCityId, sortingType);
   const prevOffersURL = usePrevious(offersURL);
 
-  const initialState = {
-    activeCityName: '',
-    data: [],
-    headerLink: {},
-    totalCount: '',
-  };
-
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case AppActionTypes.SET_DATA:
-        return {
-          ...state,
-          activeCityName: action.payload.activeCityName,
-          data: action.payload.data,
-          headerLink: action.payload.headerLink,
-          totalCount: action.payload.totalCount,
-        };
-      case AppActionTypes.SET_SCROLLED_DATA:
-        return {
-          ...state,
-          data: action.payload.data,
-          headerLink: action.payload.headerLink,
-        };
-      default:
-        throwUnknownActionError(COMPONENT_NAME);
-    }
-  };
-
-  const [offersReducer, dispatchData] = useReducer(reducer, initialState);
-
-  const setOffersData = useCallback((payload) => {
-    dispatchData({
-      type: AppActionTypes.SET_DATA,
-      payload: {
-        activeCityName,
-        data: payload.data,
-        headerLink: payload.headerLink,
-        totalCount: payload.totalCount,
-      },
-    });
-  }, [activeCityName]);
+  const {
+    dispatch: dispatchData,
+    offersReducer,
+    setOffersData,
+  } = useOffersReducer();
 
   const {
     cacheoffers,
