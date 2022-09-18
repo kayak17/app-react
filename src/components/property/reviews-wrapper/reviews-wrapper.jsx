@@ -1,20 +1,13 @@
-import { useCallback, useReducer, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import PropertyReviews from '~/components/property/reviews/reviews';
 import PropertyReviewsPlaceholder from '~/components/property/reviews-placeholder/reviews-placeholder';
 import ReviewFormContainer from '~/components/review/form-container/form-container';
-import { AppActionTypes } from '~/constants';
-import {
-  getItemOrNullPropTypes,
-  reviewsPropTypes,
-} from '~/prop-types';
-import {
-  appScrollIntoView,
-  getHeaderLinkNext,
-  throwUnknownActionError,
-} from '~/utils';
+import { getItemOrNullPropTypes, reviewsPropTypes } from '~/prop-types';
+import { appScrollIntoView, getHeaderLinkNext } from '~/utils';
 import useReFetchReviews from './use-refetch-reviews';
 import useFetchMoreReviews from './use-fetch-more-reviews';
+import useReviewsReducer from './use-reviews-reducer';
 
 const PropertyReviewsWrapper = ({
   offerId,
@@ -22,30 +15,9 @@ const PropertyReviewsWrapper = ({
   reviewsData,
   isReviewsLoaded,
 }) => {
-  const COMPONENT_NAME = 'PropertyReviewsWrapper';
   const scrollContainer = useRef(null);
 
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case AppActionTypes.SET_DATA:
-        return {
-          ...state,
-          data: action.payload.data,
-          headerLink: action.payload.headerLink,
-          totalCount: action.payload.totalCount,
-        };
-      case AppActionTypes.SET_SCROLLED_DATA:
-        return {
-          ...state,
-          data: action.payload.data,
-          headerLink: action.payload.headerLink,
-        };
-      default:
-        throwUnknownActionError(COMPONENT_NAME);
-    }
-  };
-
-  const [reviews, dispatch] = useReducer(reducer, reviewsData);
+  const { reviews, dispatch } = useReviewsReducer({ reviewsData });
 
   const { reFetchReviews } = useReFetchReviews({
     dispatch,
