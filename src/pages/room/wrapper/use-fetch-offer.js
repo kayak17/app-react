@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import useFetch from '~/hooks/use-fetch/use-fetch';
 import { getOfferURL } from '~/utils';
-import { adaptOffer } from '~/utils/adapters/offer';
+import { adaptOffer } from '~/adapters/offer';
 
 const useFetchOffer = (props) => {
   const HOOK_NAME = 'useFetchOffer';
